@@ -19,11 +19,10 @@ $env:PATH = "C:\Users\Poisson\.local\dotnet;C:\Users\Poisson\.local\cmake-3.31.5
 Write-Host "=== Compiling MuMain to WebAssembly ===" -ForegroundColor Cyan
 Set-Location $repoRoot
 
-# out/build/wasm-web was configured against C:\Users\Poisson\Documents\MuMain, so an
-# incremental ninja run only works while that path still resolves to this checkout
-# (an NTFS junction was created for it). Re-run cmake into a fresh build directory to
-# drop the dependency; that forces a full rebuild.
-ninja -C out/build/wasm-web
+# Configured with: cmake --preset wasm-web -B out/build/wasm-merge
+# (out/build/wasm-web points at an old checkout path and no longer reconfigures).
+$buildDir = "out\build\wasm-merge"
+ninja -C $buildDir Main
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Compilation failed."
     exit $LASTEXITCODE
@@ -39,10 +38,10 @@ Write-Host "=== Compilation Successful ===" -ForegroundColor Green
 # browsers keep the rest cached. -RebuildAssets is kept for compatibility;
 # both steps now always run.
 Write-Host "=== Packaging Main.data (shaders, config.ini) ===" -ForegroundColor Cyan
-python C:\Users\Poisson\emsdk\upstream\emscripten\tools\file_packager.py out\build\wasm-web\src\Main.data `
-  --preload "out\build\wasm-web\shaders@shaders" `
-  --preload "out\build\wasm-web\src\config.ini@config.ini" `
-  --js-output=out\build\wasm-web\src\Main.data.js
+python C:\Users\Poisson\emsdk\upstream\emscripten\tools\file_packager.py $buildDir\src\Main.data `
+  --preload "$buildDir\shaders@shaders" `
+  --preload "$buildDir\src\config.ini@config.ini" `
+  --js-output=$buildDir\src\Main.data.js
 if ($LASTEXITCODE -ne 0) {
     Write-Error "file_packager failed."
     exit $LASTEXITCODE
@@ -60,10 +59,10 @@ if (Test-Path $stackPublic) {
         exit $LASTEXITCODE
     }
 
-    Copy-Item "out\build\wasm-web\src\Main.wasm" "$stackPublic\Main.wasm" -Force
-    Copy-Item "out\build\wasm-web\src\Main.js" "$stackPublic\Main.js" -Force
-    Copy-Item "out\build\wasm-web\src\Main.data.js" "$stackPublic\Main.data.js" -Force
-    Copy-Item "out\build\wasm-web\src\Main.data" "$stackPublic\Main.data" -Force
+    Copy-Item "$buildDir\src\Main.wasm" "$stackPublic\Main.wasm" -Force
+    Copy-Item "$buildDir\src\Main.js" "$stackPublic\Main.js" -Force
+    Copy-Item "$buildDir\src\Main.data.js" "$stackPublic\Main.data.js" -Force
+    Copy-Item "$buildDir\src\Main.data" "$stackPublic\Main.data" -Force
     Write-Host "Deployed successfully to $stackPublic" -ForegroundColor Green
 } else {
     Write-Warning "Stack public directory not found at $stackPublic"
