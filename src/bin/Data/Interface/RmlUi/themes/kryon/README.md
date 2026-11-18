@@ -124,7 +124,7 @@ faces cannot load, RmlUi falls back to the bundled Liberation Sans.
 | Main menu / dialogs | `sys_menu.rcss`, `option_window.rcss`, `generic_confirm_dialog.rcss`, `generic_menu_dialog.rcss` |
 | HUD / chat | `main_frame.rcss`, `main_frame_top.rcss`, `mu_helper_bar.rcss`, `chat_log.rml`/`.rcss`, `chat_input.rml`/`.rcss` (Season 6 chat deck: tabs, gear menu, framed log; art by `tools/kryon_theme/make_kryon_chat_textures.py`), `item_grid.rcss`, `tooltip.rcss` |
 | Letters | `letter_read.rcss`, `letter_write.rcss` |
-| Inventory family | `my_inventory.rcss`, `trade.rcss`, `storage.rcss`, `storage_ext.rcss`, `npc_shop.rcss`, `my_shop.rcss`, `purchase_shop.rcss`, `inventory_extension.rcss`, `mix_inventory.rcss`, `lucky_item.rcss` |
+| Inventory family | `my_inventory.rcss` (inventory and shops on the ornate kit, see below), `trade.rcss`, `storage.rcss`, `storage_ext.rcss`, `npc_shop.rcss`, `my_shop.rcss`, `purchase_shop.rcss`, `inventory_extension.rcss`, `mix_inventory.rcss`, `lucky_item.rcss` |
 | Docked windows | `docked_panel_frame.rcss`; on the ornate kit: `character_info.rml`/`.rcss`, `my_quest_info.rml`/`.rcss`, `pet_info.rml`/`.rcss`, `party_info.rml`/`.rcss` |
 | Character creation | `char_make.rcss` |
 
@@ -198,7 +198,13 @@ ranking and the MU Helper (settings and detail) take the kit without markup of t
 leaves (or the modern forks' shell edge, groove, joint and rail accent) into the frame and its
 gems, and `#btn_exit` / `#frame_corner_close` into the round close button. Adding a window there
 means adding its `data-model` to those selector lists and moving whatever the title band or the
-rails cover. `python tools/rml_preview.py <document> --theme kryon --png` shows the result. The frame needs a panel about 160px wide or more (its claw corners are 73px a side).
+rails cover. `python tools/rml_preview.py <document> --theme kryon --png` shows the result.
+
+The inventory and shops (`my_inventory`, `npc_shop`, `my_shop`, `purchase_shop`) are picked the same
+way by their body's `data-model`, at the end of `base.rcss`: their background shell (`.bg-panel`,
+`.inv-shell-edge`, `.rail-fill`/`.rail-accent`) and header joint become the plate, frame and gems.
+The friends window (`friend_shell.rcss`, a fork of modern's) puts the kit on the `window_shell`
+chrome in dp. The frame needs a panel about 160px wide or more (its claw corners are 73px a side).
 
 ## Rules for changes
 

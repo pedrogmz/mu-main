@@ -2276,3 +2276,143 @@ body .equip-slot.no-art { decorator: none; }
 	decorator: image(ui/ornate_close.tga);
 }
 .kryon-ornate-kick:hover { decorator: image(ui/ornate_close_hover.tga); }
+
+
+/* ============================================================================
+   Ornate window kit on the inventory and shop windows
+   ----------------------------------------------------------------------------
+   No markup of their own: each window is picked by its body's data-model. The
+   inventory and shops (my_inventory, npc_shop, my_shop, purchase_shop; panels
+   in reference px) turn their background shell -- .bg-panel, .inv-shell-edge,
+   .inv-groove, .rail-fill/.rail-accent -- and the header's joint into the
+   plate, the claw frame and its gems; the exit is the round close button.
+   The friends window is in its own sheet (friend_shell.rcss), in dp.
+   ============================================================================ */
+body[data-model="my_inventory"] .bg-panel,
+body[data-model="npc_shop"] .bg-panel,
+body[data-model="my_shop"] .bg-panel,
+body[data-model="purchase_shop"] .bg-panel {
+	border-color: transparent;
+	border-radius: 8px;
+	box-shadow: 0 24px 70px rgba(0, 0, 0, 199);
+	background-color: token(surface-panel);
+	decorator:
+		radial-gradient(circle at 50% 10%, rgba(184, 112, 43, 22), transparent 55%),
+		linear-gradient(to bottom, #241a12, #150f0b 55%, #0d0907);
+}
+body[data-model="my_inventory"] .inv-shell-edge,
+body[data-model="npc_shop"] .inv-shell-edge,
+body[data-model="my_shop"] .inv-shell-edge,
+body[data-model="purchase_shop"] .inv-shell-edge {
+	left: 0; right: 0; top: 0; bottom: 0;
+	border-width: 0;
+	border-radius: 0;
+	box-shadow: none;
+	background-color: transparent;
+	pointer-events: none;
+	decorator: ninepatch(kryon-ornate-frame, kryon-ornate-frame-inner, 82px 73px 68px 73px);
+}
+body[data-model="my_inventory"] .inv-groove,
+body[data-model="npc_shop"] .inv-groove,
+body[data-model="my_shop"] .inv-groove,
+body[data-model="purchase_shop"] .inv-groove {
+	left: 50%; right: auto; top: auto; bottom: 6px;
+	width: 16px; height: 17px; margin-left: -8px;
+	border-width: 0; box-shadow: none; background-color: transparent;
+	decorator: image(ui/ornate_gem_bottom.tga);
+}
+body[data-model="my_inventory"] .rail-fill,
+body[data-model="npc_shop"] .rail-fill,
+body[data-model="my_shop"] .rail-fill,
+body[data-model="purchase_shop"] .rail-fill {
+	top: 3px; height: 34px;
+	background-color: transparent;
+	border-width: 0;
+	box-shadow: none;
+	decorator: none;
+}
+body[data-model="my_inventory"] .rail-accent,
+body[data-model="npc_shop"] .rail-accent,
+body[data-model="my_shop"] .rail-accent,
+body[data-model="purchase_shop"] .rail-accent {
+	display: block;
+	left: 50%; right: auto; top: 25px; bottom: auto;
+	width: 8px; height: 10px; margin-left: -4px;
+	opacity: 1;
+	background-color: transparent;
+	decorator: image(ui/ornate_gem_small.tga);
+}
+body[data-model="my_inventory"] .modern-header-rail-px,
+body[data-model="npc_shop"] .modern-header-rail-px,
+body[data-model="my_shop"] .modern-header-rail-px,
+body[data-model="purchase_shop"] .modern-header-rail-px { top: 3px; height: 34px; }
+body[data-model="my_inventory"] .modern-joint-px,
+body[data-model="npc_shop"] .modern-joint-px,
+body[data-model="my_shop"] .modern-joint-px,
+body[data-model="purchase_shop"] .modern-joint-px {
+	top: -3px; width: 10px; height: 11px; margin-left: -5px;
+	decorator: image(ui/ornate_gem.tga);
+}
+body[data-model="my_inventory"] .modern-header-text-px,
+body[data-model="npc_shop"] .modern-header-text-px,
+body[data-model="my_shop"] .modern-header-text-px,
+body[data-model="purchase_shop"] .modern-header-text-px { left: 36px; }
+body[data-model="my_inventory"] #btn_exit,
+body[data-model="npc_shop"] #btn_exit,
+body[data-model="my_shop"] #btn_exit,
+body[data-model="purchase_shop"] #btn_exit,
+body[data-model="my_inventory"] #frame_corner_close,
+body[data-model="npc_shop"] #frame_corner_close,
+body[data-model="my_shop"] #frame_corner_close,
+body[data-model="purchase_shop"] #frame_corner_close {
+	position: absolute;
+	left: auto; right: 3px; top: 7px; bottom: auto;
+	width: 32px; height: 32px;
+	border-width: 0;
+	border-radius: 0;
+	box-shadow: none;
+	background-color: transparent;
+	cursor: pointer;
+	pointer-events: auto;
+	z-index: 2;
+	decorator: image(ui/ornate_close.tga);
+}
+body[data-model="my_inventory"] #frame_corner_close,
+body[data-model="npc_shop"] #frame_corner_close,
+body[data-model="my_shop"] #frame_corner_close,
+body[data-model="purchase_shop"] #frame_corner_close { display: block; z-index: 1; }
+body[data-model="my_inventory"] #btn_exit:hover,
+body[data-model="npc_shop"] #btn_exit:hover,
+body[data-model="my_shop"] #btn_exit:hover,
+body[data-model="purchase_shop"] #btn_exit:hover,
+body[data-model="my_inventory"] #frame_corner_close:hover,
+body[data-model="npc_shop"] #frame_corner_close:hover,
+body[data-model="my_shop"] #frame_corner_close:hover,
+body[data-model="purchase_shop"] #frame_corner_close:hover { decorator: image(ui/ornate_close_hover.tga); }
+body[data-model="my_inventory"] #btn_exit *,
+body[data-model="npc_shop"] #btn_exit *,
+body[data-model="my_shop"] #btn_exit *,
+body[data-model="purchase_shop"] #btn_exit * { display: none; }
+
+/* The action squares sit above the frame's foot (the bottom gem would sit among them, so it is
+   left out here), re-centred without the exit; a long title stops short of the close button. */
+body[data-model="my_inventory"] .inv-groove,
+body[data-model="npc_shop"] .inv-groove,
+body[data-model="my_shop"] .inv-groove,
+body[data-model="purchase_shop"] .inv-groove { display: none; }
+body[data-model="my_inventory"] .modern-icon-btn-px,
+body[data-model="npc_shop"] .modern-icon-btn-px,
+body[data-model="my_shop"] .modern-icon-btn-px,
+body[data-model="purchase_shop"] .modern-icon-btn-px { bottom: 18px; height: 22px; line-height: 22px; }
+body[data-model="my_inventory"] .inv-btn-repair { left: 36px; }
+body[data-model="my_inventory"] .inv-btn-myshop { left: 77px; }
+body[data-model="my_inventory"] .inv-btn-expand { left: 118px; }
+body[data-model="my_shop"] .shop-btn-open { left: 56px; }
+body[data-model="my_shop"] .shop-btn-close { left: 97px; }
+body[data-model="my_inventory"] .modern-header-title-px,
+body[data-model="npc_shop"] .modern-header-title-px,
+body[data-model="my_shop"] .modern-header-title-px,
+body[data-model="purchase_shop"] .modern-header-title-px {
+	width: calc(112px * var(--root-scale, 1));
+	overflow: hidden;
+}
