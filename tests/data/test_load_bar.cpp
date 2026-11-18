@@ -191,7 +191,7 @@ TEST_CASE("LoadBar: each shipped theme has its bar's colors")
 {
     // MU_TEST_DATA_DIR is the client folder's Data.
     const std::filesystem::path themes = std::filesystem::path(MU_TEST_DATA_DIR) / "Interface/RmlUi/themes";
-    for (const char* theme : {"legacy", "modern", "classic"})
+    for (const char* theme : {"legacy", "modern", "classic", "kryon"})
     {
         CAPTURE(theme);
         const UI::RmlBridge::ThemeInheritance inheritance(themes / theme);

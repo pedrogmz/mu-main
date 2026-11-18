@@ -244,7 +244,7 @@ TEST_CASE("ButtonColors: of the rules that fit, the most specific one colors the
 TEST_CASE("ButtonColors: every bundled theme has a shade for each theme color")
 {
     // MU_TEST_DATA_DIR is the client folder's Data.
-    for (const char* theme : {"legacy", "modern", "classic"})
+    for (const char* theme : {"legacy", "modern", "classic", "kryon"})
     {
         const UI::RmlBridge::ThemeInheritance inheritance(std::filesystem::path(MU_TEST_DATA_DIR) / "Interface" /
                                                           "RmlUi" / "themes" / theme);
