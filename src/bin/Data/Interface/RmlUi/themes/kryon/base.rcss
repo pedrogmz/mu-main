@@ -2125,3 +2125,154 @@ body .equip-slot {
 	decorator: ninepatch(kryon-slot, kryon-slot-inner, 7px 7px 7px 7px);
 }
 body .equip-slot.no-art { decorator: none; }
+
+/* ============================================================================
+   Kryon ornate window kit -- the party window's art, for any placed panel
+   ----------------------------------------------------------------------------
+   The pieces in ui/ornate_*.OZT come from the Season 6 party UI pack
+   (tools/kryon_theme/make_kryon_ornate_textures.py prints the rects below).
+   A window opts in with class "kryon-ornate" on its #panel and these children:
+
+     .kryon-ornate-frame        the claw frame with its title band (the panel
+                                paints the plate); first child, behind the rest
+     .kryon-ornate-gem, -gem-small, -gem-bottom: the band's and rail's gems
+     .kryon-ornate-title        the title, centred on the band (a sharp-text
+                                .sharp-centre.sharp-middle span inside)
+     .kryon-ornate-close        the round crimson close button (top right)
+     .kryon-ornate-list         a thin gold box for a list
+     .kryon-ornate-card         one row of a list (bevelled edge + plate)
+     .kryon-ornate-portrait     a portrait frame; .kryon-ornate-crown on it
+     .kryon-ornate-danger       the crimson action plate (leave, delete, ...)
+     .kryon-ornate-bar, -bar-fill: a gauge and its red fill (width = level)
+     .kryon-ornate-dot          the round green status gem
+     .kryon-ornate-kick         the small close glyph, for removing a row
+
+   Everything is in reference px, for panels scaled by transform:
+   scale(root_scale). The frame is drawn inside the panel (docked windows
+   touch the screen's edges): its gold rails run 12px in from the sides and
+   16px up from the foot, the title band covers the top 36px, so content sits
+   in about x 15..W-15, y 40..H-20. The claw corners take 73px a side: the
+   panel needs to be at least ~160px wide.
+   ============================================================================ */
+@spritesheet kryon-ornate-frame-sheet { src: ui/ornate_frame.tga;
+	kryon-ornate-frame: 0px 0px 357px 370px; kryon-ornate-frame-inner: 172px 196px 12px 12px; }
+@spritesheet kryon-ornate-list-sheet { src: ui/ornate_list.tga;
+	kryon-ornate-list: 0px 0px 48px 48px; kryon-ornate-list-inner: 20px 20px 8px 8px; }
+@spritesheet kryon-ornate-card-sheet { src: ui/ornate_card.tga;
+	kryon-ornate-card: 0px 0px 38px 63px; kryon-ornate-card-inner: 15px 15px 8px 33px; }
+@spritesheet kryon-ornate-portrait-sheet { src: ui/ornate_portrait.tga;
+	kryon-ornate-portrait: 0px 0px 56px 54px; kryon-ornate-portrait-inner: 12px 12px 32px 30px; }
+@spritesheet kryon-ornate-danger-sheet { src: ui/ornate_danger.tga;
+	kryon-ornate-danger: 0px 0px 32px 42px; kryon-ornate-danger-inner: 12px 11px 8px 20px; }
+@spritesheet kryon-ornate-danger-hover-sheet { src: ui/ornate_danger_hover.tga;
+	kryon-ornate-danger-hover: 0px 0px 32px 42px; kryon-ornate-danger-hover-inner: 12px 11px 8px 20px; }
+@spritesheet kryon-ornate-bar-sheet { src: ui/ornate_bar.tga;
+	kryon-ornate-bar: 0px 0px 32px 23px; kryon-ornate-bar-inner: 12px 7px 8px 9px; }
+@spritesheet kryon-ornate-bar-fill-sheet { src: ui/ornate_bar_fill.tga;
+	kryon-ornate-bar-fill: 0px 0px 32px 23px; kryon-ornate-bar-fill-inner: 12px 7px 8px 9px; }
+
+/* The plate under the frame: the art's warm leather brown, darker toward the foot. */
+#panel.kryon-ornate {
+	border-color: transparent;
+	border-radius: 8px;
+	background-color: token(surface-panel);
+	decorator:
+		radial-gradient(circle at 50% 10%, rgba(184, 112, 43, 22), transparent 55%),
+		linear-gradient(to bottom, #241a12, #150f0b 55%, #0d0907);
+}
+.kryon-ornate-frame {
+	position: absolute;
+	left: 0; right: 0; top: 0; bottom: 0;
+	pointer-events: none;
+	decorator: ninepatch(kryon-ornate-frame, kryon-ornate-frame-inner, 82px 73px 68px 73px);
+}
+.kryon-ornate-gem, .kryon-ornate-gem-small, .kryon-ornate-gem-bottom {
+	position: absolute;
+	left: 50%;
+	pointer-events: none;
+}
+.kryon-ornate-gem { top: 0; width: 10px; height: 11px; margin-left: -5px; decorator: image(ui/ornate_gem.tga); }
+.kryon-ornate-gem-small { top: 28px; width: 8px; height: 10px; margin-left: -4px; decorator: image(ui/ornate_gem_small.tga); }
+.kryon-ornate-gem-bottom { bottom: 6px; width: 16px; height: 17px; margin-left: -8px; decorator: image(ui/ornate_gem_bottom.tga); }
+
+.kryon-ornate-title {
+	position: absolute;
+	left: 42px; right: 42px; top: 10px; height: 21px;
+	pointer-events: none;
+}
+.kryon-ornate-title span {
+	position: absolute;
+	white-space: nowrap;
+	font-family: "token(font-title)";
+	font-weight: bold;
+	font-size: calc(14px * var(--root-scale, 1));
+	letter-spacing: calc(1px * var(--root-scale, 1));
+	text-transform: uppercase;
+	color: token(text-warm);
+	font-effect: shadow(0px 1px #000000);
+}
+
+.kryon-ornate-close {
+	position: absolute;
+	right: 3px; top: 7px; width: 32px; height: 32px;
+	cursor: pointer;
+	pointer-events: auto;
+	z-index: 2;
+	decorator: image(ui/ornate_close.tga);
+}
+.kryon-ornate-close:hover { decorator: image(ui/ornate_close_hover.tga); }
+
+.kryon-ornate-list {
+	position: absolute;
+	decorator: ninepatch(kryon-ornate-list, kryon-ornate-list-inner, 6px 6px 6px 6px);
+}
+.kryon-ornate-card {
+	position: relative;
+	display: block;
+	border-radius: 3px;
+	background-color: #120d09;
+	decorator: ninepatch(kryon-ornate-card, kryon-ornate-card-inner, 6px 6px 6px 6px);
+}
+.kryon-ornate-portrait {
+	position: absolute;
+	border-radius: 3px;
+	background-color: #0b0806;
+	decorator: ninepatch(kryon-ornate-portrait, kryon-ornate-portrait-inner, 5px 5px 5px 5px);
+}
+.kryon-ornate-crown { position: absolute; width: 13px; height: 11px; pointer-events: none; decorator: image(ui/ornate_crown.tga); }
+
+.kryon-ornate-danger {
+	position: absolute;
+	cursor: pointer;
+	pointer-events: auto;
+	decorator: ninepatch(kryon-ornate-danger, kryon-ornate-danger-inner, 5px 5px 5px 5px);
+}
+.kryon-ornate-danger:hover { decorator: ninepatch(kryon-ornate-danger-hover, kryon-ornate-danger-hover-inner, 5px 5px 5px 5px); }
+.kryon-ornate-danger span {
+	position: absolute;
+	white-space: nowrap;
+	font-family: "token(font-title)";
+	font-size: calc(10px * var(--root-scale, 1));
+	color: token(text-primary);
+	pointer-events: none;
+}
+.kryon-ornate-danger:hover span { color: #fff3d2; }
+
+.kryon-ornate-bar {
+	position: absolute;
+	decorator: ninepatch(kryon-ornate-bar, kryon-ornate-bar-inner, 3px 5px 3px 5px);
+}
+.kryon-ornate-bar-fill {
+	position: absolute;
+	left: 0; top: 0; height: 100%;
+	decorator: ninepatch(kryon-ornate-bar-fill, kryon-ornate-bar-fill-inner, 3px 5px 3px 5px);
+}
+.kryon-ornate-dot { position: absolute; width: 10px; height: 10px; pointer-events: none; decorator: image(ui/ornate_dot.tga); }
+.kryon-ornate-kick {
+	position: absolute;
+	width: 12px; height: 12px;
+	cursor: pointer;
+	pointer-events: auto;
+	decorator: image(ui/ornate_close.tga);
+}
+.kryon-ornate-kick:hover { decorator: image(ui/ornate_close_hover.tga); }

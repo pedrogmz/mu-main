@@ -84,6 +84,7 @@ The values live in `tokens.ini`; this table is their meaning.
 | `text-muted` | Quietest tier |
 | `text-warm` | Titles, names, emphasis |
 | `text-disabled` | Disabled control text |
+| `text-online` | An online party member's map (the party art's green) |
 
 ### Accents and semantic
 
@@ -124,7 +125,7 @@ faces cannot load, RmlUi falls back to the bundled Liberation Sans.
 | HUD / chat | `main_frame.rcss`, `main_frame_top.rcss`, `mu_helper_bar.rcss`, `chat_log.rml`/`.rcss`, `chat_input.rml`/`.rcss` (Season 6 chat deck: tabs, gear menu, framed log; art by `tools/kryon_theme/make_kryon_chat_textures.py`), `item_grid.rcss`, `tooltip.rcss` |
 | Letters | `letter_read.rcss`, `letter_write.rcss` |
 | Inventory family | `my_inventory.rcss`, `trade.rcss`, `storage.rcss`, `storage_ext.rcss`, `npc_shop.rcss`, `my_shop.rcss`, `purchase_shop.rcss`, `inventory_extension.rcss`, `mix_inventory.rcss`, `lucky_item.rcss` |
-| Docked windows | `docked_panel_frame.rcss`, `character_info.rcss` |
+| Docked windows | `docked_panel_frame.rcss`; on the ornate kit: `character_info.rml`/`.rcss`, `my_quest_info.rml`/`.rcss`, `pet_info.rml`/`.rcss`, `party_info.rml`/`.rcss` |
 | Character creation | `char_make.rcss` |
 
 Everything else — server select, message boxes, character select, tooltips, the MU Helper, event
@@ -177,6 +178,26 @@ The shared rules are at the end of `base.rcss` ("Kryon art pass"), with `body ..
 win over each window's palette rules. Every piece is a `ninepatch(...)` with explicit edges: a
 sprite's natural size follows the context's dp ratio, which the panels that scale themselves
 (reference px) would apply twice.
+
+## Ornate window kit
+
+The party window is drawn with the Season 6 party UI pack (`MU_S6_Party_UI_Assets`), cut into
+`ui/ornate_*` by `tools/kryon_theme/make_kryon_ornate_textures.py PATH_TO_PACK` (it prints each
+piece's ninepatch rects). The pieces are shared classes at the end of `base.rcss` ("Kryon ornate
+window kit"), meant as the base every window moves to: a window adds `kryon-ornate` to its
+`#panel`, puts `.kryon-ornate-frame` (the claw frame with its title band) first, the title in
+`.kryon-ornate-title`, the round `.kryon-ornate-close`, and builds its content from the list box,
+cards, portrait frame, crimson action plate, gauge and status gem. The four docked windows
+(character, quest, pet, party) are on it; `party_info.rml` is the worked example.
+
+The NPC and event windows (gate keeper, guard, gate switch, senate, catapult, golden archer and
+Lena, lucky coins, NPC dialogue, NPC quest, quest progress; Blood Castle, Devil Square,
+Doppelganger, Empire Guardian, duel watch) take the kit without markup of their own: the end of
+`docked_panel_frame.rcss` picks each by its `data-model` and turns the legacy `.frame-piece`
+leaves (or the modern forks' shell edge, groove, joint and rail accent) into the frame and its
+gems, and `#btn_exit` / `#frame_corner_close` into the round close button. Adding a window there
+means adding its `data-model` to those selector lists and moving whatever the title band or the
+rails cover. `python tools/rml_preview.py <document> --theme kryon --png` shows the result. The frame needs a panel about 160px wide or more (its claw corners are 73px a side).
 
 ## Rules for changes
 

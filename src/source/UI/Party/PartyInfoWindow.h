@@ -97,10 +97,12 @@ namespace mu::ui::window
         struct PartyMemberRow
         {
             Rml::String name;
+            Rml::String initial; // the name's first letter, for a portrait without art
             Rml::String mapText, coordText, hpText;
             float hpPercent = 0.f;
             bool isLeader = false;
             bool showKick = false;
+            bool isSelf = false;
             int index = 0;
         };
         // A single text line, reused for the empty-state "how to party" message block.
@@ -116,11 +118,14 @@ namespace mu::ui::window
             bool hasParty = false;
             std::vector<TextLine> emptyStateLines;
             std::vector<PartyMemberRow> members;
+            int selfIndex = -1; // the hero's row; kicking it leaves the party
 
             // Set once at Create(); static I18N labels, never re-synced (this window has no
             // language switcher of its own).
             Rml::String windowTitle;
             Rml::String exitTooltip;
+            Rml::String leaveLabel;
+            Rml::String membersLabel;
         };
 
         void BindRmlModel(Rml::DataModelConstructor& c, PartyInfoRmlModel& model);

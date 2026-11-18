@@ -63,6 +63,9 @@ void CPartyInfoWindow::BindRmlModel(Rml::DataModelConstructor& c, PartyInfoRmlMo
     c.Bind("has_party", &model.hasParty);
     c.Bind("window_title", &model.windowTitle);
     c.Bind("exit_tooltip", &model.exitTooltip);
+    c.Bind("leave_label", &model.leaveLabel);
+    c.Bind("members_label", &model.membersLabel);
+    c.Bind("self_index", &model.selfIndex);
 
     auto textLine = c.RegisterStruct<TextLine>();
     textLine.RegisterMember("text", &TextLine::text);
@@ -71,12 +74,14 @@ void CPartyInfoWindow::BindRmlModel(Rml::DataModelConstructor& c, PartyInfoRmlMo
 
     auto member = c.RegisterStruct<PartyMemberRow>();
     member.RegisterMember("name", &PartyMemberRow::name);
+    member.RegisterMember("initial", &PartyMemberRow::initial);
     member.RegisterMember("map_text", &PartyMemberRow::mapText);
     member.RegisterMember("coord_text", &PartyMemberRow::coordText);
     member.RegisterMember("hp_text", &PartyMemberRow::hpText);
     member.RegisterMember("hp_percent", &PartyMemberRow::hpPercent);
     member.RegisterMember("is_leader", &PartyMemberRow::isLeader);
     member.RegisterMember("show_kick", &PartyMemberRow::showKick);
+    member.RegisterMember("is_self", &PartyMemberRow::isSelf);
     member.RegisterMember("index", &PartyMemberRow::index);
     c.RegisterArray<std::vector<PartyMemberRow>>();
     c.Bind("members", &model.members);
@@ -91,6 +96,8 @@ void CPartyInfoWindow::BindRmlModel(Rml::DataModelConstructor& c, PartyInfoRmlMo
 
     model.windowTitle = StringUtils::WideToNarrow(I18N::Game::Party);
     model.exitTooltip = StringUtils::WideToNarrow(I18N::Game::ClosePartyWindowP);
+    model.leaveLabel = StringUtils::WideToNarrow(I18N::Game::Leave);
+    model.membersLabel = StringUtils::WideToNarrow(I18N::Game::Members);
 
     model.emptyStateLines = {
         { StringUtils::WideToNarrow(I18N::Game::TypePartyWithTheMouseCursorOn) },
@@ -227,6 +234,7 @@ void CPartyInfoWindow::SyncRmlModel()
     wchar_t szText[256] = { 0, };
     std::vector<PartyMemberRow> members;
     members.reserve(PartyNumber);
+    int selfIndex = -1;
 
     for (int i = 0; i < PartyNumber; i++)
     {
@@ -235,6 +243,7 @@ void CPartyInfoWindow::SyncRmlModel()
         PartyMemberRow row;
         row.index = i;
         row.name = StringUtils::WideToNarrow(pMember->Name);
+        row.initial = StringUtils::WideToNarrow(std::wstring(pMember->Name, wcsnlen(pMember->Name, 1)).c_str());
         row.mapText = StringUtils::WideToNarrow(gMapManager.GetMapName(pMember->Map));
 
         mu_swprintf(szText, L"(%d,%d)", pMember->x, pMember->y);
@@ -245,13 +254,22 @@ void CPartyInfoWindow::SyncRmlModel()
         row.hpText = StringUtils::WideToNarrow(szText);
 
         row.isLeader = (i == 0);
-        row.showKick = !wcscmp(Party[0].Name, Hero->ID) || !wcscmp(Party[i].Name, Hero->ID);
+        row.isSelf = !wcscmp(Party[i].Name, Hero->ID);
+        row.showKick = !wcscmp(Party[0].Name, Hero->ID) || row.isSelf;
+        if (row.isSelf)
+            selfIndex = i;
 
         members.push_back(row);
     }
 
     model.members = std::move(members);
     m_RmlView.MarkDirty("members");
+
+    if (model.selfIndex != selfIndex)
+    {
+        model.selfIndex = selfIndex;
+        m_RmlView.MarkDirty("self_index");
+    }
 }
 
 void CPartyInfoWindow::LoadImages()
