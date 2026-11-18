@@ -192,7 +192,8 @@ cards, portrait frame, crimson action plate, gauge and status gem. The four dock
 
 The NPC and event windows (gate keeper, guard, gate switch, senate, catapult, golden archer and
 Lena, lucky coins, NPC dialogue, NPC quest, quest progress; Blood Castle, Devil Square,
-Doppelganger, Empire Guardian, duel watch) take the kit without markup of their own: the end of
+Doppelganger, Empire Guardian, duel watch), the guild info and guild creation windows, the Gens
+ranking and the MU Helper (settings and detail) take the kit without markup of their own: the end of
 `docked_panel_frame.rcss` picks each by its `data-model` and turns the legacy `.frame-piece`
 leaves (or the modern forks' shell edge, groove, joint and rail accent) into the frame and its
 gems, and `#btn_exit` / `#frame_corner_close` into the round close button. Adding a window there

@@ -107,12 +107,14 @@
 
 
 /* ==========================================================================
-   Ornate window kit on the NPC and event windows
+   Ornate window kit on the NPC, event, guild, Gens and MU Helper windows
    --------------------------------------------------------------------------
    The NPC windows (gate keeper, guard, gate switch, senate, catapult, golden
-   archer, lucky coins, NPC dialogue/quest, quest progress) and the event
+   archer, lucky coins, NPC dialogue/quest, quest progress), the event
    windows (Blood Castle, Devil Square, Doppelganger, Empire Guardian, duel
-   watch) take the party window's art (base.rcss, "Kryon ornate window kit")
+   watch), the guild info and guild creation windows, the Gens ranking and
+   the MU Helper (settings and detail) take the party window's art (base.rcss,
+   "Kryon ornate window kit")
    without their own markup: each window is picked by its data-model, the four
    legacy .frame-piece leaves become the claw frame and its three gems, and the
    modern forks' shell edge, groove and rail accent do the same. The exit is
@@ -133,9 +135,14 @@
 #panel[data-model="doppelganger_enter"],
 #panel[data-model="empire_guardian_enter"],
 #panel[data-model="duel_watch"],
+#panel[data-model="guild_info"],
+#panel[data-model="guild_make"],
+#panel[data-model="gens_ranking"],
 #panel[data-model="npc_dialogue"],
 #panel[data-model="quest_progress"],
 #panel[data-model="quest_progress_etc"],
+#panel[data-model="mu_helper_config"],
+#panel[data-model="mu_helper_detail"],
 #content_root[data-model="npc_quest"] > #panel {
 	border-color: transparent;
 	border-radius: 8px;
@@ -161,9 +168,14 @@
 #panel[data-model="doppelganger_enter"] > .frame-piece.frame-top,
 #panel[data-model="empire_guardian_enter"] > .frame-piece.frame-top,
 #panel[data-model="duel_watch"] > .frame-piece.frame-top,
+#panel[data-model="guild_info"] > .frame-piece.frame-top,
+#panel[data-model="guild_make"] > .frame-piece.frame-top,
+#panel[data-model="gens_ranking"] > .frame-piece.frame-top,
 #panel[data-model="npc_dialogue"] .modern-shell-edge,
 #panel[data-model="quest_progress"] .modern-shell-edge,
 #panel[data-model="quest_progress_etc"] .modern-shell-edge,
+#panel[data-model="mu_helper_config"] .modern-shell-edge,
+#panel[data-model="mu_helper_detail"] .modern-shell-edge,
 #content_root[data-model="npc_quest"] .modern-shell-edge {
 	display: block;
 	position: absolute;
@@ -189,7 +201,10 @@
 #panel[data-model="devil_square_enter"] > .frame-piece.frame-left,
 #panel[data-model="doppelganger_enter"] > .frame-piece.frame-left,
 #panel[data-model="empire_guardian_enter"] > .frame-piece.frame-left,
-#panel[data-model="duel_watch"] > .frame-piece.frame-left {
+#panel[data-model="duel_watch"] > .frame-piece.frame-left,
+#panel[data-model="guild_info"] > .frame-piece.frame-left,
+#panel[data-model="guild_make"] > .frame-piece.frame-left,
+#panel[data-model="gens_ranking"] > .frame-piece.frame-left {
 	display: block; position: absolute; left: 50%; top: 0; right: auto; bottom: auto;
 	width: 10px; height: 11px; margin-left: -5px; pointer-events: none;
 	decorator: image(ui/ornate_gem.tga);
@@ -207,7 +222,10 @@
 #panel[data-model="devil_square_enter"] > .frame-piece.frame-right,
 #panel[data-model="doppelganger_enter"] > .frame-piece.frame-right,
 #panel[data-model="empire_guardian_enter"] > .frame-piece.frame-right,
-#panel[data-model="duel_watch"] > .frame-piece.frame-right {
+#panel[data-model="duel_watch"] > .frame-piece.frame-right,
+#panel[data-model="guild_info"] > .frame-piece.frame-right,
+#panel[data-model="guild_make"] > .frame-piece.frame-right,
+#panel[data-model="gens_ranking"] > .frame-piece.frame-right {
 	display: block; position: absolute; left: 50%; top: 28px; right: auto; bottom: auto;
 	width: 8px; height: 10px; margin-left: -4px; pointer-events: none;
 	decorator: image(ui/ornate_gem_small.tga);
@@ -226,9 +244,14 @@
 #panel[data-model="doppelganger_enter"] > .frame-piece.frame-bottom,
 #panel[data-model="empire_guardian_enter"] > .frame-piece.frame-bottom,
 #panel[data-model="duel_watch"] > .frame-piece.frame-bottom,
+#panel[data-model="guild_info"] > .frame-piece.frame-bottom,
+#panel[data-model="guild_make"] > .frame-piece.frame-bottom,
+#panel[data-model="gens_ranking"] > .frame-piece.frame-bottom,
 #panel[data-model="npc_dialogue"] .modern-groove,
 #panel[data-model="quest_progress"] .modern-groove,
 #panel[data-model="quest_progress_etc"] .modern-groove,
+#panel[data-model="mu_helper_config"] .modern-groove,
+#panel[data-model="mu_helper_detail"] .modern-groove,
 #content_root[data-model="npc_quest"] .modern-groove {
 	display: block; position: absolute; left: 50%; bottom: 6px; top: auto; right: auto;
 	width: 16px; height: 17px; margin-left: -8px; pointer-events: none;
@@ -240,6 +263,8 @@
 #panel[data-model="npc_dialogue"] .docked-header-rail-fill,
 #panel[data-model="quest_progress"] .docked-header-rail-fill,
 #panel[data-model="quest_progress_etc"] .docked-header-rail-fill,
+#panel[data-model="mu_helper_config"] .docked-header-rail-fill,
+#panel[data-model="mu_helper_detail"] .docked-header-rail-fill,
 #content_root[data-model="npc_quest"] .docked-header-rail-fill {
 	top: 3px; height: 34px;
 	background-color: transparent;
@@ -250,6 +275,8 @@
 #panel[data-model="npc_dialogue"] .modern-joint-px,
 #panel[data-model="quest_progress"] .modern-joint-px,
 #panel[data-model="quest_progress_etc"] .modern-joint-px,
+#panel[data-model="mu_helper_config"] .modern-joint-px,
+#panel[data-model="mu_helper_detail"] .modern-joint-px,
 #content_root[data-model="npc_quest"] .modern-joint-px {
 	top: -3px; width: 10px; height: 11px; margin-left: -5px;
 	decorator: image(ui/ornate_gem.tga);
@@ -257,6 +284,8 @@
 #panel[data-model="npc_dialogue"] .docked-rail-accent,
 #panel[data-model="quest_progress"] .docked-rail-accent,
 #panel[data-model="quest_progress_etc"] .docked-rail-accent,
+#panel[data-model="mu_helper_config"] .docked-rail-accent,
+#panel[data-model="mu_helper_detail"] .docked-rail-accent,
 #content_root[data-model="npc_quest"] .docked-rail-accent {
 	display: block; position: absolute; left: 50%; top: 25px; right: auto; bottom: auto;
 	width: 8px; height: 10px; margin-left: -4px; opacity: 1;
@@ -265,6 +294,8 @@
 #panel[data-model="npc_dialogue"] .modern-header-text-px,
 #panel[data-model="quest_progress"] .modern-header-text-px,
 #panel[data-model="quest_progress_etc"] .modern-header-text-px,
+#panel[data-model="mu_helper_config"] .modern-header-text-px,
+#panel[data-model="mu_helper_detail"] .modern-header-text-px,
 #content_root[data-model="npc_quest"] .modern-header-text-px { left: 36px; }
 
 /* The exit: the kit's round close button at the top right -- #btn_exit where the window has one,
@@ -283,9 +314,14 @@
 #panel[data-model="doppelganger_enter"] #btn_exit,
 #panel[data-model="empire_guardian_enter"] #btn_exit,
 #panel[data-model="duel_watch"] #btn_exit,
+#panel[data-model="guild_info"] #btn_exit,
+#panel[data-model="guild_make"] #btn_exit,
+#panel[data-model="gens_ranking"] #btn_exit,
 #panel[data-model="npc_dialogue"] #btn_exit,
 #panel[data-model="quest_progress"] #btn_exit,
 #panel[data-model="quest_progress_etc"] #btn_exit,
+#panel[data-model="mu_helper_config"] #btn_exit,
+#panel[data-model="mu_helper_detail"] #btn_exit,
 #content_root[data-model="npc_quest"] #btn_exit,
 #panel[data-model="gateman"] #frame_corner_close,
 #panel[data-model="guard_window"] #frame_corner_close,
@@ -301,9 +337,14 @@
 #panel[data-model="doppelganger_enter"] #frame_corner_close,
 #panel[data-model="empire_guardian_enter"] #frame_corner_close,
 #panel[data-model="duel_watch"] #frame_corner_close,
+#panel[data-model="guild_info"] #frame_corner_close,
+#panel[data-model="guild_make"] #frame_corner_close,
+#panel[data-model="gens_ranking"] #frame_corner_close,
 #panel[data-model="npc_dialogue"] #frame_corner_close,
 #panel[data-model="quest_progress"] #frame_corner_close,
 #panel[data-model="quest_progress_etc"] #frame_corner_close,
+#panel[data-model="mu_helper_config"] #frame_corner_close,
+#panel[data-model="mu_helper_detail"] #frame_corner_close,
 #content_root[data-model="npc_quest"] #frame_corner_close {
 	position: absolute;
 	left: auto; right: 3px; top: 7px; bottom: auto;
@@ -331,9 +372,14 @@
 #panel[data-model="doppelganger_enter"] #frame_corner_close,
 #panel[data-model="empire_guardian_enter"] #frame_corner_close,
 #panel[data-model="duel_watch"] #frame_corner_close,
+#panel[data-model="guild_info"] #frame_corner_close,
+#panel[data-model="guild_make"] #frame_corner_close,
+#panel[data-model="gens_ranking"] #frame_corner_close,
 #panel[data-model="npc_dialogue"] #frame_corner_close,
 #panel[data-model="quest_progress"] #frame_corner_close,
 #panel[data-model="quest_progress_etc"] #frame_corner_close,
+#panel[data-model="mu_helper_config"] #frame_corner_close,
+#panel[data-model="mu_helper_detail"] #frame_corner_close,
 #content_root[data-model="npc_quest"] #frame_corner_close { display: block; z-index: 1; }
 #panel[data-model="gateman"] #btn_exit:hover,
 #panel[data-model="guard_window"] #btn_exit:hover,
@@ -349,9 +395,14 @@
 #panel[data-model="doppelganger_enter"] #btn_exit:hover,
 #panel[data-model="empire_guardian_enter"] #btn_exit:hover,
 #panel[data-model="duel_watch"] #btn_exit:hover,
+#panel[data-model="guild_info"] #btn_exit:hover,
+#panel[data-model="guild_make"] #btn_exit:hover,
+#panel[data-model="gens_ranking"] #btn_exit:hover,
 #panel[data-model="npc_dialogue"] #btn_exit:hover,
 #panel[data-model="quest_progress"] #btn_exit:hover,
 #panel[data-model="quest_progress_etc"] #btn_exit:hover,
+#panel[data-model="mu_helper_config"] #btn_exit:hover,
+#panel[data-model="mu_helper_detail"] #btn_exit:hover,
 #content_root[data-model="npc_quest"] #btn_exit:hover,
 #panel[data-model="gateman"] #frame_corner_close:hover,
 #panel[data-model="guard_window"] #frame_corner_close:hover,
@@ -367,9 +418,14 @@
 #panel[data-model="doppelganger_enter"] #frame_corner_close:hover,
 #panel[data-model="empire_guardian_enter"] #frame_corner_close:hover,
 #panel[data-model="duel_watch"] #frame_corner_close:hover,
+#panel[data-model="guild_info"] #frame_corner_close:hover,
+#panel[data-model="guild_make"] #frame_corner_close:hover,
+#panel[data-model="gens_ranking"] #frame_corner_close:hover,
 #panel[data-model="npc_dialogue"] #frame_corner_close:hover,
 #panel[data-model="quest_progress"] #frame_corner_close:hover,
 #panel[data-model="quest_progress_etc"] #frame_corner_close:hover,
+#panel[data-model="mu_helper_config"] #frame_corner_close:hover,
+#panel[data-model="mu_helper_detail"] #frame_corner_close:hover,
 #content_root[data-model="npc_quest"] #frame_corner_close:hover { decorator: image(ui/ornate_close_hover.tga); }
 #panel[data-model="gateman"] #btn_exit *,
 #panel[data-model="guard_window"] #btn_exit *,
@@ -385,9 +441,14 @@
 #panel[data-model="doppelganger_enter"] #btn_exit *,
 #panel[data-model="empire_guardian_enter"] #btn_exit *,
 #panel[data-model="duel_watch"] #btn_exit *,
+#panel[data-model="guild_info"] #btn_exit *,
+#panel[data-model="guild_make"] #btn_exit *,
+#panel[data-model="gens_ranking"] #btn_exit *,
 #panel[data-model="npc_dialogue"] #btn_exit *,
 #panel[data-model="quest_progress"] #btn_exit *,
 #panel[data-model="quest_progress_etc"] #btn_exit *,
+#panel[data-model="mu_helper_config"] #btn_exit *,
+#panel[data-model="mu_helper_detail"] #btn_exit *,
 #content_root[data-model="npc_quest"] #btn_exit * { display: none; }
 
 /* What sat under the old header rail now sits under the title band; a long title stops short of
@@ -430,3 +491,16 @@
 #panel[data-model="devil_square_enter"] .entry-buttons { left: 15px; --flow-w: 160px; }
 #panel[data-model="blood_castle_enter"] #title,
 #panel[data-model="devil_square_enter"] #title { left: 30px; --flow-w: 124px; }
+
+/* MU Helper: the tabs, group boxes and footer between the gold rails and above the frame's foot;
+   the detail window's Initialize/Save pair above the foot too. */
+#panel[data-model="mu_helper_config"] #mhc_main { left: 15px; width: 210px; height: 354px; }
+#panel[data-model="mu_helper_detail"] #btn_save,
+#panel[data-model="mu_helper_detail"] #btn_save_label,
+#panel[data-model="mu_helper_detail"] #btn_init,
+#panel[data-model="mu_helper_detail"] #btn_init_label { top: 380px; }
+
+/* Gens ranking: the rank plate, the value strips and the description inside the gold rails. */
+#panel[data-model="gens_ranking"] #rank_back,
+#panel[data-model="gens_ranking"] .text-back { left: 16px; width: 158px; }
+#panel[data-model="gens_ranking"] .fill-desc { width: 158px; }
