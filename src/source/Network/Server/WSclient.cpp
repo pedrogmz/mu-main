@@ -36,6 +36,7 @@
 #include "Render/Terrain/ZzzLodTerrain.h"
 #include "Engine/Pathing/ZzzPath.h"
 #include "Engine/AI/ZzzAI.h"
+#include "Engine/Object/Movement/FlightFeel.h"
 #include "Render/Textures/ZzzTexture.h"
 #include "Render/Effects/StatDownDebuffLights.h"
 #include "Render/Effects/ZzzEffect.h"
@@ -72,6 +73,8 @@
 #include "GameLogic/Items/InventoryUtils.h"
 #include "UI/Inventory/InventoryContents.h"
 #include "GameLogic/Commands/ChatCommandCatalog.h"
+#include "GameLogic/Warps/ServerWarpList.h"
+#include "Network/MoveCommandData.h"
 #include "GameLogic/Events/Cinematic/CDirection.h"
 #include "Character/CSParts.h"
 #include "Engine/Physics/PhysicsManager.h"
@@ -1100,6 +1103,9 @@ void InitGame()
     UI::Chat::ResetLogFilter();
 
     UI::Guild::ClearNotices();
+
+    // A warp list of the previous server doesn't apply to the next one; it sends its own, if any.
+    SEASON3B::CMoveCommandData::GetInstance()->RestoreDataFileWarpList();
 }
 
 BOOL ReceiveLogOut(const BYTE* ReceiveBuffer, BOOL bEncrypted)
@@ -2371,6 +2377,9 @@ void ReceiveMovePosition(const BYTE* ReceiveBuffer)
     c->Path.PathNum = 0;
     c->Path.CurrentPath = 0;
     c->Path.CurrentPathFloat = 0;
+    // It slides to the server's tile (PushingCharacter) from where it is drawn, without the sideways shift of a flying
+    // bank.
+    Engine::Characters::ForgetFlightPivotShift(c);
     SetPlayerStop(c);
 }
 
@@ -2427,6 +2436,7 @@ BOOL ReceiveTeleport(const BYTE* ReceiveBuffer, BOOL bEncrypted)
     OBJECT* o = &Hero->Object;
     o->Position[0] = ((float)(Hero->PositionX) + 0.5f) * TERRAIN_SCALE;
     o->Position[1] = ((float)(Hero->PositionY) + 0.5f) * TERRAIN_SCALE;
+    Engine::Characters::ForgetFlightPivotShift(Hero);
 
     if (gMapManager.WorldActive == -1 || Hero->Helper.Type != MODEL_HORN_OF_DINORANT || Hero->SafeZone)
     {
@@ -3739,16 +3749,28 @@ void ReceiveAction(const BYTE* ReceiveBuffer, int Size)
     }
     // if(c->Helper.Type == MODEL_HELPER+37) return;
 
-    c->Object.Angle[2] = ((float)(Data->Angle) - 1.f) * 45.f;
+    const float angle = ((float)(Data->Angle) - 1.f) * 45.f;
+    // Standing, another character turns toward the new direction with its feet stepping around; any other action
+    // (an attack, a skill) faces it at once.
+    const bool standing = Data->Action == AT_STAND1 || Data->Action == AT_STAND2;
+    if (!standing || c == Hero)
+    {
+        c->Object.Angle[2] = angle;
+    }
     c->Movement = false;
 
     c->Object.Position[0] = c->TargetX * TERRAIN_SCALE + TERRAIN_SCALE * 0.5f;
     c->Object.Position[1] = c->TargetY * TERRAIN_SCALE + TERRAIN_SCALE * 0.5f;
+    Engine::Characters::ForgetFlightPivotShift(c);
     switch (Data->Action)
     {
     case AT_STAND1:
     case AT_STAND2:
         SetPlayerStop(c);
+        if (c != Hero)
+        {
+            StartStandingTurn(c, angle);
+        }
         break;
     case AT_ATTACK1:
     case AT_ATTACK2:
@@ -14074,12 +14096,24 @@ static void ProcessPacket(const BYTE* ReceiveBuffer, int32_t Size)
         break;
     case 0xF5:
     {
-        // The chat commands which are available to this player. It's only sent
-        // by servers which know the request, so an unknown sub code is no error.
+        // Messages of OpenMU for the open source client, so an unknown sub code is no error.
         const auto subcode = bIsC1C3 ? ReceiveBuffer[3] : ReceiveBuffer[4];
         if (subcode == 0x01)
         {
+            // The chat commands which are available to this player.
             GameLogic::Commands::Catalog().AddFromPacket(ReceiveBuffer, Size);
+        }
+        else if (subcode == 0x09)
+        {
+            // The warp list of the server, which replaces the one of the data files until the next connection.
+            if (const auto warps = GameLogic::Warps::ReadServerWarpList(ReceiveBuffer, Size))
+            {
+                SEASON3B::CMoveCommandData::GetInstance()->ApplyServerWarpList(*warps);
+            }
+            else
+            {
+                g_ConsoleDebug->Write(MCD_RECEIVE, L"Recv [0xF5][0x09] (too short: %d bytes)", Size);
+            }
         }
         else
         {

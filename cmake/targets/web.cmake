@@ -2,12 +2,14 @@
 # What a target file sets is described in docs/build/README.md (Targets).
 
 set(MU_PLATFORM_SOURCES "posix")
-# No saved logins, shop downloads or CPU usage in the browser.
+# No saved logins, shop downloads or CPU usage in the browser; the log also goes to the devtools console.
 set(MU_TARGET_ADAPTERS
+  "Core/Platform/Adapters/UserFolderSdl.cpp"
   "Core/Platform/Adapters/CredentialsUnavailable.cpp"
   "GameShop/FileDownloader/Adapters/ShopDownloadUnavailable.cpp"
   "Core/Utilities/Adapters/CpuUsageUnavailable.cpp"
-  "Render/Renderer/Adapters/GpuDeviceSdlChoice.cpp")
+  "Render/Renderer/Adapters/GpuDeviceSdlChoice.cpp"
+  "Core/Utilities/Log/Adapters/LogSinksConsole.cpp")
 # JPEG textures decode through stb_image (Core/Platform/TurboJpegShim.cpp).
 set(MU_TARGET_DEPENDENCIES Cryptopp)
 

@@ -9,6 +9,7 @@
 #include "Core/Platform/ErrorDialog.h"
 #include "Core/Platform/GameWindow.h"
 #include "Core/Platform/Quit.h"
+#include "Core/Platform/UserFolder.h"
 #include "Core/Input/UiInputRouter.h"
 #include "App/Control/ControlServer.h"
 #include "App/Platform/ClientMain.h"
@@ -76,6 +77,7 @@
 #include "Core/Platform/sdl3/SDLWindowFlags.h"
 #include "Core/Platform/BundledFonts.h"
 #include "Engine/Pathing/ZzzPath.h"
+#include "Engine/Object/EnhancedMovement.h"
 #include "App/Platform/Windows/Local.h"
 #include "GameLogic/Items/PersonalShopTitleImp.h"
 
@@ -101,6 +103,7 @@
 #include "Core/Time/Timer.h"
 #include "Core/Utilities/Log/MuLogger.h"
 #include "Core/Utilities/Log/SdlLogBridge.h"
+#include "Core/Utilities/Log/TargetLogSinks.h"
 #include "UI/Core/SceneUICoordinator.h"
 #include "UI/Placement/WindowPlacement.h"
 #include "Character/CharMakeWin.h"
@@ -365,6 +368,17 @@ void ApplyVSyncPreferenceNow(bool enabled)
     {
         SetTargetFps(EffectiveOffVSyncTargetFps());
         return;
+    }
+
+    if (!enabled && !CanDisableVSync())
+    {
+        static bool logged = false;
+        if (!logged)
+        {
+            mu::log::Get("render")->info("VSync stays on: this display has no present mode that isn't tied to it");
+            logged = true;
+        }
+        enabled = true;
     }
 
     if (enabled)
@@ -2013,18 +2027,23 @@ static void SelectConnectServer(wchar_t* commandLine)
                         fromCommandLine ? L"the command line" : L"config.ini");
 }
 
-static void InitializeWorkingDirectoryAndLog()
+// The content opens first: the user folder's name comes from the shipped defaults, and the log goes into that folder.
+// Returns OpenContent's line for the error report.
+static std::string InitializeWorkingDirectoryAndLog()
 {
     SetWorkingDirectoryToBasePath();
-    mu::log::Init();
+    std::string contentRoot = OpenContent();
+    mu::log::Init(Core::Platform::UserFolder(), mu::log::TargetLogSinks());
+    return contentRoot;
 }
 
 // Everything up to the first frame, as SDL_AppInit calls it; false when the client can't start. Each step that
 // succeeds pushes how to undo it, so ShutdownClient undoes a failed startup and a normal quit the same way.
 bool StartClient(char* szCmdLine)
 {
-    InitializeWorkingDirectoryAndLog();
+    const std::string contentRoot = InitializeWorkingDirectoryAndLog();
     g_teardown.Push([] { mu::log::Shutdown(); });
+    g_teardown.Push([] { Content::Close(); });
     // Installed before SDL starts so init failures are captured; SDL_Quit may still log, so it outlives SDL.
     static std::optional<Core::Log::Sdl::ScopedLogOutput> sdlLogOutput;
     sdlLogOutput.emplace();
@@ -2055,9 +2074,6 @@ bool StartClient(char* szCmdLine)
             }
         }
     }
-
-    const std::string contentRoot = OpenContent();
-    g_teardown.Push([] { Content::Close(); });
 
     WriteStartupDiagnostics(lpszExeVersion, wVersion);
     g_ErrorReport.Write(L"> Content: %hs\r\n", contentRoot.c_str());
@@ -2353,6 +2369,7 @@ bool StartClient(char* szCmdLine)
     I18N::RegisterLocaleObserver(&LogUiLanguageChange, nullptr);
     g_MonsterDataHandler.SetNamesChangedCallback(&GameLogic::Monsters::Names::RefreshShownNames);
     g_MonsterDataHandler.SetMonstersChangedCallback(&World::Monsters::ApplyLiveSetup);
+    Engine::Characters::SetEnhancedMovementEnabled(GameConfig::GetInstance().GetEnhancedMovement());
 
 #ifdef _EDITOR
     // Initialize MU Editor with the live SDL GPU window.

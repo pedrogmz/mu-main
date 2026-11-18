@@ -30,17 +30,17 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "=== Compilation Successful ===" -ForegroundColor Green
 
-# Main.data only carries the small, build-generated files (shaders and
-# config.ini, well under 1 MB), so it is cheap to repack on every build.
+# Main.data only carries the small, build-generated files (shaders and the
+# config.ini.template that seeds config.ini in the user folder, well under 1 MB), so it is cheap to repack on every build.
 # Data/ and fonts/ ship as content-addressed buckets built straight into the
 # stack (see openmu-browser-stack/scripts/build-data-buckets.js): unchanged
 # buckets are left untouched, so a rebuild only replaces what changed and
 # browsers keep the rest cached. -RebuildAssets is kept for compatibility;
 # both steps now always run.
-Write-Host "=== Packaging Main.data (shaders, config.ini) ===" -ForegroundColor Cyan
+Write-Host "=== Packaging Main.data (shaders, config.ini.template) ===" -ForegroundColor Cyan
 python C:\Users\Poisson\emsdk\upstream\emscripten\tools\file_packager.py $buildDir\src\Main.data `
   --preload "$buildDir\shaders@shaders" `
-  --preload "$buildDir\src\config.ini@config.ini" `
+  --preload "$buildDir\src\config.ini.template@config.ini.template" `
   --js-output=$buildDir\src\Main.data.js
 if ($LASTEXITCODE -ne 0) {
     Write-Error "file_packager failed."
