@@ -1221,279 +1221,352 @@ input, select, textarea, .btn, [data-event-click] { drag: block; }
 	transform: translateY(-50%) scale(calc(1 / var(--root-scale, 1)));
 }
 
+/* ---- handmade/base.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon kit: the shared look of every window, after the web client's style -- a dark steel card
+   with a gold border, two outer rings and an inner gold line, small serif titles in spaced
+   capitals over a thin divider, bronze primary buttons, framed secondary buttons and dark input
+   wells. Appended to modern's retinted base.rcss, so it restyles modern's own classes and keeps
+   modern's layout. Colors are this theme's tokens (tokens.json's themeTokens).
 
-/* =====================================================================================
-   KRYON COMPONENTS -- generated from tokens.json (components / effects / variants).
-   Appended after the retinted base rules so these recipes win by source order.
-   ===================================================================================== */
+   The -px twins (modern-header-rail-px, modern-joint-px, ...) live inside panels that scale
+   themselves (the inventory family); they repeat the rules in px. */
 
-/* Window: gold border, dark outer ring + aged-gold ring, deep drop shadow, warm top glow. */
+/* ---- Window card ---- */
+
 .modern-frame,
 .modern-frame-crimson {
-	background-color: #080a0d;
-	decorator: radial-gradient(circle at 50% 0%, rgba(136, 112, 69, 36), transparent 55%), repeating-linear-gradient(135deg, rgba(255, 255, 255, 2) 0dp 1dp, transparent 1dp 4dp), linear-gradient(110deg, #14171b 0%, #080a0d 100%);
+	background-color: token(kryon-card-bottom);
+	decorator:
+		radial-gradient(circle at 50% 0%, token(kryon-card-glow), transparent 55%),
+		linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-mid) 50%, token(kryon-card-bottom) 100%);
 	border-width: 1dp;
-	border-color: #af8b4c;
-	border-radius: 1dp;
-	box-shadow: 0dp 0dp 0dp 3dp #101115, 0dp 0dp 0dp 4dp #5b4c31, 0dp 16dp 48dp 0dp rgba(0, 0, 0, 187);
+	border-color: token(kryon-card-border);
+	border-radius: token(radius-md)dp;
+	box-shadow:
+		0 0 0 3dp token(kryon-ring-outer),
+		0 0 0 4dp token(kryon-ring-gold),
+		0 16dp 40dp rgba(0, 0, 0, 187),
+		inset 0 0 0 5dp token(kryon-ring-inner-dark),
+		inset 0 0 0 6dp token(kryon-filete);
 }
-/* The content plate keeps the frame visible: no own fill, only the inner gold line. */
+/* The rings above replace modern's separate outer edge and carved groove. */
+.modern-shell-edge {
+	display: none;
+}
+.modern-groove {
+	border-color: transparent;
+	box-shadow: none;
+}
+/* The content plate keeps the card visible: no fill of its own. */
 .modern-panel,
 .modern-panel-crimson {
 	background-color: transparent;
 	decorator: none;
-	border-width: 1dp;
-	border-color: rgba(127, 105, 59, 85);
-	border-radius: 0dp;
+	border-width: 0;
+	border-radius: 0;
 }
+.modern-frame-accent,
 .modern-frame-accent-crimson {
-	border-color: rgba(141, 116, 75, 102);
+	border-color: transparent;
 }
+
+/* ---- Title: no metal plate, spaced capitals over a thin divider ---- */
+
 .modern-header,
-.modern-header-rail {
-	background-color: #111318;
-	decorator: radial-gradient(circle at 50% 0%, rgba(166, 123, 52, 48), transparent 70%), linear-gradient(180deg, #212024 0%, #111318 100%);
-	border-width: 0dp;
+.modern-header-rail,
+.modern-title-plate {
+	background-color: transparent;
+	decorator: none;
+	border-width: 0;
 	border-bottom-width: 1dp;
-	border-bottom-color: rgba(156, 124, 69, 79);
+	border-bottom-color: token(kryon-divider);
+	box-shadow: none;
+}
+.modern-header-rail-px {
+	background-color: transparent;
+	decorator: none;
+	border-width: 0;
+	border-bottom-width: 1px;
+	border-bottom-color: token(kryon-divider);
+	box-shadow: none;
 }
 .modern-header-accent {
-	opacity: 0.6;
+	display: none;
 }
-.modern-title-plate {
-	background-color: #111318;
-	decorator: radial-gradient(circle at 50% 0%, rgba(166, 123, 52, 48), transparent 70%), linear-gradient(180deg, #212024 0%, #111318 100%);
-	border-color: #b38a47;
-	box-shadow: inset 0dp 1dp 0dp rgba(219, 184, 118, 48), inset 0dp -1dp 0dp #000000, 0dp 2dp 5dp rgba(0, 0, 0, 140);
+.modern-header-text,
+.modern-header-text-px {
+	left: 0;
+	right: 0;
+	text-align: center;
 }
 .modern-header-title {
-	color: #efd398;
+	color: token(kryon-title);
 	font-family: "token(font-title)";
-	letter-spacing: 1.6dp;
+	font-size: 10dp;
+	font-weight: normal;
+	letter-spacing: 2.4dp;
 	text-transform: uppercase;
 	font-effect: shadow(0dp 1dp #000000);
+}
+.modern-header-title-px {
+	color: token(kryon-title);
+	font-family: "token(font-title)";
+	font-weight: normal;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	font-effect: shadow(0px 1px #000000);
+}
+.modern-header-eyebrow {
+	color: token(kryon-label);
+	letter-spacing: 1.4dp;
+	text-transform: uppercase;
 }
 .title-glow {
-	decorator: radial-gradient(ellipse, rgba(239, 211, 152, 96), rgba(141, 105, 55, 64) 55%, transparent 88%);
+	decorator: radial-gradient(ellipse, rgba(239, 211, 152, 40), transparent 80%);
 }
 
-/* Primary forged-bronze button (web: SIGN IN). Plain .btn gets the same metal; .btn-ok is brighter. */
-.btn,
-.btn-ok {
-	color: #ffe4a8;
-	background-color: #281e12;
-	decorator: linear-gradient(180deg, #69502b 0%, #3d2e19 48%, #281e12 52%, #48351d 100%);
-	border-width: 1dp;
-	border-color: #79613e;
-	border-radius: 1dp;
-	letter-spacing: 0.4dp;
-	font-family: "token(font-title)";
-	font-effect: shadow(0dp 1dp #000000);
-	box-shadow: inset 0dp 0dp 0dp 2dp rgba(29, 24, 14, 204), inset 0dp 3dp 0dp 0dp rgba(219, 184, 118, 85), 0dp 2dp 6dp 0dp rgba(0, 0, 0, 136);
-}
-/* The window's one primary action keeps the web's uppercase, spaced lettering. */
-.btn-ok {
-	border-color: #b38a47;
-	text-transform: uppercase;
-	letter-spacing: 1.2dp;
-}
-.btn:hover,
-.btn-ok:hover {
-	color: #fff0cc;
-	border-color: #e5c582;
-	decorator: linear-gradient(180deg, #7e6034 0%, #4a381e 48%, #322515 52%, #5a4224 100%);
-}
-.btn:active,
-.btn-ok:active {
-	transform: translateY(1dp);
-	decorator: linear-gradient(0deg, #69502b 0%, #3d2e19 48%, #281e12 52%, #48351d 100%);
-	box-shadow: inset 0dp 1dp 3dp rgba(0, 0, 0, 184);
-}
-.btn.disabled,
-.btn-ok.disabled {
+/* The diamond on the card's top edge (the web's loader card has one at top and bottom). */
+.modern-joint,
+.modern-header-rivet {
+	background-color: token(kryon-card-bottom);
 	decorator: none;
+	border-width: 1dp;
+	border-color: token(kryon-corner);
+	border-radius: 0;
+	transform: rotate(45deg);
+	box-shadow: inset 0 0 0 2dp token(kryon-card-bottom), inset 0 0 0 4dp token(kryon-btn-1);
+}
+.modern-joint-px {
+	background-color: token(kryon-card-bottom);
+	border-color: token(kryon-corner);
+	box-shadow: inset 0 0 0 2px token(kryon-card-bottom), inset 0 0 0 4px token(kryon-btn-1);
+}
+
+/* ---- Wells: recessed areas, input fields ---- */
+
+.modern-content-well {
+	background-color: transparent;
+	decorator: none;
+	border-width: 0;
 	box-shadow: none;
-	background-color: #0a0d11;
-	border-color: #625338;
-	color: #5c5648;
-	opacity: 0.5;
 }
-
-/* Icon buttons: secondary metal; the primary one uses the forged bronze. */
-.btn-icon {
-	color: #c8b99a;
-	decorator: linear-gradient(180deg, #302b24 0%, #161719 100%);
-	border-color: #78613c;
-	box-shadow: inset 0dp 0dp 0dp 2dp rgba(7, 9, 11, 128), 0dp 2dp 5dp rgba(0, 0, 0, 133);
+.modern-control-well,
+.modern-inset {
+	background-color: token(kryon-well-top);
+	decorator: linear-gradient(180deg, token(kryon-well-top) 0%, token(kryon-well-bottom) 100%);
+	border-width: 1dp;
+	border-color: token(kryon-well-border);
+	border-radius: token(radius-sm)dp;
+	box-shadow: inset 0 2dp 7dp #000000, 0 1dp 0 rgba(190, 163, 116, 32);
 }
-.btn-icon:hover {
-	color: #fff0cc;
-	border-color: #e5c582;
-	decorator: linear-gradient(180deg, #69502b 0%, #3d2e19 48%, #281e12 52%, #48351d 100%);
+.modern-inset.focused {
+	border-color: token(kryon-well-focus);
 }
-.btn-icon-primary {
-	color: #ffe4a8;
-	decorator: linear-gradient(180deg, #69502b 0%, #3d2e19 48%, #281e12 52%, #48351d 100%);
-	border-color: #b38a47;
-}
-.btn-icon-primary:hover {
-	border-color: #e5c582;
-	decorator: linear-gradient(180deg, #7e6034 0%, #4a381e 48%, #322515 52%, #5a4224 100%);
-}
-.btn-icon-label,
-.btn-icon-primary .btn-icon-label {
-	color: #ffe4a8;
-}
-
-/* Inputs: near-black well, bronze edge; gold edge while focused. */
 .text-field {
-	color: #f5e5c4;
-	background-color: #04060a;
-	decorator: linear-gradient(180deg, #04060a 0%, #13171c 100%);
-	border-color: #625338;
-	box-shadow: inset 0dp 1dp 4dp #000000;
+	color: token(kryon-field-text);
+	font-family: "token(font-body)";
+	background-color: token(kryon-well-top);
+	decorator: linear-gradient(180deg, token(kryon-well-top) 0%, token(kryon-well-bottom) 100%);
+	border-width: 1dp;
+	border-color: token(kryon-well-border);
+	border-radius: token(radius-sm)dp;
+	box-shadow: inset 0 2dp 7dp #000000;
 }
 .text-field:focus {
-	border-color: #d3ae66;
-	box-shadow: inset 0dp 1dp 4dp #000000, 0dp 0dp 0dp 2dp rgba(196, 154, 77, 34);
+	border-color: token(kryon-well-focus);
+	box-shadow: inset 0 2dp 7dp #000000, 0 0 0 2dp token(kryon-well-halo);
 }
 .text-field selection {
 	color: #1b0e08;
 	background-color: #f5cf8a;
 }
-
-/* Checkbox and slots. */
-.checkbox-box {
-	background-color: #06090e;
-	border-color: #625338;
+/* The zen readout (inventory, shops, storage). */
+.modern-wallet-px {
+	background-color: token(kryon-well-top);
+	decorator: linear-gradient(180deg, token(kryon-well-top) 0%, token(kryon-well-bottom) 100%);
+	border-color: token(kryon-well-border);
+	box-shadow: inset 0 2px 5px #000000;
 }
-.checkbox-box.checked {
-	decorator: linear-gradient(180deg, #d3aa4e 0%, #8f6922 100%);
-	border-color: #d3ae66;
+.modern-wallet-label-px {
+	color: token(kryon-label);
+	letter-spacing: 0.14em;
+}
+.modern-wallet-value-px {
+	color: token(kryon-btn-text);
+	font-family: "token(font-title)";
+}
+.modern-footer,
+.modern-footer-band {
+	border-top-color: token(kryon-divider);
+}
+
+/* ---- Buttons: framed secondary, bronze primary ---- */
+
+/* Every button starts as the web's framed secondary: dark steel with a bronze edge, so the one
+   bronze primary action stands out. */
+.btn,
+.btn-icon,
+.modern-btn-px,
+.modern-icon-btn-px {
+	color: token(kryon-tab-text);
+	background-color: token(kryon-tab-idle);
+	decorator: linear-gradient(180deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	border-color: token(kryon-tab-border);
+	border-radius: token(radius-sm)dp;
+	font-family: "token(font-title)";
+	font-effect: shadow(0dp 1dp #000000);
+}
+.btn,
+.btn-icon {
+	border-width: 1dp;
+	box-shadow: inset 0 0 0 1dp #130e08, 0 2dp 6dp rgba(0, 0, 0, 136);
+}
+.btn {
+	letter-spacing: 1dp;
+	text-transform: uppercase;
+}
+.btn:hover,
+.btn-icon:hover,
+.modern-btn-px:hover,
+.modern-icon-btn-px:hover {
+	color: token(kryon-btn-text-hover);
+	border-color: token(kryon-btn-border-hover);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+}
+.btn:active,
+.btn-icon:active {
+	transform: translateY(1dp);
+	decorator: linear-gradient(0deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	box-shadow: inset 0 1dp 3dp rgba(0, 0, 0, 184);
+}
+
+/* The window's one primary action: the web's forged SIGN IN button. */
+.btn-ok,
+.btn-icon-primary {
+	color: token(kryon-btn-text);
+	background-color: token(kryon-btn-3);
+	decorator: linear-gradient(180deg, token(kryon-btn-1) 0%, token(kryon-btn-2) 48%, token(kryon-btn-3) 52%, token(kryon-btn-4) 100%);
+	border-color: token(kryon-btn-border);
+	box-shadow:
+		inset 0 0 0 2dp token(kryon-btn-ring),
+		inset 0 3dp 0 token(kryon-btn-shine),
+		0 4dp 12dp rgba(0, 0, 0, 136);
+}
+.btn-ok {
+	letter-spacing: 2dp;
+}
+.btn-ok:hover,
+.btn-icon-primary:hover {
+	color: token(kryon-btn-text-hover);
+	border-color: token(kryon-btn-border-hover);
+	decorator: linear-gradient(180deg, token(kryon-btn-hover-1) 0%, token(kryon-btn-hover-2) 48%, token(kryon-btn-hover-3) 52%, token(kryon-btn-hover-4) 100%);
+}
+.btn-ok:active,
+.btn-icon-primary:active {
+	decorator: linear-gradient(0deg, token(kryon-btn-1) 0%, token(kryon-btn-2) 48%, token(kryon-btn-3) 52%, token(kryon-btn-4) 100%);
+	box-shadow: inset 0 0 0 2dp token(kryon-btn-ring), inset 0 2dp 4dp rgba(0, 0, 0, 184);
+}
+.btn.disabled,
+.btn-ok.disabled,
+.btn-icon.disabled {
+	color: token(text-disabled);
+	background-color: token(kryon-tab-idle);
+	decorator: none;
+	border-color: token(kryon-tab-idle-border);
+	box-shadow: none;
+	opacity: 0.6;
+}
+.btn-icon-label,
+.btn-icon-primary .btn-icon-label {
+	color: token(kryon-btn-text);
+}
+.btn-icon-caption {
+	color: token(kryon-title);
+	font-family: "token(font-title)";
+	letter-spacing: 1dp;
+	text-transform: uppercase;
+}
+.modern-icon-btn-glyph-px {
+	color: token(kryon-btn-text);
+}
+
+/* ---- Server list: the web's tabs ---- */
+
+.server-group-btn,
+.server-option-btn {
+	color: token(kryon-tab-idle-text);
+	background-color: token(kryon-tab-idle);
+	decorator: linear-gradient(180deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	border: 1dp token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)dp;
+	font-family: "token(font-body)";
+}
+.server-group-btn:hover,
+.server-option-btn:hover {
+	color: token(kryon-btn-text-hover);
+	border-color: token(kryon-btn-border-hover);
+	background-color: token(kryon-row-hover);
+}
+.server-group-btn.checked {
+	color: token(kryon-tab-text);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+	border-color: token(kryon-tab-border);
+	box-shadow: inset 0 0 0 1dp #130e08, inset 0 -2dp 0 rgba(217, 154, 67, 217);
+}
+.server-option-btn {
+	color: token(server-button);
+}
+
+/* ---- Checkbox, slots, scrollbars ---- */
+
+.checkbox-box,
+.modern-checkbox-px {
+	background-color: token(kryon-well-top);
+	decorator: none;
+	border-color: token(kryon-well-border);
+	border-radius: 0;
+}
+.checkbox-box.checked,
+.modern-checkbox-px.checked {
+	background-color: token(kryon-gold-fill-bottom);
+	decorator: linear-gradient(180deg, token(kryon-gold-fill-top) 0%, token(kryon-gold-fill-bottom) 100%);
+	border-color: token(kryon-well-focus);
+}
+.checkbox-label {
+	color: token(text-secondary);
 }
 .slot {
-	border-color: #5b4c31;
+	border-color: token(kryon-ring-gold);
 }
 .slot--selected {
-	border-color: #d3ae66;
+	border-color: token(kryon-well-focus);
 	background-color: rgba(211, 174, 102, 25);
 }
-
-/* Scrollbar: gold thumb on a steel rail. */
 .scroll-pane scrollbarvertical slidertrack {
-	background-color: #101317;
+	background-color: token(kryon-scroll-track);
 }
 .scroll-pane scrollbarvertical sliderbar {
-	background-color: #725937;
+	background-color: token(kryon-scroll-thumb);
 }
 .scroll-pane scrollbarvertical sliderbar:hover,
 .scroll-pane scrollbarvertical sliderbar:active {
-	background-color: #a08349;
+	background-color: token(kryon-scroll-thumb-hover);
 }
 
-/* ---- Opt-in helpers for forked .rml files (not used by the shared markup) ---- */
+/* ---- Helpers for Kryon's own stylesheets ---- */
 
-/* Tabs / segmented selectors (web: ES/EN/PT, shop tabs, ranking periods). */
-.kryon-tab {
-	pointer-events: auto;
-	cursor: pointer;
-	text-align: center;
-	font-family: "token(font-body)";
-	font-size: 7dp;
-	text-transform: uppercase;
-	letter-spacing: 0.2dp;
-	color: #a9a08e;
-	background-color: #06090e;
-	border: 1dp rgba(118, 97, 60, 102);
-	border-radius: 1dp;
-}
-.kryon-tab:hover {
-	border-color: #e5c582;
-	color: #dbcfb4;
-}
-.kryon-tab.active {
-	color: #ffe0a1;
-	decorator: linear-gradient(180deg, #4b3b21 0%, #221d14 100%);
-	border-color: #bc9351;
-	box-shadow: inset 0dp 0dp 0dp 2dp #171511;
-}
-/* Golden progress bar (web: loaders). Put .kryon-progress-fill inside with width = percent. */
-.kryon-progress {
-	background-color: #020405;
-	border: 1dp #9b7d42;
-	box-shadow: 0dp 0dp 0dp 1dp #080a0d, inset 0dp 1dp 4dp #000000;
-}
-.kryon-progress-fill {
-	height: 100%;
-	decorator: linear-gradient(0deg, #713810 0%, #d99a38 45%, #ffdc8c 65%, #b87523 100%);
-	box-shadow: 0dp 0dp 10dp rgba(237, 156, 59, 96);
-}
-/* Gold "L" corner ornaments (web: login card). Two empty divs as the frame's last children. */
-.kryon-corner-tl, .kryon-corner-tr {
+/* A gold corner bracket (the web's login card has them in its top corners): give an element a
+   size and position, then one of the corner classes. */
+.kryon-corner {
 	position: absolute;
-	top: 10dp;
-	width: 18dp;
-	height: 18dp;
+	width: 12dp;
+	height: 12dp;
 	pointer-events: none;
-	border-top: 2dp #d0ad67;
+	background-color: transparent;
+	border-width: 0;
+	border-color: token(kryon-corner);
+	transform: none;
+	box-shadow: none;
 }
-.kryon-corner-tl { left: 10dp; border-left: 2dp #d0ad67; }
-.kryon-corner-tr { right: 10dp; border-right: 2dp #d0ad67; }
-/* Bright gold call-to-action (web: welcome "claim"). */
-.kryon-cta {
-	color: #1a1206;
-	decorator: linear-gradient(180deg, #ffe6a2 0%, #c9a24a 100%);
-	border: 1dp rgba(255, 235, 180, 153);
-	box-shadow: 0dp 3dp 10dp 0dp rgba(214, 180, 90, 115);
-	text-transform: uppercase;
-	font-weight: bold;
-}
-/* Ranking / list rows. */
-.kryon-row {
-	color: #c2baa7;
-	border-bottom: 1dp rgba(180, 153, 100, 32);
-}
-.kryon-row:hover {
-	background-color: rgba(196, 156, 61, 12);
-}
-
-/* Variant "ember": Warm war/hunt windows (web: player command, character, clan war, hunting); suggested for PvP, duel, castle siege. Use as class="modern-frame kryon-frame-ember". */
-.kryon-frame-ember {
-	decorator: radial-gradient(circle at 50% 0%, rgba(217, 150, 62, 56), transparent 45%), linear-gradient(160deg, #1b1009 0%, #060506 100%);
-	border-color: #ca9446;
-}
-.kryon-frame-ember .modern-header-title { color: #ffe9b8; }
-.kryon-frame-ember .slot--selected { border-color: #d9963e; }
-
-/* Variant "mint": Shop / economy (web: shop); suggested for in-game shop, NPC shops, trade. Use as class="modern-frame kryon-frame-mint". */
-.kryon-frame-mint {
-	decorator: linear-gradient(155deg, #0e1514 0%, #060807 100%);
-	border-color: rgba(217, 170, 85, 184);
-}
-.kryon-frame-mint .modern-header-title { color: #fff2d2; }
-.kryon-frame-mint .slot--selected { border-color: #62d6b5; }
-
-/* Variant "sky": Packs / rewards (web: packs); suggested for event rewards, lucky coin, gift windows. Use as class="modern-frame kryon-frame-sky". */
-.kryon-frame-sky {
-	decorator: linear-gradient(180deg, #0d1626 0%, #050810 100%);
-	border-color: rgba(96, 170, 235, 128);
-}
-.kryon-frame-sky .modern-header-title { color: #bfe4ff; }
-.kryon-frame-sky .slot--selected { border-color: #60c4ff; }
-
-/* Variant "arcane": Special / magic (web: welcome, chaos reset, soul machine); suggested for chaos machine, master level, socket. Use as class="modern-frame kryon-frame-arcane". */
-.kryon-frame-arcane {
-	decorator: radial-gradient(circle at 50% 0%, rgba(255, 197, 74, 41), transparent 45%), linear-gradient(180deg, #1a1028 0%, #09050f 100%);
-	border-color: rgba(240, 190, 74, 148);
-}
-.kryon-frame-arcane .modern-header-title { color: #f0d18a; }
-.kryon-frame-arcane .slot--selected { border-color: #9d4edd; }
-
-/* Variant "steel": Vault / storage (web: jewel bank, card recharge, retention); suggested for warehouse, guild storage. Use as class="modern-frame kryon-frame-steel". */
-.kryon-frame-steel {
-	decorator: linear-gradient(180deg, #27303a 0%, #0b1017 100%);
-	border-color: #b99448;
-	box-shadow: 0dp 0dp 0dp 4dp #090c11, 0dp 0dp 0dp 5dp #534326, 0dp 16dp 48dp 0dp rgba(0, 0, 0, 187);
-}
-.kryon-frame-steel .modern-header-title { color: #f5d78c; }
-.kryon-frame-steel .slot--selected { border-color: #ecad4b; }
+.kryon-corner-tl { border-top-width: 2dp; border-left-width: 2dp; }
+.kryon-corner-tr { border-top-width: 2dp; border-right-width: 2dp; }

@@ -277,3 +277,154 @@ body {
    Editor's Events tab gives each kind its sound (interfaceClick). */
 .btn-ok { click-sound: confirm; }
 .btn-cancel { click-sound: cancel; }
+
+/* ---- handmade/login.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon login, after the web's sign-in card: gold brackets in the top corners, the server name as
+   a small spaced title over a divider, full-width field rows with their label inside, the two
+   options on one line, a full-width bronze OK and a framed Cancel under it.
+
+   Everything stays inside modern's 329 x 245 #panel: CLoginWin's hit-test rect is that size
+   (LoginWin.cpp, RefreshLayout()), so nothing clickable may leave it. Coordinates are local to
+   each element's parent, as in modern's login.rcss. */
+
+#panel {
+	background-color: token(kryon-card-bottom);
+	decorator:
+		radial-gradient(circle at 50% 0%, token(kryon-card-glow), transparent 55%),
+		linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-mid) 50%, token(kryon-card-bottom) 100%);
+	border-color: token(kryon-card-border);
+	border-radius: token(radius-md)dp;
+	box-shadow:
+		0 0 0 3dp token(kryon-ring-outer),
+		0 0 0 4dp token(kryon-ring-gold),
+		0 16dp 40dp rgba(0, 0, 0, 187),
+		inset 0 0 0 5dp token(kryon-ring-inner-dark),
+		inset 0 0 0 6dp token(kryon-filete);
+}
+.login-shell-edge,
+.login-groove {
+	display: none;
+}
+
+/* Title: the plate becomes a divider line; its two diamonds become the corner brackets. */
+.login-hero-banner {
+	left: 22dp;
+	right: 22dp;
+	top: 14dp;
+	height: 26dp;
+}
+.login-hero-cap {
+	top: -4dp;
+	width: 12dp;
+	height: 12dp;
+	margin-top: 0;
+	background-color: transparent;
+	border-width: 0;
+	border-color: token(kryon-corner);
+	transform: none;
+	box-shadow: none;
+}
+.login-hero-cap-left {
+	left: -12dp;
+	border-top-width: 2dp;
+	border-left-width: 2dp;
+}
+.login-hero-cap-right {
+	right: -12dp;
+	border-top-width: 2dp;
+	border-right-width: 2dp;
+}
+.label-server {
+	top: 6dp;
+	color: token(kryon-title);
+	font-size: 10dp;
+	font-weight: normal;
+	letter-spacing: 2.4dp;
+	text-transform: uppercase;
+}
+
+/* Body: two full-width field rows, then the options. */
+.login-content {
+	left: 22dp;
+	right: 22dp;
+	top: 50dp;
+	height: 100dp;
+}
+.login-input {
+	left: 0;
+	width: 285dp;
+	height: 26dp;
+}
+.login-input-account  { top: 2dp; }
+.login-input-password { top: 36dp; }
+
+/* The labels come before the field wells in the markup, so they need z-index to sit inside them. */
+.label-account,
+.label-password {
+	z-index: 1;
+	left: 10dp;
+	font-size: 7.5dp;
+	font-weight: normal;
+	letter-spacing: 1.4dp;
+	text-transform: uppercase;
+	color: token(kryon-label);
+}
+.label-account  { top: 11dp; }
+.label-password { top: 45dp; }
+
+.login-field {
+	width: 190dp;
+	height: 16dp;
+	color: token(kryon-field-text);
+	font-size: 10dp;
+}
+/* The row (.login-input) is the visible field; the input inside it draws nothing, focused or not. */
+.login-field:focus {
+	border-width: 0;
+	box-shadow: none;
+}
+.login-field-account  { left: 86dp; top: 7dp; }
+.login-field-password { left: 86dp; top: 41dp; }
+
+.checkbox-remember-me   { left: 1dp; top: 74dp; }
+.checkbox-save-password { left: 146dp; top: 74dp; }
+.checkbox-label {
+	font-size: 8.5dp;
+}
+.checkbox-tick {
+	border-left-color: #1a1206;
+	border-bottom-color: #1a1206;
+}
+
+/* Footer: the primary action on its own full-width row, Cancel under it. */
+.login-footer {
+	left: 22dp;
+	right: 22dp;
+	top: 150dp;
+	height: 82dp;
+	border-top-width: 0;
+}
+.login-btn {
+	left: 0;
+	width: 285dp;
+}
+.login-btn-ok {
+	top: 4dp;
+	height: 30dp;
+	line-height: 30dp;
+	font-size: 10dp;
+}
+.login-btn-cancel {
+	left: 0;
+	top: 42dp;
+	height: 24dp;
+	line-height: 24dp;
+	font-size: 8.5dp;
+}
+.login-btn-label {
+	font-family: "token(font-title)";
+}
+
+.trust-warning {
+	font-family: "token(font-body)";
+}

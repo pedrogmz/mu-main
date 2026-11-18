@@ -83,3 +83,65 @@
    Editor's Events tab gives each kind its sound (interfaceClick). */
 #btn_create, #btn_menu, #btn_delete { click-sound: menu; }
 #btn_connect { click-sound: confirm; }
+
+/* ---- handmade/char_sel_main.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon character select: a dark band along the bottom of the screen with a gold divider holds the
+   four buttons; entering the game (Connect) is the bronze primary action, the others are framed
+   secondaries (base.rcss). Button positions stay modern's. */
+
+.info-bar {
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 74dp;
+	pointer-events: none;
+	decorator: linear-gradient(180deg, rgba(6, 9, 14, 0) 0%, rgba(6, 9, 14, 214) 45%, rgba(2, 4, 5, 245) 100%);
+	border-top-width: 1dp;
+	border-top-color: token(kryon-divider);
+}
+
+/* Modern makes Menu the primary button; on Kryon it is entering the game. */
+#btn_menu {
+	color: token(kryon-tab-text);
+	background-color: token(kryon-tab-idle);
+	decorator: linear-gradient(180deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	border-color: token(kryon-tab-border);
+	box-shadow: inset 0 0 0 1dp #130e08, 0 2dp 6dp rgba(0, 0, 0, 136);
+}
+#btn_menu:hover {
+	color: token(kryon-btn-text-hover);
+	border-color: token(kryon-btn-border-hover);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+}
+#btn_connect {
+	color: token(kryon-btn-text);
+	background-color: token(kryon-btn-3);
+	decorator: linear-gradient(180deg, token(kryon-btn-1) 0%, token(kryon-btn-2) 48%, token(kryon-btn-3) 52%, token(kryon-btn-4) 100%);
+	border-color: token(kryon-btn-border);
+	box-shadow:
+		inset 0 0 0 2dp token(kryon-btn-ring),
+		inset 0 3dp 0 token(kryon-btn-shine),
+		0 4dp 12dp rgba(0, 0, 0, 136);
+}
+#btn_connect:hover {
+	border-color: token(kryon-btn-border-hover);
+	decorator: linear-gradient(180deg, token(kryon-btn-hover-1) 0%, token(kryon-btn-hover-2) 48%, token(kryon-btn-hover-3) 52%, token(kryon-btn-hover-4) 100%);
+}
+#btn_connect.disabled {
+	decorator: none;
+	background-color: token(kryon-tab-idle);
+	border-color: token(kryon-tab-idle-border);
+	box-shadow: none;
+}
+
+.btn-icon-caption {
+	font-size: 7.5dp;
+}
+
+/* A small gap between the paired buttons (modern butts them together). */
+#btn_menu    { left: 81dp; }
+#btn_connect { right: 81dp; }
+#btn_menu_item .btn-icon-caption    { left: 81dp; }
+#btn_connect_item .btn-icon-caption { right: 81dp; }
