@@ -1,6 +1,6 @@
-"""Builds the Kryon theme's ornate window kit (themes/kryon/ui/ornate_*.OZT) from the Season 6 party
+"""Builds the Kryon theme's ornate window kit (themes/kryon-nousar/ui/ornate_*.OZT) from the Season 6 party
 UI asset pack (MU_S6_Party_UI_Assets). The party window is the first user of the kit; any window can
-take the same pieces (see "Kryon ornate window kit" in themes/kryon/base.rcss).
+take the same pieces (see "Kryon ornate window kit" in themes/kryon-nousar/base.rcss).
 
   ornate_frame.OZT        The party window's whole frame: the claw corners, the gold side rails and
                           the title band, with the plate cut out (the window paints its own fill),
@@ -36,7 +36,7 @@ from scipy import ndimage
 import make_kryon_hud_textures as hud
 from make_kryon_hud_textures import resize, write_ozt
 
-OUT = pathlib.Path(__file__).resolve().parents[2] / "src/bin/Data/Interface/RmlUi/themes/kryon/ui"
+OUT = pathlib.Path(__file__).resolve().parents[2] / "src/bin/Data/Interface/RmlUi/themes/kryon-nousar/ui"
 
 # The full window (00_party_window_full, 680x855), in its own pixels.
 WINDOW_MID_X = 340          # the art is symmetric about this column

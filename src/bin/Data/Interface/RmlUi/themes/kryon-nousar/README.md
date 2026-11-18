@@ -1,4 +1,8 @@
-# Kryon theme
+# Kryon theme (no usar)
+
+> **Not for use.** This is the first version of the Kryon theme, renamed to `kryon-nousar` and
+> kept only for reference while Kryon is redone with a different interface direction. Select it as
+> `$theme kryon-nousar`. Paths below that say `themes/kryon/` now live in `themes/kryon-nousar/`.
 
 **Warm obsidian and gilded bronze.** Kryon takes its material language and typography from the
 OpenMU browser stack's loader/analysis shell (`openmu-browser-stack/public/index.html` and the
@@ -137,8 +141,8 @@ shared pass cannot reach.
 
 1. Open **Options → UI → Theme** and pick **Kryon** (the list refreshes when the theme is
    selected).
-2. Or type `$theme kryon` in chat for a session-only preview.
-3. To persist, set `[UI] RmlTheme=kryon` in `config.ini` while the client is closed.
+2. Or type `$theme kryon-nousar` in chat for a session-only preview.
+3. To persist, set `[UI] RmlTheme=kryon-nousar` in `config.ini` while the client is closed.
 
 Run `python tools/check_rml_rcss_drift.py` after changing a forked `.rcss`; it checks the
 required ids, callbacks and model fields. Visual structure and interaction still need a client

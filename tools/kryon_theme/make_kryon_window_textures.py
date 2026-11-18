@@ -1,4 +1,4 @@
-"""Builds the Kryon theme's window textures (themes/kryon/ui/*.OZT) from the Season 6 HUD asset pack.
+"""Builds the Kryon theme's window textures (themes/kryon-nousar/ui/*.OZT) from the Season 6 HUD asset pack.
 
 The HUD's art, reused for the windows (see make_kryon_hud_textures.py for the HUD itself):
 
@@ -31,7 +31,7 @@ from scipy import ndimage
 from make_kryon_hud_textures import load, resize, write_ozt
 import make_kryon_hud_textures as hud
 
-OUT = pathlib.Path(__file__).resolve().parents[2] / "src/bin/Data/Interface/RmlUi/themes/kryon/ui"
+OUT = pathlib.Path(__file__).resolve().parents[2] / "src/bin/Data/Interface/RmlUi/themes/kryon-nousar/ui"
 
 
 def crop(pixels, box):
