@@ -445,6 +445,14 @@ class StylesheetConverter:
         match = re.match(r"(-?[\d.]+)dp$", value)
         return self.length(float(match.group(1))) if match else value
 
+    def edge_length(self, word):
+        """A ninepatch edge: px as written, dp at the window's dp ratio."""
+        match = re.match(r"(-?[\d.]+)(px|dp)?$", word)
+        if not match:
+            return None
+        value = float(match.group(1))
+        return value * self.ratio if match.group(2) == "dp" else value
+
     def ninepatch_layers(self, arguments, directory):
         names = split_top_level(arguments)
         if len(names) < 2 or names[0] not in self.sprites or names[1] not in self.sprites:
@@ -459,6 +467,13 @@ class StylesheetConverter:
         right, bottom = ox + ow - (ix + iw), oy + oh - (iy + ih)
         f = self.ratio * scale
         L, T, R, B = left * f, top * f, right * f, bottom * f
+        # Explicit edges (top right bottom left, as in CSS): RmlUi draws the edges at that size.
+        if len(names) >= 3:
+            sizes = [self.edge_length(word) for word in names[2].split()]
+            if 1 <= len(sizes) <= 4 and all(s is not None for s in sizes):
+                t, r, b, l = {1: lambda v: v * 4, 2: lambda v: v * 2, 3: lambda v: v + v[1:2],
+                              4: lambda v: v}[len(sizes)](sizes)
+                T, R, B, L = t, r, b, l
         columns = [(ox, left, "left 0", f"{L:.3f}px"), (ix, iw, f"left {L:.3f}px", f"calc(100% - {L + R:.3f}px)"),
                    (ix + iw, right, "right 0", f"{R:.3f}px")]
         rows = [(oy, top, "top 0", f"{T:.3f}px"), (iy, ih, f"top {T:.3f}px", f"calc(100% - {T + B:.3f}px)"),
@@ -841,7 +856,8 @@ class DocumentRenderer:
         """Applies the data bindings of element and its children; returns False to drop it."""
         attributes = element.attrib
         if "data-model" in attributes:
-            scope = self.model_scope(attributes.pop("data-model"))
+            # Kept on the element, as RmlUi keeps it: a sheet may select a document by its model.
+            scope = self.model_scope(attributes["data-model"])
 
         if "data-for" in attributes:
             declaration = attributes.pop("data-for")
@@ -894,7 +910,7 @@ class DocumentRenderer:
             else:
                 continue
             del attributes[name]
-        for name in [n for n in attributes if n.startswith("data-")]:
+        for name in [n for n in attributes if n.startswith("data-") and n != "data-model"]:
             del attributes[name]  # events, aliases and the game's own markers have no preview
         if classes:
             attributes["class"] = " ".join(classes)

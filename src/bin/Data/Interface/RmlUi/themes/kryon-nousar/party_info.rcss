@@ -1,0 +1,88 @@
+/* Kryon theme: CPartyInfoWindow on the ornate window kit (base.rcss, "Kryon ornate window kit"),
+   with its own markup (party_info.rml beside this file). The frame, gems, close button, list box,
+   cards and gauges are the kit's; this file only places them in the 190x429 docked panel, inside
+   the frame's rails (x 15..175, y 40..410). Text is laid out at the physical size (reference px
+   times --root-scale) and scaled back, as the README's "Sharp text in scaled panels" asks. */
+
+/* The kit's round close button replaces the frame's corner hit box. */
+#frame_corner_close { display: none; }
+
+.party-empty-msg {
+	position: absolute;
+	left: 22px;
+	top: 46px;
+	width: calc(146px * var(--root-scale, 1));
+	font-family: "token(font-body)";
+	font-size: calc(10px * var(--root-scale, 1));
+	line-height: calc(14px * var(--root-scale, 1));
+	color: token(text-primary);
+}
+.party-empty-msg span { display: block; }
+
+.party-summary { position: absolute; left: 0; right: 0; top: 40px; height: 20px; }
+.party-count {
+	position: absolute;
+	left: 21px;
+	white-space: nowrap;
+	font-family: "token(font-title)";
+	font-size: calc(10px * var(--root-scale, 1));
+	color: token(text-primary);
+}
+.party-leave { right: 19px; top: 1px; width: 58px; height: 18px; }
+
+.party-list { left: 16px; right: 16px; top: 64px; padding: 4px; }
+.party-row { width: 150px; height: 56px; margin-bottom: 3px; }
+
+.party-portrait { left: 5px; top: 7px; width: 42px; height: 42px; }
+.party-initial {
+	position: absolute;
+	font-family: "token(font-title)";
+	font-weight: bold;
+	font-size: calc(20px * var(--root-scale, 1));
+	color: token(accent-gold);
+	text-transform: uppercase;
+}
+.party-crown { left: 3px; top: 3px; }
+
+.party-name, .party-coord, .party-map, .party-hp-text {
+	position: absolute;
+	display: block;
+	white-space: nowrap;
+	pointer-events: none;
+}
+.party-name {
+	left: 53px;
+	top: 6px;
+	width: calc(58px * var(--root-scale, 1));
+	overflow: hidden;
+	font-family: "token(font-title)";
+	font-weight: bold;
+	font-size: calc(10px * var(--root-scale, 1));
+	color: token(text-primary);
+}
+.party-name.leader { color: token(text-warm); }
+.party-coord {
+	right: 6px;
+	top: 7px;
+	font-family: "token(font-body)";
+	font-size: calc(8px * var(--root-scale, 1));
+	color: token(text-secondary);
+}
+.party-map {
+	left: 53px;
+	top: 20px;
+	font-family: "token(font-title)";
+	font-size: calc(10px * var(--root-scale, 1));
+	color: token(text-online);
+}
+.party-dot { right: 21px; top: 21px; }
+.party-kick-btn { right: 5px; top: 20px; }
+
+.party-hp-bar { left: 53px; top: 38px; width: 60px; height: 9px; }
+.party-hp-text {
+	right: 6px;
+	top: 36px;
+	font-family: "token(font-body)";
+	font-size: calc(9px * var(--root-scale, 1));
+	color: token(text-primary);
+}

@@ -1,0 +1,59 @@
+<rml>
+	<!-- bound-geometry: each member's health bar is a fraction -->
+<head>
+	<title>Party Info</title>
+	<link type="text/rcss" href="base.rcss"/>
+	<link type="text/rcss" href="docked_panel_frame.rcss"/>
+	<link type="text/rcss" href="party_info.rcss"/>
+</head>
+<body>
+	<!-- Kryon's own copy of CPartyInfoWindow's frame, built on the ornate window kit (base.rcss,
+	     "Kryon ornate window kit"): the claw frame with its title band, the gems, the round close
+	     button, the gold list box and one card per member. Keep ids/data-model/event-callback
+	     names in sync with ../../party_info.rml. -->
+	<div id="panel" class="kryon-ornate" data-model="party_info">
+		<div class="kryon-ornate-frame"></div>
+		<div class="kryon-ornate-gem"></div>
+		<div class="kryon-ornate-gem-small"></div>
+		<div class="kryon-ornate-gem-bottom"></div>
+
+		<div class="kryon-ornate-title"><span class="sharp-text sharp-centre sharp-middle">{{window_title}}</span></div>
+
+		<div class="party-empty-msg sharp-text" data-class-hidden="has_party">
+			<span data-for="line : empty_state_lines">{{line.text}}</span>
+		</div>
+
+		<div class="party-summary" data-class-hidden="!has_party">
+			<span class="sharp-text sharp-middle party-count">{{members_label}}: {{members.size}} / 5</span>
+			<div class="kryon-ornate-danger party-leave" data-class-hidden="self_index &lt; 0"
+			     data-event-click="party_kick_member(self_index)">
+				<span class="sharp-text sharp-centre sharp-middle">{{leave_label}}</span>
+			</div>
+		</div>
+
+		<div class="kryon-ornate-list party-list" data-class-hidden="!has_party">
+			<div class="kryon-ornate-card party-row" data-for="m : members">
+				<div class="kryon-ornate-portrait party-portrait">
+					<span class="sharp-text sharp-centre sharp-middle party-initial">{{m.initial}}</span>
+				</div>
+				<div class="kryon-ornate-crown party-crown" data-class-hidden="!m.is_leader"></div>
+
+				<span class="sharp-text party-name" data-class-leader="m.is_leader" data-class-self="m.is_self">{{m.name}}</span>
+				<span class="sharp-text sharp-right party-coord">{{m.coord_text}}</span>
+				<span class="sharp-text party-map">{{m.map_text}}</span>
+				<div class="kryon-ornate-dot party-dot"></div>
+				<div class="kryon-ornate-kick party-kick-btn" data-class-hidden="!m.show_kick || m.is_self"
+				     data-event-click="party_kick_member(m.index)"></div>
+
+				<div class="kryon-ornate-bar party-hp-bar">
+					<div class="kryon-ornate-bar-fill" data-style-width="m.hp_percent + '%'"></div>
+				</div>
+				<span class="sharp-text sharp-right party-hp-text">{{m.hp_percent | format(0)}}%</span>
+			</div>
+		</div>
+
+		<div id="btn_exit" class="kryon-ornate-close" data-event-click="window_close" data-attr-data-hint="exit_tooltip"></div>
+		<div id="frame_corner_close" data-event-click="window_close"></div>
+	</div>
+</body>
+</rml>

@@ -1,4 +1,4 @@
-"""Builds the Kryon theme's chat textures (themes/kryon/ui/chat_*.OZT) from the Season 6 HUD asset pack.
+"""Builds the Kryon theme's chat textures (themes/kryon-nousar/ui/chat_*.OZT) from the Season 6 HUD asset pack.
 
 The chat's own pieces, beside the shared window art (make_kryon_window_textures.py):
 

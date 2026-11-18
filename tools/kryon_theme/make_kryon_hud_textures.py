@@ -1,4 +1,4 @@
-"""Builds the Kryon theme's HUD textures (themes/kryon/hud/*.OZT) from the Season 6 HUD asset pack.
+"""Builds the Kryon theme's HUD textures (themes/kryon-nousar/hud/*.OZT) from the Season 6 HUD asset pack.
 
 The pack (MU_Online_Season6_HUD_AssetPack.zip, PNG/ folder) is the source art; it is not in the
 repository. This script cuts what the HUD draws from it:
@@ -32,7 +32,7 @@ import numpy as np
 from PIL import Image
 from scipy import ndimage
 
-OUT = pathlib.Path(__file__).resolve().parents[2] / "src/bin/Data/Interface/RmlUi/themes/kryon/hud"
+OUT = pathlib.Path(__file__).resolve().parents[2] / "src/bin/Data/Interface/RmlUi/themes/kryon-nousar/hud"
 
 # The bar's art, in its own pixels. The slots' dark wells sit at these x ranges, y 73..187; the
 # frame between two slots is at their midpoint, so a slot repeated from one midpoint to the next

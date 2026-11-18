@@ -1,4 +1,8 @@
-# Kryon theme
+# Kryon theme (no usar)
+
+> **Not for use.** This is the first version of the Kryon theme, renamed to `kryon-nousar` and
+> kept only for reference while Kryon is redone with a different interface direction. Select it as
+> `$theme kryon-nousar`. Paths below that say `themes/kryon/` now live in `themes/kryon-nousar/`.
 
 **Warm obsidian and gilded bronze.** Kryon takes its material language and typography from the
 OpenMU browser stack's loader/analysis shell (`openmu-browser-stack/public/index.html` and the
@@ -84,6 +88,7 @@ The values live in `tokens.ini`; this table is their meaning.
 | `text-muted` | Quietest tier |
 | `text-warm` | Titles, names, emphasis |
 | `text-disabled` | Disabled control text |
+| `text-online` | An online party member's map (the party art's green) |
 
 ### Accents and semantic
 
@@ -123,8 +128,8 @@ faces cannot load, RmlUi falls back to the bundled Liberation Sans.
 | Main menu / dialogs | `sys_menu.rcss`, `option_window.rcss`, `generic_confirm_dialog.rcss`, `generic_menu_dialog.rcss` |
 | HUD / chat | `main_frame.rcss`, `main_frame_top.rcss`, `mu_helper_bar.rcss`, `chat_log.rml`/`.rcss`, `chat_input.rml`/`.rcss` (Season 6 chat deck: tabs, gear menu, framed log; art by `tools/kryon_theme/make_kryon_chat_textures.py`), `item_grid.rcss`, `tooltip.rcss` |
 | Letters | `letter_read.rcss`, `letter_write.rcss` |
-| Inventory family | `my_inventory.rcss`, `trade.rcss`, `storage.rcss`, `storage_ext.rcss`, `npc_shop.rcss`, `my_shop.rcss`, `purchase_shop.rcss`, `inventory_extension.rcss`, `mix_inventory.rcss`, `lucky_item.rcss` |
-| Docked windows | `docked_panel_frame.rcss`, `character_info.rcss` |
+| Inventory family | `my_inventory.rcss` (inventory and shops on the ornate kit, see below), `trade.rcss`, `storage.rcss`, `storage_ext.rcss`, `npc_shop.rcss`, `my_shop.rcss`, `purchase_shop.rcss`, `inventory_extension.rcss`, `mix_inventory.rcss`, `lucky_item.rcss` |
+| Docked windows | `docked_panel_frame.rcss`; on the ornate kit: `character_info.rml`/`.rcss`, `my_quest_info.rml`/`.rcss`, `pet_info.rml`/`.rcss`, `party_info.rml`/`.rcss` |
 | Character creation | `char_make.rcss` |
 
 Everything else — server select, message boxes, character select, tooltips, the MU Helper, event
@@ -136,8 +141,8 @@ shared pass cannot reach.
 
 1. Open **Options → UI → Theme** and pick **Kryon** (the list refreshes when the theme is
    selected).
-2. Or type `$theme kryon` in chat for a session-only preview.
-3. To persist, set `[UI] RmlTheme=kryon` in `config.ini` while the client is closed.
+2. Or type `$theme kryon-nousar` in chat for a session-only preview.
+3. To persist, set `[UI] RmlTheme=kryon-nousar` in `config.ini` while the client is closed.
 
 Run `python tools/check_rml_rcss_drift.py` after changing a forked `.rcss`; it checks the
 required ids, callbacks and model fields. Visual structure and interaction still need a client
@@ -177,6 +182,33 @@ The shared rules are at the end of `base.rcss` ("Kryon art pass"), with `body ..
 win over each window's palette rules. Every piece is a `ninepatch(...)` with explicit edges: a
 sprite's natural size follows the context's dp ratio, which the panels that scale themselves
 (reference px) would apply twice.
+
+## Ornate window kit
+
+The party window is drawn with the Season 6 party UI pack (`MU_S6_Party_UI_Assets`), cut into
+`ui/ornate_*` by `tools/kryon_theme/make_kryon_ornate_textures.py PATH_TO_PACK` (it prints each
+piece's ninepatch rects). The pieces are shared classes at the end of `base.rcss` ("Kryon ornate
+window kit"), meant as the base every window moves to: a window adds `kryon-ornate` to its
+`#panel`, puts `.kryon-ornate-frame` (the claw frame with its title band) first, the title in
+`.kryon-ornate-title`, the round `.kryon-ornate-close`, and builds its content from the list box,
+cards, portrait frame, crimson action plate, gauge and status gem. The four docked windows
+(character, quest, pet, party) are on it; `party_info.rml` is the worked example.
+
+The NPC and event windows (gate keeper, guard, gate switch, senate, catapult, golden archer and
+Lena, lucky coins, NPC dialogue, NPC quest, quest progress; Blood Castle, Devil Square,
+Doppelganger, Empire Guardian, duel watch), the guild info and guild creation windows, the Gens
+ranking and the MU Helper (settings and detail) take the kit without markup of their own: the end of
+`docked_panel_frame.rcss` picks each by its `data-model` and turns the legacy `.frame-piece`
+leaves (or the modern forks' shell edge, groove, joint and rail accent) into the frame and its
+gems, and `#btn_exit` / `#frame_corner_close` into the round close button. Adding a window there
+means adding its `data-model` to those selector lists and moving whatever the title band or the
+rails cover. `python tools/rml_preview.py <document> --theme kryon --png` shows the result.
+
+The inventory and shops (`my_inventory`, `npc_shop`, `my_shop`, `purchase_shop`) are picked the same
+way by their body's `data-model`, at the end of `base.rcss`: their background shell (`.bg-panel`,
+`.inv-shell-edge`, `.rail-fill`/`.rail-accent`) and header joint become the plate, frame and gems.
+The friends window (`friend_shell.rcss`, a fork of modern's) puts the kit on the `window_shell`
+chrome in dp. The frame needs a panel about 160px wide or more (its claw corners are 73px a side).
 
 ## Rules for changes
 

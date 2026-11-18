@@ -269,3 +269,28 @@
 	border-color: transparent;
 	decorator: ninepatch(kryon-rail, kryon-rail-inner, 6px 14px 6px 14px);
 }
+
+/* --------------------------------------------------------------------------
+   Ornate window kit (base.rcss, "Kryon ornate window kit"; Kryon's own
+   character_info.rml): the name sits on the title band, the class and server
+   under it; the summary, the stat rows and their "+" move inside the frame's
+   gold rails; the exit is the kit's round close button, so the three
+   remaining squares centre on the row, above the frame's foot.
+   -------------------------------------------------------------------------- */
+#name { top: 14px; }
+#classname, #servername { top: 37px; font-size: calc(10px * var(--root-scale, 1)); }
+.summary-fill { left: 15px; right: 15px; top: 51px; height: 68px; }
+.level-text, .levelup-point-text, .exp-text, .point-probability-text, .point-text { left: 21px; }
+.level-text { top: 53px; }
+.levelup-point-text { top: 65px; }
+.exp-text { top: 78px; }
+.point-probability-text { top: 91px; }
+.point-text { top: 104px; }
+.attr-textbox { left: 14px; right: 14px; }
+.attr-label { left: 16px; }
+.attr-lines-str, .attr-lines-agi, .attr-lines-vit, .attr-lines-ene { left: 22px; }
+.stat-btn { right: 18px; }
+.chainfo-btn-quest, .chainfo-btn-pet, .chainfo-btn-masterlevel { top: auto; bottom: 22px; height: 24px; line-height: 24px; }
+.chainfo-btn-quest       { left: 34px; }
+.chainfo-btn-pet         { left: 77px; }
+.chainfo-btn-masterlevel { left: 120px; }
