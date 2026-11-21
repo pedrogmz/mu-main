@@ -227,3 +227,14 @@
 
 /* A line with a hint (the damage, the critical damage rate) shows it while the pointer is over it. */
 .attr-lines span.hinted { pointer-events: auto; }
+
+/* ---- handmade/character_info.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon character window. Modern moves the AGI and VIT capsules one line (13px) down so STR has
+   room for its third line (the critical damage rate), but its later sharp-text block puts their
+   labels, values and "+" buttons back at the old 175 / 240, over STR's lines. Kryon places them on
+   their capsules again: each capsule's top, and the button 2.5px inside it. */
+
+.attr-label-agi, .attr-value-agi { top: 188px; }
+.attr-label-vit, .attr-value-vit { top: 253px; }
+.stat-btn-agi { top: 190.5px; }
+.stat-btn-vit { top: 255.5px; }

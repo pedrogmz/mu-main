@@ -1,0 +1,25 @@
+/* Kryon MU Helper bar: a small Kryon card with framed buttons. The dots keep their meaning colors
+   (gray settings, green start, red stop). */
+
+#panel {
+	background-color: token(kryon-card-bottom);
+	decorator: linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-bottom) 100%);
+	border: 1dp token(kryon-card-border);
+	border-radius: token(radius-md)dp;
+	box-shadow: 0 0 0 2dp token(kryon-ring-outer), 0 0 0 3dp token(kryon-ring-gold), 0 6dp 16dp rgba(0, 0, 0, 160);
+}
+#text {
+	color: token(kryon-title);
+	font-family: "token(font-title)";
+}
+.mu-btn {
+	background-color: token(kryon-tab-idle);
+	decorator: linear-gradient(180deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	border: 1dp token(kryon-tab-border);
+	border-radius: token(radius-sm)dp;
+}
+.mu-btn:hover {
+	background-color: token(kryon-tab-bottom);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+	border: 1dp token(kryon-btn-border-hover);
+}
