@@ -210,10 +210,14 @@ def refresh(pen):  # a circular arrow
     pen.arc(12, 12, 7, 330, 270)
     pen.line((9, 2), (12.5, 5), (9, 8))
 
+def crown(pen):  # the party leader
+    pen.fill((4, 8), (8.5, 12), (12, 5), (15.5, 12), (20, 8), (18, 18), (6, 18))
+    pen.line((6, 20), (18, 20))
+
 
 ICONS = {
     "chevron_left": chevron_left, "chevron_right": chevron_right, "gift": gift, "coin": coin,
-    "refresh": refresh,
+    "refresh": refresh, "crown": crown,
     "close": close, "plus": plus, "expand": expand, "repair": repair, "shop": shop,
     "quest": quest, "pet": pet, "master": master,
     "minimize": minimize, "maximize": maximize, "restore": restore, "grip": grip,

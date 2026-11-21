@@ -147,3 +147,138 @@
    left offset only. */
 .party-btn-exit { left: 13px; }
 
+
+/* ---- handmade/party_info.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon party window: the title centred in spaced capitals like every Kryon window, and each
+   member a small Kryon card -- the name at the left with a crown for the leader and an x to kick
+   on the right, the map and coordinates under it, the HP in a recessed bar with its figure.
+   The HP stays green: it is gameplay information. The rows keep modern's size and flow. */
+
+#title {
+	left: 0;
+	width: 190px;
+	color: token(kryon-title);
+	font-family: "token(font-title)";
+	font-weight: normal;
+	font-size: 11px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+.party-list { top: 46px; }
+
+/* The member card */
+.gbox-content-fill {
+	top: 0;
+	height: 64px;
+	background-color: rgba(4, 6, 9, 200);
+	decorator: linear-gradient(180deg, rgba(20, 23, 27, 220) 0%, rgba(6, 9, 14, 220) 100%);
+	border: 1px rgba(141, 116, 75, 120);
+	border-radius: token(radius-sm)px;
+	box-shadow: inset 0 1px 0 rgba(219, 184, 118, 20);
+}
+
+.party-name {
+	left: 9px;
+	top: 6px;
+	width: 115px;
+	text-align: left;
+	font-family: "token(font-title)";
+	font-weight: normal;
+	font-size: 12px;
+	color: token(text-primary);
+}
+.party-name.leader { color: token(kryon-btn-text); }
+
+/* The leader's crown, beside the kick button */
+.party-flag {
+	left: 132px;
+	top: 6px;
+	width: 13px;
+	height: 13px;
+	background-color: transparent;
+	border-radius: 0;
+	decorator: image(icons/crown.tga contain);
+}
+
+.party-kick-btn {
+	left: 150px;
+	top: 6px;
+	width: 13px;
+	height: 13px;
+	background-color: token(kryon-tab-idle);
+	border: 1px token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)px;
+	decorator: image(icons/close.tga contain);
+	color: transparent;
+	font-size: 0;
+}
+.party-kick-btn:hover {
+	background-color: rgba(192, 86, 78, 60);
+	border-color: #c0564e;
+}
+
+/* Where they are */
+.party-map,
+.party-coord {
+	top: 24px;
+	font-size: 10px;
+	color: token(kryon-label);
+}
+.party-map {
+	left: 9px;
+	width: 90px;
+}
+.party-coord {
+	left: 95px;
+	width: 68px;
+	text-align: right;
+}
+
+/* Health */
+.party-hp-bar {
+	left: 9px;
+	top: 40px;
+	width: 154px;
+	height: 5px;
+	background-color: rgba(2, 4, 5, 230);
+	border-radius: 1px;
+	box-shadow: 0 0 0 1px rgba(98, 83, 56, 160);
+}
+.party-hp-fill {
+	height: 5px;
+	border-radius: 1px;
+	decorator: linear-gradient(180deg, #a6dc84 0%, #7fc25c 50%, #4f8a36 100%);
+}
+.party-hp-text {
+	left: 93px;
+	top: 47px;
+	font-size: 10px;
+	color: token(text-secondary);
+}
+
+.party-empty-msg {
+	color: token(text-secondary);
+}
+
+/* Sharp text. #panel is scaled by transform: scale(--root-scale) and RmlUi rasterises glyphs at
+   the computed font-size, so the text would be stretched (blurry). As in the other docked windows'
+   sharp-text overlays, each text leaf lays out at the physical size (reference px times
+   --root-scale) and scales back by 1 / --root-scale around its top-left corner, so its size and
+   place on screen stay the ones above. */
+#title,
+.party-name,
+.party-map,
+.party-coord,
+.party-hp-text,
+.party-empty-msg {
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+#title { width: calc(190px * var(--root-scale, 1)); font-size: calc(11px * var(--root-scale, 1)); letter-spacing: calc(2px * var(--root-scale, 1)); }
+.party-name { width: calc(115px * var(--root-scale, 1)); font-size: calc(12px * var(--root-scale, 1)); }
+.party-map { width: calc(90px * var(--root-scale, 1)); font-size: calc(10px * var(--root-scale, 1)); }
+.party-coord { width: calc(68px * var(--root-scale, 1)); font-size: calc(10px * var(--root-scale, 1)); }
+.party-hp-text { width: calc(70px * var(--root-scale, 1)); font-size: calc(10px * var(--root-scale, 1)); }
+.party-empty-msg { width: calc(160px * var(--root-scale, 1)); font-size: calc(12px * var(--root-scale, 1)); }
+.party-empty-msg span { line-height: calc(15px * var(--root-scale, 1)); }
