@@ -208,10 +208,13 @@
 	transform: scale(calc(1 / var(--root-scale, 1)));
 }
 
-/* ---- handmade/my_inventory.rcss: the Kryon look, appended so it wins by source order. ---- */
-/* Kryon inventory: the Kryon card around modern's layout. Every position stays modern's -- the
-   slots and the grid are native anchors CMyInventory reads back for its hit tests -- so only the
-   look changes: card and rings, the title over a divider, recessed slots and cells. */
+/* ---- handmade/shared/inventory_frame.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon frame for the item windows (inventory, storage, trade, shops, Chaos Machine, ...): they
+   share modern's .bg-panel / .inv-shell-edge / .inv-groove / .rail-fill structure, each in its own
+   stylesheet, so this overlay is appended to every one of them (tokens.json's handmadeShared).
+   Every position stays modern's -- slots and grids are native anchors the client reads back for
+   its hit tests -- so only the look changes: card and rings, the title over a divider, recessed
+   slots and cells. */
 
 .bg-panel {
 	background-color: token(kryon-card-bottom);
@@ -252,9 +255,14 @@
 	border-color: rgba(141, 116, 75, 90);
 	background-color: rgba(4, 6, 9, 150);
 }
-#item_grid .item-cell-art {
+#item_grid .item-cell-art,
+.item-grid .item-cell-art {
 	border-color: rgba(141, 116, 75, 46);
 }
+
+
+/* ---- handmade/my_inventory.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon inventory: its own details on top of shared/inventory_frame.rcss. */
 
 .inv-btn-exit {
 	color: #e0a088;

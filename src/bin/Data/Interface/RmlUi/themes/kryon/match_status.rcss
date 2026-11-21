@@ -35,3 +35,25 @@ body { pointer-events: none; }
 #result_ok { position: absolute; left: 115px; top: 160px; width: 70px; height: 20px; background-color: token(surface-raised); border: 1px token(border-frame); border-radius: token(radius-sm); pointer-events: auto; cursor: pointer; }
 #result_ok:hover { background-color: token(accent-steel-hover); }
 #result_ok .ok-label { top: 50%; color: token(text-primary); }
+
+/* ---- handmade/shared/flat_card.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon card for the small windows modern draws as a flat box (surface-panel fill, one border-frame
+   line): event entries and timers, Kanturu, Cursed Temple, duel, quick command, window menu, message
+   boxes, the in-game shop's frames... The rule's selector is filled in per stylesheet from
+   tokens.json's handmadeShared. Sizes are px: these panels scale themselves. */
+
+#result_back {
+	background-color: token(kryon-card-bottom);
+	decorator:
+		radial-gradient(circle at 50% 0%, token(kryon-card-glow), transparent 55%),
+		linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-mid) 50%, token(kryon-card-bottom) 100%);
+	border-width: 1px;
+	border-color: token(kryon-card-border);
+	border-radius: token(radius-md)px;
+	box-shadow:
+		0 0 0 2px token(kryon-ring-outer),
+		0 0 0 3px token(kryon-ring-gold),
+		0 10px 28px rgba(0, 0, 0, 170),
+		inset 0 0 0 3px token(kryon-ring-inner-dark),
+		inset 0 0 0 4px token(kryon-filete);
+}

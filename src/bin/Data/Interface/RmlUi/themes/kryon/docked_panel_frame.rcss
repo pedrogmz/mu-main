@@ -67,3 +67,35 @@
 
 /* A theme's data-fit="fill" slot sizes #panel (class fill-placement), its border included. */
 #panel.fill-placement { box-sizing: border-box; }
+
+/* ---- handmade/docked_panel_frame.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon frame for the docked windows (character, quest, pet, party, guild, event entries, MU
+   Helper, NPC dialogues...): the card with rings, and the header as a title over a divider instead
+   of modern's metal rail. Sizes are px: these panels scale themselves. */
+
+#panel {
+	background-color: token(kryon-card-bottom);
+	decorator:
+		radial-gradient(circle at 50% 0%, token(kryon-card-glow), transparent 55%),
+		linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-mid) 50%, token(kryon-card-bottom) 100%);
+	border-width: 1px;
+	border-color: token(kryon-card-border);
+	border-radius: token(radius-md)px;
+	box-shadow:
+		0 0 0 3px token(kryon-ring-outer),
+		0 0 0 4px token(kryon-ring-gold),
+		0 16px 40px rgba(0, 0, 0, 187),
+		inset 0 0 0 5px token(kryon-ring-inner-dark),
+		inset 0 0 0 6px token(kryon-filete);
+}
+.docked-header-rail-fill {
+	background-color: transparent;
+	decorator: none;
+	border-width: 0;
+	border-bottom-width: 1px;
+	border-bottom-color: token(kryon-divider);
+	box-shadow: none;
+}
+.docked-rail-accent {
+	display: none;
+}

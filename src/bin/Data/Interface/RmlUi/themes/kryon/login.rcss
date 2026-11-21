@@ -407,6 +407,8 @@ body {
 .login-btn {
 	left: 0;
 	width: 285dp;
+	letter-spacing: 1.2dp;
+	text-transform: uppercase;
 }
 .login-btn-ok {
 	top: 4dp;

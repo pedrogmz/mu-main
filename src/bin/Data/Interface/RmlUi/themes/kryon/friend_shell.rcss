@@ -106,3 +106,54 @@ button { font-family: "token(font-body)"; font-size: 10dp; color: token(text-sec
 #resize { display: block; position: absolute; right: -2dp; bottom: -8dp; width: 10dp; height: 10dp; z-index: 10; pointer-events: auto; box-sizing: border-box; background-color: token(surface-control); border-right: 2dp token(accent-steel); border-bottom: 2dp token(accent-steel); cursor: resize; }
 #resize:hover { border-right-color: token(accent-steel-hover); border-bottom-color: token(accent-steel-hover); }
 
+
+/* ---- handmade/friend_shell.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon friends window: the tabs and buttons as the web's tabs, the list as a dark well with
+   bronze row highlights. Layout stays modern's. */
+
+.btn {
+	color: token(kryon-tab-idle-text);
+	background-color: token(kryon-tab-idle);
+	decorator: none;
+	border: 1dp token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)dp;
+	box-shadow: none;
+	letter-spacing: 0;
+	text-transform: none;
+}
+.btn:hover {
+	color: token(kryon-btn-text-hover);
+	border-color: token(kryon-btn-border-hover);
+	background-color: token(kryon-row-hover);
+}
+#tabs .btn.selected {
+	color: token(kryon-tab-text);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+	border-color: token(kryon-tab-border);
+	box-shadow: inset 0 -2dp 0 rgba(217, 154, 67, 217);
+}
+.headers {
+	border-bottom: 1dp token(kryon-divider);
+}
+.headers .sorted {
+	color: token(kryon-title);
+}
+.scroll-pane {
+	background-color: token(kryon-well-top);
+	border: 1dp token(kryon-well-border);
+}
+.row:hover {
+	background-color: token(kryon-row-hover);
+}
+.row.selected {
+	color: token(kryon-btn-text);
+	background-color: rgba(211, 174, 102, 40);
+}
+.check {
+	background-color: token(kryon-well-top);
+	border: 1dp token(kryon-well-border);
+}
+.checked .check {
+	background-color: token(kryon-gold-fill-bottom);
+	border-color: token(kryon-well-focus);
+}

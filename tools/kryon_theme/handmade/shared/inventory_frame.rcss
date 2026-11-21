@@ -1,0 +1,51 @@
+/* Kryon frame for the item windows (inventory, storage, trade, shops, Chaos Machine, ...): they
+   share modern's .bg-panel / .inv-shell-edge / .inv-groove / .rail-fill structure, each in its own
+   stylesheet, so this overlay is appended to every one of them (tokens.json's handmadeShared).
+   Every position stays modern's -- slots and grids are native anchors the client reads back for
+   its hit tests -- so only the look changes: card and rings, the title over a divider, recessed
+   slots and cells. */
+
+.bg-panel {
+	background-color: token(kryon-card-bottom);
+	decorator:
+		radial-gradient(circle at 50% 0%, token(kryon-card-glow), transparent 55%),
+		linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-mid) 50%, token(kryon-card-bottom) 100%);
+	border-width: 1px;
+	border-color: token(kryon-card-border);
+	border-radius: token(radius-md)px;
+	box-shadow:
+		0 0 0 3px token(kryon-ring-outer),
+		0 0 0 4px token(kryon-ring-gold),
+		0 16px 40px rgba(0, 0, 0, 187),
+		inset 0 0 0 5px token(kryon-ring-inner-dark),
+		inset 0 0 0 6px token(kryon-filete);
+}
+.inv-shell-edge {
+	display: none;
+}
+.inv-groove {
+	border-color: transparent;
+	box-shadow: none;
+}
+.rail-fill {
+	background-color: transparent;
+	decorator: none;
+	border-width: 0;
+	border-bottom-width: 1px;
+	border-bottom-color: token(kryon-divider);
+	box-shadow: none;
+}
+.rail-accent {
+	display: none;
+}
+
+/* Equipment slots and bag cells: dark wells with a faint bronze edge. */
+.equip-slot {
+	border-color: rgba(141, 116, 75, 90);
+	background-color: rgba(4, 6, 9, 150);
+}
+#item_grid .item-cell-art,
+.item-grid .item-cell-art {
+	border-color: rgba(141, 116, 75, 46);
+}
+
