@@ -189,3 +189,18 @@
 	border-color: rgba(141, 116, 75, 46);
 }
 
+
+/* ---- handmade/my_shop.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Sharp text in the shop title field. #panel is scaled by transform: scale(--root-scale); RmlUi
+   rasterises glyphs at the computed font-size, so its text was stretched 1.5-2x (blurry). As in
+   base.rcss's .modern-header-title-px, the text lays out at the physical size (reference px times
+   --root-scale) and scales back by 1 / --root-scale around its top-left corner, so its size and
+   place on screen are unchanged. */
+.my-shop-title-field {
+	width: calc(169px * var(--root-scale, 1));
+	height: calc(26px * var(--root-scale, 1));
+	padding: calc(6px * var(--root-scale, 1)) calc(6px * var(--root-scale, 1)) 0 calc(38px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}

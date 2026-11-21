@@ -1,0 +1,23 @@
+/* Sharp text in the mix window. #panel is scaled by transform: scale(--root-scale); RmlUi
+   rasterises glyphs at the computed font-size, so its text was stretched 1.5-2x (blurry). As in
+   base.rcss's .modern-header-title-px, the text lays out at the physical size (reference px times
+   --root-scale) and scales back by 1 / --root-scale around its top-left corner, so its size and
+   place on screen are unchanged. */
+.mix-tax-rate {
+	width: calc(160px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+/* Was top 70px / bottom 40px of #panel: the height is spelled out. */
+.mix-content {
+	bottom: auto;
+	width: calc(160px * var(--root-scale, 1));
+	height: calc((100% - 110px) * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.mix-line {
+	margin-bottom: calc(3px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+}

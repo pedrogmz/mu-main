@@ -1,0 +1,41 @@
+/* Sharp text in the pet window. #panel is scaled by transform: scale(--root-scale), and RmlUi
+   rasterises glyphs at the computed font-size, so the 12px text was stretched 1.5-2x (blurry). As
+   in base.rcss's .modern-header-title-px, each text leaf (and the tab row) lays out at the physical
+   size (reference px times --root-scale) and scales back by 1 / --root-scale around its top-left
+   corner, so its size and place on screen are unchanged. */
+#title,
+.tab-row,
+.pet-no-pet-msg,
+.pet-subtitle,
+.gbox-title-text,
+.pet-stat-text,
+.skill-label {
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+#title,
+.pet-no-pet-msg,
+.pet-subtitle,
+.gbox-title-text,
+.pet-stat-text,
+.skill-label {
+	font-size: calc(12px * var(--root-scale, 1));
+}
+#title,
+.pet-subtitle { width: calc(100% * var(--root-scale, 1)); }
+/* Was left/right 15px of the 190px panel: a counter-scaled box needs its width spelled out. */
+.pet-no-pet-msg { right: auto; width: calc(160px * var(--root-scale, 1)); }
+.gbox-title-text { width: calc(56px * var(--root-scale, 1)); }
+.skill-label { width: calc(100px * var(--root-scale, 1)); }
+
+.tab-row {
+	width: calc(112px * var(--root-scale, 1));
+	height: calc(22px * var(--root-scale, 1));
+}
+.tab-btn {
+	width: calc(56px * var(--root-scale, 1));
+	height: calc(22px * var(--root-scale, 1));
+	line-height: calc(22px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+}
+.tab-btn-darkspirit { left: calc(56px * var(--root-scale, 1)); }

@@ -172,3 +172,63 @@
 .qp-reward-row.row-requirement-unmet, .qp-reward-row.row-requirement-unmet.clickable:hover { color: #ff1e1e; }
 .qp-reward-row.row-reward, .qp-reward-row.row-reward.clickable:hover { color: #dfb567; }
 .qp-reward-row.row-random-reward, .qp-reward-row.row-random-reward.clickable:hover { color: #6767df; }
+
+/* ---- handmade/quest_progress.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Sharp text in the quest progress window (quest_progress.rml and quest_progress_etc.rml). Its
+   #panel is scaled by transform: scale(--root-scale), and RmlUi rasterises glyphs at the computed
+   font-size, so the 12px text was stretched 1.5-2x (blurry). As in base.rcss's
+   .modern-header-title-px, each text leaf or text column lays out at the physical size (reference
+   px times --root-scale) and scales back by 1 / --root-scale around its top-left corner, so its
+   size and place on screen are unchanged. */
+.qp-subject {
+	width: calc(190px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.qp-npc-name,
+.qp-player-name {
+	font-size: calc(12px * var(--root-scale, 1));
+	white-space: nowrap;
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.qp-npc-lines,
+.qp-answers {
+	width: calc(164px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.qp-line {
+	font-size: calc(12px * var(--root-scale, 1));
+}
+.qp-player-words {
+	font-size: calc(12px * var(--root-scale, 1));
+	margin-bottom: calc(15px * var(--root-scale, 1));
+}
+.qp-answer-row {
+	font-size: calc(12px * var(--root-scale, 1));
+	margin-bottom: calc(2px * var(--root-scale, 1));
+}
+.qp-reward-list {
+	width: calc(174px * var(--root-scale, 1));
+	height: calc(150px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.qp-reward-row {
+	padding: calc(1px * var(--root-scale, 1)) calc(4px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+}
+.qp-btn-complete {
+	width: calc(108px * var(--root-scale, 1));
+	height: calc(29px * var(--root-scale, 1));
+	line-height: calc(29px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+/* .btn:active's press shift would replace the counter-scale; keep both. */
+.qp-btn-complete:active {
+	transform: translateY(1dp) scale(calc(1 / var(--root-scale, 1)));
+}

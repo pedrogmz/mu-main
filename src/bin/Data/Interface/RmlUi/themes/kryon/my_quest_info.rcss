@@ -194,3 +194,89 @@
 .quest-content-row.row-requirement-unmet, .quest-content-row.row-requirement-unmet.clickable:hover { color: #ff1e1e; }
 .quest-content-row.row-reward, .quest-content-row.row-reward.clickable:hover { color: #dfb567; }
 .quest-content-row.row-random-reward, .quest-content-row.row-random-reward.clickable:hover { color: #6767df; }
+
+/* ---- handmade/my_quest_info.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Sharp text in the quest log. #panel is scaled by transform: scale(--root-scale), and RmlUi
+   rasterises glyphs at the computed font-size, so the 12px text was stretched 1.5-2x (blurry). As
+   in base.rcss's .modern-header-title-px, the tab row and each tab's body lay out at the physical
+   size (every length inside is reference px times --root-scale) and scale back by 1 / --root-scale
+   around their top-left corner, so on screen nothing moves or changes size. */
+.tab-row,
+.quest-tab,
+.jobchange-tab,
+.castletemple-tab {
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.tab-row {
+	width: calc(166px * var(--root-scale, 1));
+	height: calc(22px * var(--root-scale, 1));
+}
+.tab-btn {
+	height: calc(22px * var(--root-scale, 1));
+	line-height: calc(22px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+}
+.tab-btn-quest { left: 0; width: calc(48px * var(--root-scale, 1)); }
+.tab-btn-jobchange { left: calc(48px * var(--root-scale, 1)); width: calc(48px * var(--root-scale, 1)); }
+.tab-btn-castletemple { left: calc(96px * var(--root-scale, 1)); width: calc(72px * var(--root-scale, 1)); }
+
+.quest-tab,
+.jobchange-tab,
+.castletemple-tab {
+	width: calc(172px * var(--root-scale, 1));
+	height: calc(320px * var(--root-scale, 1));
+}
+.quest-empty-msg {
+	left: calc(14px * var(--root-scale, 1));
+	top: calc(30px * var(--root-scale, 1));
+	width: calc(140px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+}
+.quest-list {
+	width: calc(172px * var(--root-scale, 1));
+	height: calc(130px * var(--root-scale, 1));
+}
+.quest-row {
+	height: calc(18px * var(--root-scale, 1));
+	line-height: calc(18px * var(--root-scale, 1));
+	padding-left: calc(4px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+}
+.quest-divider {
+	top: calc(130px * var(--root-scale, 1));
+	width: calc(172px * var(--root-scale, 1));
+	height: calc(21px * var(--root-scale, 1));
+}
+.quest-contents {
+	top: calc(151px * var(--root-scale, 1));
+	width: calc(172px * var(--root-scale, 1));
+	height: calc(169px * var(--root-scale, 1));
+}
+.quest-content-row {
+	padding: calc(1px * var(--root-scale, 1)) calc(4px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+}
+
+.jobchange-title {
+	width: calc(172px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+	margin-bottom: calc(8px * var(--root-scale, 1));
+}
+.jobchange-contents,
+.jobchange-state {
+	width: calc(172px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+}
+.jobchange-state { margin-top: calc(12px * var(--root-scale, 1)); }
+.castle-title,
+.temple-title {
+	width: calc(172px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+	margin-top: calc(6px * var(--root-scale, 1));
+}
+.castle-line,
+.temple-line {
+	width: calc(172px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+}

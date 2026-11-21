@@ -80,3 +80,34 @@
    13px left quest_progress.rcss's own .qp-btn-exit uses, matching the legacy #btn_exit box exactly. */
 .nd-btn-exit { left: 13px; }
 
+
+/* ---- handmade/npc_dialogue.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Sharp text in the NPC dialogue. modern's npc_dialogue.rml puts the NPC lines, the answers and the
+   Gens banner straight inside #panel, which a workspace slot scales with transform:
+   scale(--root-scale). RmlUi rasterises glyphs at the computed font-size and ignores transforms, so
+   that text was drawn at 12px and stretched 1.5-2x (blurry), while the header title, already a
+   counter-scaled leaf in base.rcss, stayed sharp. Same cure as base.rcss's .modern-header-title-px:
+   lay the text out at the physical size (reference px times --root-scale) and scale the layer back
+   by 1 / --root-scale, so on screen the size and position are unchanged.
+   CNPCDialogue's wrap width (content width / font-size) and drawn line pitch are unaffected. */
+.nd-contribute {
+	width: calc(168px * var(--root-scale, 1));
+	height: calc(18px * var(--root-scale, 1));
+	line-height: calc(18px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.nd-npc-lines,
+.nd-answers {
+	width: calc(164px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.nd-line {
+	font-size: calc(12px * var(--root-scale, 1));
+}
+.nd-answer-row {
+	font-size: calc(12px * var(--root-scale, 1));
+	margin-bottom: calc(2px * var(--root-scale, 1));
+}

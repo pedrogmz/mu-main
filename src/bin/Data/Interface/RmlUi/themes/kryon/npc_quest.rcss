@@ -146,3 +146,63 @@
    13px left every sibling this session uses, matching the legacy #btn_exit box exactly. */
 .nq-btn-exit { left: 13px; }
 
+
+/* ---- handmade/npc_quest.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Sharp text in the NPC quest window. #content_root is scaled by transform: scale(--root-scale),
+   and RmlUi rasterises glyphs at the computed font-size, so the 12px text was stretched 1.5-2x
+   (blurry). As in base.rcss's .modern-header-title-px, each text leaf or text column lays out at
+   the physical size (reference px times --root-scale) and scales back by 1 / --root-scale around
+   its top-left corner, so its size and place on screen are unchanged. CNPCQuest::RenderItem3D()
+   reads the condition rows' drawn top-left, which stays where it was. */
+#title,
+.nq-quest-title {
+	width: calc(190px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.nq-conditions {
+	width: calc(128px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.nq-condition-row {
+	height: calc(32px * var(--root-scale, 1));
+	line-height: calc(32px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+}
+.nq-btn-complete {
+	width: calc(108px * var(--root-scale, 1));
+	height: calc(29px * var(--root-scale, 1));
+	line-height: calc(29px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+/* .btn:active's press shift would replace the counter-scale; keep both. */
+.nq-btn-complete:active {
+	transform: translateY(1dp) scale(calc(1 / var(--root-scale, 1)));
+}
+.nq-cost-label {
+	font-size: calc(12px * var(--root-scale, 1));
+	white-space: nowrap;
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.nq-cost-amount {
+	width: calc(150px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+#nq_dialogue {
+	width: calc(190px * var(--root-scale, 1));
+	height: calc(126px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+#nq_dialogue.answers-anchored { height: auto; }
+.nq-message-line,
+.nq-answer-row {
+	font-size: calc(12px * var(--root-scale, 1));
+}

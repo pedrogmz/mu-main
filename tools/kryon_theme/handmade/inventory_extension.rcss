@@ -1,0 +1,15 @@
+/* Sharp text in the inventory extension window. #panel is scaled by transform:
+   scale(--root-scale); RmlUi
+   rasterises glyphs at the computed font-size, so its text was stretched 1.5-2x (blurry). As in
+   base.rcss's .modern-header-title-px, the text lays out at the physical size (reference px times
+   --root-scale) and scales back by 1 / --root-scale around its top-left corner, so its size and
+   place on screen are unchanged. */
+.ext-locked-badge {
+	width: calc(25px * var(--root-scale, 1));
+	height: calc(28px * var(--root-scale, 1));
+	line-height: calc(28px * var(--root-scale, 1));
+	border-width: calc(1px * var(--root-scale, 1));
+	font-size: calc(13px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
