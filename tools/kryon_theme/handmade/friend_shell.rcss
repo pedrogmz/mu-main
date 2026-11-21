@@ -47,3 +47,27 @@
 	background-color: token(kryon-gold-fill-bottom);
 	border-color: token(kryon-well-focus);
 }
+
+/* Window buttons and resize corner: modern draws their symbols with :before { content }, which
+   RmlUi does not have, so they were empty; Kryon gives them icons (handmade/icons). */
+#window_controls button {
+	background-color: token(kryon-tab-idle);
+	border: 1dp token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)dp;
+}
+#window_controls button:hover {
+	background-color: token(kryon-row-hover);
+	border-color: token(kryon-btn-border-hover);
+}
+#btn_minimize { decorator: image(icons/minimize.tga contain); }
+#btn_maximize { decorator: image(icons/maximize.tga contain); }
+#btn_maximize.restore { decorator: image(icons/restore.tga contain); }
+#btn_close { decorator: image(icons/close.tga contain); }
+#btn_close:hover {
+	border-color: #c0564e;
+}
+#resize {
+	background-color: transparent;
+	border-width: 0;
+	decorator: image(icons/grip.tga contain);
+}

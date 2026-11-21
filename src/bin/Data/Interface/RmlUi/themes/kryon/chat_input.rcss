@@ -76,3 +76,32 @@
 	border-radius: token(radius-sm)px;
 	pointer-events: none;
 }
+
+/* ---- handmade/chat_input.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon chat input: the channel and toggle buttons get icons (handmade/icons) -- in modern they
+   are plain colored squares -- on framed dark buttons; a lit button is the web's active tab. */
+
+.cib-btn {
+	background-color: token(kryon-tab-idle);
+	border: 1dp token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)dp;
+}
+.cib-btn:hover {
+	background-color: token(kryon-row-hover);
+	border-color: token(kryon-btn-border-hover);
+}
+.cib-btn.on {
+	background-color: token(kryon-tab-bottom);
+	border-color: token(kryon-tab-border);
+	box-shadow: inset 0 -2dp 0 rgba(217, 154, 67, 217);
+}
+#btn_type_0 { decorator: image(icons/chat_normal.tga contain); }
+#btn_type_1 { decorator: image(icons/chat_party.tga contain); }
+#btn_type_2 { decorator: image(icons/chat_guild.tga contain); }
+#btn_type_3 { decorator: image(icons/chat_gens.tga contain); }
+#btn_whisper { decorator: image(icons/chat_whisper.tga contain); }
+#btn_system { decorator: image(icons/chat_system.tga contain); }
+#btn_chatlog { decorator: image(icons/chat_log.tga contain); }
+#btn_frame { decorator: image(icons/chat_frame.tga contain); }
+#btn_size { decorator: image(icons/chat_size.tga contain); }
+#btn_transparency { decorator: image(icons/chat_alpha.tga contain); }

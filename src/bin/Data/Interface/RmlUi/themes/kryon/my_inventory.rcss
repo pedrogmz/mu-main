@@ -271,3 +271,22 @@
 .option-label.active {
 	color: token(kryon-btn-text);
 }
+
+/* The bottom buttons show Kryon icons (handmade/icons, make_icons.py); the repair glyph modern
+   uses is missing from DejaVu Sans, so it showed nothing. */
+#btn_exit .modern-icon-btn-glyph-px,
+#btn_repair .modern-icon-btn-glyph-px,
+#btn_myshop .modern-icon-btn-glyph-px,
+#btn_expand .modern-icon-btn-glyph-px {
+	width: 16px;
+	height: 16px;
+	margin-left: -8px;
+	margin-top: -8px;
+	font-size: 0;
+	color: transparent;
+	transform: none;
+}
+#btn_exit .modern-icon-btn-glyph-px { decorator: image(icons/close.tga contain); }
+#btn_repair .modern-icon-btn-glyph-px { decorator: image(icons/repair.tga contain); }
+#btn_myshop .modern-icon-btn-glyph-px { decorator: image(icons/shop.tga contain); }
+#btn_expand .modern-icon-btn-glyph-px { decorator: image(icons/expand.tga contain); }

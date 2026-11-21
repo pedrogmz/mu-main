@@ -238,3 +238,21 @@
 .attr-label-vit, .attr-value-vit { top: 253px; }
 .stat-btn-agi { top: 190.5px; }
 .stat-btn-vit { top: 255.5px; }
+
+/* The bottom buttons show Kryon icons (handmade/icons, make_icons.py) instead of x / Q / P / M. */
+#btn_exit .modern-icon-btn-glyph-px,
+#btn_quest .modern-icon-btn-glyph-px,
+#btn_pet .modern-icon-btn-glyph-px,
+#btn_masterlevel .modern-icon-btn-glyph-px {
+	width: 16px;
+	height: 16px;
+	margin-left: -8px;
+	margin-top: -8px;
+	font-size: 0;
+	color: transparent;
+	transform: none;
+}
+#btn_exit .modern-icon-btn-glyph-px { decorator: image(icons/close.tga contain); }
+#btn_quest .modern-icon-btn-glyph-px { decorator: image(icons/quest.tga contain); }
+#btn_pet .modern-icon-btn-glyph-px { decorator: image(icons/pet.tga contain); }
+#btn_masterlevel .modern-icon-btn-glyph-px { decorator: image(icons/master.tga contain); }

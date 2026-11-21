@@ -10,6 +10,6 @@ pulling a new MuMain, so the theme picks up changes to the `modern` stylesheets)
 - 117 `.rcss` files: the `modern` stylesheets with their literal colors retinted.
   Where `handmade/` has a stylesheet of the same name, it is appended, so its rules win while the
   layout keeps following `modern`; `base.rcss` gets the shared Kryon kit this way.
-- Copied from `handmade/` as they are: `fonts/Gelasio-Bold.ttf`, `fonts/Gelasio-Regular.ttf`, `fonts/OFL.txt`.
+- Copied from `handmade/` as they are: `fonts/Gelasio-Bold.ttf`, `fonts/Gelasio-Regular.ttf`, `fonts/OFL.txt`, `icons/chat_alpha.OZT`, `icons/chat_frame.OZT`, `icons/chat_gens.OZT`, `icons/chat_guild.OZT`, `icons/chat_log.OZT`, `icons/chat_normal.OZT`, `icons/chat_party.OZT`, `icons/chat_size.OZT`, `icons/chat_system.OZT`, `icons/chat_whisper.OZT`, `icons/close.OZT`, `icons/expand.OZT`, `icons/grip.OZT`, `icons/master.OZT`, `icons/maximize.OZT`, `icons/minimize.OZT`, `icons/pet.OZT`, `icons/plus.OZT`, `icons/quest.OZT`, `icons/repair.OZT`, `icons/restore.OZT`, `icons/shop.OZT`.
 
 Select it with `$theme kryon` in chat, in Options > UI > Theme, or `[UI] RmlTheme=kryon` in config.ini.

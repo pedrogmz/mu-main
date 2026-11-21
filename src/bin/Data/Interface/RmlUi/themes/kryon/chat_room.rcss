@@ -78,3 +78,30 @@ button { font-family: "token(font-body)"; font-size: 10dp; color: token(text-sec
 
 #resize { display: block; position: absolute; right: -2dp; bottom: -8dp; width: 10dp; height: 10dp; z-index: 10; pointer-events: auto; box-sizing: border-box; background-color: token(surface-control); border-right: 2dp token(accent-steel); border-bottom: 2dp token(accent-steel); cursor: resize; }
 #resize:hover { border-right-color: token(accent-steel-hover); border-bottom-color: token(accent-steel-hover); }
+
+/* ---- handmade/chat_room.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon chat room. */
+
+/* Window buttons and resize corner: modern draws their symbols with :before { content }, which
+   RmlUi does not have, so they were empty; Kryon gives them icons (handmade/icons). */
+#window_controls button {
+	background-color: token(kryon-tab-idle);
+	border: 1dp token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)dp;
+}
+#window_controls button:hover {
+	background-color: token(kryon-row-hover);
+	border-color: token(kryon-btn-border-hover);
+}
+#btn_minimize { decorator: image(icons/minimize.tga contain); }
+#btn_maximize { decorator: image(icons/maximize.tga contain); }
+#btn_maximize.restore { decorator: image(icons/restore.tga contain); }
+#btn_close { decorator: image(icons/close.tga contain); }
+#btn_close:hover {
+	border-color: #c0564e;
+}
+#resize {
+	background-color: transparent;
+	border-width: 0;
+	decorator: image(icons/grip.tga contain);
+}
