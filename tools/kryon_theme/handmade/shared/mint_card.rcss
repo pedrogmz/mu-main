@@ -1,0 +1,20 @@
+/* Kryon "mint" card -- tokens.json's variant for shops and the economy -- for the in-game shop
+   and its dialogs: a green-black panel, the gold border and rings, a faint mint glow. The rule's
+   selector is filled in per stylesheet from tokens.json's handmadeShared. Sizes are px: these
+   panels scale themselves. */
+
+SELECTOR {
+	background-color: token(kryon-mint-bottom);
+	decorator:
+		radial-gradient(circle at 50% 0%, token(kryon-mint-glow), transparent 55%),
+		linear-gradient(155deg, token(kryon-mint-top) 0%, token(kryon-mint-bottom) 100%);
+	border-width: 1px;
+	border-color: token(kryon-mint-border);
+	border-radius: token(radius-md)px;
+	box-shadow:
+		0 0 0 3px token(kryon-ring-outer),
+		0 0 0 4px token(kryon-ring-gold),
+		0 16px 40px rgba(0, 0, 0, 187),
+		inset 0 0 0 5px token(kryon-ring-inner-dark),
+		inset 0 0 0 6px token(kryon-filete);
+}

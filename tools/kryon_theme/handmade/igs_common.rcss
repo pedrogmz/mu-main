@@ -1,0 +1,29 @@
+/* Kryon in-game shop buttons and backdrop: framed dark buttons, the bronze edge on hover. */
+
+.igs-dim {
+	background-color: rgba(2, 4, 6, 184);
+}
+.igs-btn {
+	background-color: token(kryon-tab-idle);
+	decorator: linear-gradient(180deg, token(kryon-mint-top) 0%, token(kryon-tab-idle) 100%);
+	border: 1px token(kryon-tab-border);
+	border-radius: token(radius-sm)px;
+}
+.igs-btn:hover {
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+	border-color: token(kryon-btn-border-hover);
+}
+.igs-btn:active {
+	background-color: token(kryon-tab-bottom);
+	decorator: none;
+}
+.igs-btn-label {
+	color: token(kryon-tab-text);
+	font-family: "token(font-title)";
+}
+.igs-btn.disabled,
+.igs-btn.disabled:hover {
+	background-color: token(kryon-tab-idle);
+	decorator: none;
+	border-color: token(kryon-tab-idle-border);
+}

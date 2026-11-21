@@ -188,7 +188,32 @@ def chat_alpha(pen):  # half-filled circle: transparency
     pen.fill(*[(12 + 8 * math.cos(a / 20 * math.pi), 12 + 8 * math.sin(a / 20 * math.pi)) for a in range(-10, 11)])
 
 
+def chevron_left(pen):
+    pen.line((15, 5), (8, 12), (15, 19))
+
+def chevron_right(pen):
+    pen.line((9, 5), (16, 12), (9, 19))
+
+def gift(pen):  # a wrapped box
+    pen.rect(4, 10, 20, 20)
+    pen.line((3, 10), (21, 10))
+    pen.line((12, 10), (12, 20))
+    pen.line((12, 10), (8, 5), (6, 7), (12, 10))
+    pen.line((12, 10), (16, 5), (18, 7), (12, 10))
+
+def coin(pen):  # recharge: a coin with a plus
+    pen.circle(12, 12, 8)
+    pen.line((12, 8), (12, 16))
+    pen.line((8, 12), (16, 12))
+
+def refresh(pen):  # a circular arrow
+    pen.arc(12, 12, 7, 330, 270)
+    pen.line((9, 2), (12.5, 5), (9, 8))
+
+
 ICONS = {
+    "chevron_left": chevron_left, "chevron_right": chevron_right, "gift": gift, "coin": coin,
+    "refresh": refresh,
     "close": close, "plus": plus, "expand": expand, "repair": repair, "shop": shop,
     "quest": quest, "pet": pet, "master": master,
     "minimize": minimize, "maximize": maximize, "restore": restore, "grip": grip,

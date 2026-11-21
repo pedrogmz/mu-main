@@ -67,3 +67,37 @@
 }
 /* A card takes the pointer: its hover is the skill target, and a click on it never walks. */
 .card { pointer-events: auto; }
+
+/* ---- handmade/party_list.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon party list: each member a small Kryon card -- steel fill, bronze edge, gold leader name --
+   with the health in a dark well and an icon on the leave button. The state tints (defense,
+   absent) are gameplay colors and stay modern's. */
+
+.card-fill {
+	background-color: token(kryon-card-bottom);
+	decorator: linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-bottom) 100%);
+	border: 1px rgba(175, 139, 76, 170);
+	border-radius: token(radius-sm)px;
+	box-shadow: 0 0 0 1px token(kryon-ring-outer), 0 2px 5px rgba(0, 0, 0, 150);
+}
+.card.selected .card-select {
+	background-color: rgba(211, 174, 102, 40);
+}
+.card-name {
+	color: token(text-primary);
+	font-family: "token(font-title)";
+}
+.card.leader .card-name {
+	color: token(kryon-btn-text);
+}
+.card-health {
+	box-shadow: 0 0 0 1px rgba(2, 4, 5, 230);
+}
+.card-leave {
+	background-color: token(kryon-tab-idle);
+	border: 1px token(kryon-tab-idle-border);
+	decorator: image(icons/close.tga contain);
+}
+.card-leave:hover {
+	border-color: token(kryon-btn-border-hover);
+}

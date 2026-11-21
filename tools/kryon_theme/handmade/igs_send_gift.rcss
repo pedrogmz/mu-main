@@ -1,0 +1,29 @@
+/* Kryon in-game shop dialog: the mint card (shared/mint_card.rcss), a mint title and dark wells. */
+
+#igs_title {
+	color: token(kryon-mint-title);
+	font-family: "token(font-title)";
+	letter-spacing: 1px;
+}
+#igs_name,
+#igs_item_info {
+	color: token(kryon-mint-accent);
+}
+#igs_price {
+	color: token(kryon-btn-text);
+}
+#igs_package_info,
+#igs_option_list {
+	background-color: rgba(4, 7, 6, 210);
+}
+.igs-option.selected .igs-option-radio {
+	background-color: token(kryon-mint-accent);
+}
+.igs-field {
+	background-color: token(kryon-well-top);
+	border: 1px token(kryon-well-border);
+	color: token(kryon-field-text);
+}
+.igs-field:focus {
+	border-color: token(kryon-well-focus);
+}

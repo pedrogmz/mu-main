@@ -69,24 +69,55 @@
 #igs_option_list { width: calc(180px * var(--root-scale)); height: calc(99px * var(--root-scale)); }
 .igs-option { width: calc(165px * var(--root-scale)); height: calc(33px * var(--root-scale)); }
 
-/* ---- handmade/shared/flat_card.rcss: the Kryon look, appended so it wins by source order. ---- */
-/* Kryon card for the small windows modern draws as a flat box (surface-panel fill, one border-frame
-   line): event entries and timers, Kanturu, Cursed Temple, duel, quick command, window menu, message
-   boxes, the in-game shop's frames... The rule's selector is filled in per stylesheet from
-   tokens.json's handmadeShared. Sizes are px: these panels scale themselves. */
+/* ---- handmade/shared/mint_card.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon "mint" card -- tokens.json's variant for shops and the economy -- for the in-game shop
+   and its dialogs: a green-black panel, the gold border and rings, a faint mint glow. The rule's
+   selector is filled in per stylesheet from tokens.json's handmadeShared. Sizes are px: these
+   panels scale themselves. */
 
 .igs-dialog-frame {
-	background-color: token(kryon-card-bottom);
+	background-color: token(kryon-mint-bottom);
 	decorator:
-		radial-gradient(circle at 50% 0%, token(kryon-card-glow), transparent 55%),
-		linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-mid) 50%, token(kryon-card-bottom) 100%);
+		radial-gradient(circle at 50% 0%, token(kryon-mint-glow), transparent 55%),
+		linear-gradient(155deg, token(kryon-mint-top) 0%, token(kryon-mint-bottom) 100%);
 	border-width: 1px;
-	border-color: token(kryon-card-border);
+	border-color: token(kryon-mint-border);
 	border-radius: token(radius-md)px;
 	box-shadow:
-		0 0 0 2px token(kryon-ring-outer),
-		0 0 0 3px token(kryon-ring-gold),
-		0 10px 28px rgba(0, 0, 0, 170),
-		inset 0 0 0 3px token(kryon-ring-inner-dark),
-		inset 0 0 0 4px token(kryon-filete);
+		0 0 0 3px token(kryon-ring-outer),
+		0 0 0 4px token(kryon-ring-gold),
+		0 16px 40px rgba(0, 0, 0, 187),
+		inset 0 0 0 5px token(kryon-ring-inner-dark),
+		inset 0 0 0 6px token(kryon-filete);
+}
+
+/* ---- handmade/igs_buy_select.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon in-game shop dialog: the mint card (shared/mint_card.rcss), a mint title and dark wells. */
+
+#igs_title {
+	color: token(kryon-mint-title);
+	font-family: "token(font-title)";
+	letter-spacing: 1px;
+}
+#igs_name,
+#igs_item_info {
+	color: token(kryon-mint-accent);
+}
+#igs_price {
+	color: token(kryon-btn-text);
+}
+#igs_package_info,
+#igs_option_list {
+	background-color: rgba(4, 7, 6, 210);
+}
+.igs-option.selected .igs-option-radio {
+	background-color: token(kryon-mint-accent);
+}
+.igs-field {
+	background-color: token(kryon-well-top);
+	border: 1px token(kryon-well-border);
+	color: token(kryon-field-text);
+}
+.igs-field:focus {
+	border-color: token(kryon-well-focus);
 }
