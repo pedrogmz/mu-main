@@ -210,3 +210,59 @@
 	border-color: rgba(141, 116, 75, 46);
 }
 
+
+/* ---- handmade/npc_shop.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon NPC shop (merchant): its own details on top of shared/inventory_frame.rcss. */
+
+/* Header: title and tax-rate line left-aligned with the item grid (x = 15px in #panel), each placed
+   on its own line in the 42px rail. They used to stack in the flow, but the sharp-text title lays
+   out at the physical size (13px * --root-scale) and only shrinks visually, so its layout height
+   pushed the tax-rate line down onto the grid, where the cells covered it. Absolute tops keep both
+   lines inside the rail at any scale. */
+.shop-header-text-px {
+	left: 7px;
+	right: auto;
+	top: 0;
+	width: 168px;
+	height: 42px;
+	margin-top: 0;
+	text-align: left;
+}
+.shop-header-text-px #title {
+	position: absolute;
+	left: 0;
+	top: 9px;
+	width: calc(168px * var(--root-scale, 1));
+	text-align: left;
+}
+
+/* Tax-rate line: sharp like the title (laid out at the physical size and scaled back around its
+   top-left corner); at 7px stretched by the panel's scale it was blurry and hard to read. */
+.shop-header-text-px #tax_rate {
+	position: absolute;
+	left: 0;
+	top: 27px;
+	margin-top: 0;
+	width: calc(168px * var(--root-scale, 1));
+	font-size: calc(8px * var(--root-scale, 1));
+	white-space: nowrap;
+	text-align: left;
+	color: token(kryon-label);
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+
+/* Repair / Repair-all buttons show the Kryon repair icon (handmade/icons, make_icons.py); the
+   repair glyph modern uses is missing from the theme's fonts, so it showed an empty box. Both use
+   the same icon, as the native buttons shared one sprite. */
+#btn_repair .modern-icon-btn-glyph-px,
+#btn_repair_all .modern-icon-btn-glyph-px {
+	width: 16px;
+	height: 16px;
+	margin-left: -8px;
+	margin-top: -8px;
+	font-size: 0;
+	color: transparent;
+	transform: none;
+	decorator: image(icons/repair.tga contain);
+}
