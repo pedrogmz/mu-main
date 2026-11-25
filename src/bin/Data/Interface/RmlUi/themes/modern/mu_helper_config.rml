@@ -1,4 +1,6 @@
 <rml>
+	<!-- rml-contract-optional-callback: muhelper_catalog_add: Kryon's centred layout adds skills from an inline catalog; this layout uses the skill picker flyout -->
+	<!-- rml-contract-optional-callback: muhelper_slot_remove: Kryon's centred layout removes a skill with a left click; this layout clears with a right click (muhelper_slot_clear) -->
 <head>
 	<title>MU Helper</title>
 	<link type="text/rcss" href="base.rcss"/>

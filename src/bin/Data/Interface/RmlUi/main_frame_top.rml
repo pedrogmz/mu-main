@@ -11,7 +11,7 @@
 	     the top-right corner while the bars stay over them (see RmlStackingOrder.cpp). Uses flex;justify-content:flex-end instead of
 	     `.anchor-top-right`'s `right:0` -- `right:0` was confirmed not to render this element at
 	     all here (root cause unknown), flex sidesteps it. -->
-	<div id="top_right_row" class="anchor-top-left">
+	<div id="top_right_row" class="anchor-top-left" data-if="!top_buttons_external">
 		<div id="buttons_top">
 			<div id="btn_cshop_top" class="frame-btn-top" data-class-open="cshop_open" data-event-click="mainframe_cshop_click" data-attr-data-hint="cshop_tooltip">
 				<span>SHOP</span>

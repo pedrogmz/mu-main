@@ -1,0 +1,192 @@
+/* Kryon settings screen: modern's full-screen layout with the web's settings look instead of
+   frosted glass -- a dark steel scrim, the title in spaced capitals over a gold rule, the
+   categories as framed tabs, the page on a Kryon card, bronze switches and sliders, dark input
+   wells for the dropdowns and framed keycaps. */
+
+#panel {
+	background-color: rgba(2, 4, 6, 214);
+	decorator: radial-gradient(ellipse, rgba(20, 23, 27, 120) 0%, rgba(2, 4, 6, 230) 100%);
+}
+
+/* Header */
+.opt-header {
+	border-bottom: 1dp token(kryon-divider);
+}
+.opt-title {
+	padding-left: 0;
+	border-left-width: 0;
+	font-family: "token(font-title)";
+	font-size: 18dp;
+	font-weight: normal;
+	letter-spacing: 4dp;
+	color: token(text-warm);
+	font-effect: shadow(0dp 1dp #000000);
+}
+.opt-close {
+	border: 1dp token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)dp;
+	background-color: token(kryon-tab-idle);
+}
+.opt-close:hover {
+	border-color: token(kryon-btn-border-hover);
+	background-color: token(kryon-row-hover);
+}
+.opt-close-bar {
+	background-color: token(kryon-title);
+}
+
+/* Category tabs */
+.opt-nav-item {
+	margin-bottom: 6dp;
+	padding-left: 14dp;
+	border: 1dp token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)dp;
+	background-color: token(kryon-tab-idle);
+	font-family: "token(font-title)";
+	font-size: 11dp;
+	letter-spacing: 2dp;
+	color: token(kryon-tab-idle-text);
+}
+.opt-nav-item:hover {
+	color: token(kryon-btn-text-hover);
+	border-color: token(kryon-btn-border-hover);
+	background-color: token(kryon-row-hover);
+}
+.opt-nav-item.active-tab {
+	color: token(kryon-tab-text);
+	background-color: token(kryon-tab-bottom);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+	border-color: token(kryon-tab-border);
+	box-shadow: inset 0 0 0 1dp #130e08, inset 3dp 0 0 rgba(217, 154, 67, 217);
+}
+
+/* The page: a Kryon card */
+.opt-pane {
+	background-color: token(kryon-card-bottom);
+	backdrop-filter: none;
+	decorator:
+		radial-gradient(circle at 50% 0%, token(kryon-card-glow), transparent 55%),
+		linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-mid) 50%, token(kryon-card-bottom) 100%);
+	border: 1dp token(kryon-card-border);
+	border-radius: token(radius-md)dp;
+	box-shadow:
+		0 0 0 3dp token(kryon-ring-outer),
+		0 0 0 4dp token(kryon-ring-gold),
+		0 16dp 40dp rgba(0, 0, 0, 187),
+		inset 0 0 0 5dp token(kryon-ring-inner-dark),
+		inset 0 0 0 6dp token(kryon-filete);
+}
+.opt-page-title {
+	border-bottom: 1dp token(kryon-divider);
+	font-family: "token(font-title)";
+	font-size: 12dp;
+	font-weight: normal;
+	letter-spacing: 2.5dp;
+	color: token(kryon-title);
+}
+.opt-section {
+	color: token(kryon-title);
+	letter-spacing: 1.6dp;
+}
+.opt-row {
+	border-bottom: 1dp token(kryon-row-divider);
+}
+.opt-row:hover {
+	background-color: token(kryon-row-hover);
+}
+.opt-label {
+	color: token(text-primary);
+}
+
+/* Switches and sliders */
+.opt-toggle {
+	border: 1dp token(kryon-well-border);
+	border-radius: 11dp;
+	background-color: token(kryon-well-top);
+	box-shadow: inset 0 1dp 4dp #000000;
+}
+.opt-toggle-knob {
+	background-color: token(kryon-label);
+}
+.opt-toggle.checked {
+	background-color: token(kryon-gold-fill-bottom);
+	border-color: token(kryon-well-focus);
+}
+.opt-toggle.checked .opt-toggle-knob {
+	background-color: token(kryon-btn-text);
+}
+.opt-toggle-row:hover .opt-toggle {
+	border-color: token(kryon-btn-border-hover);
+}
+.opt-toggle-row:hover .opt-toggle.checked {
+	border-color: token(kryon-btn-text-hover);
+}
+.opt-slider {
+	background-color: token(kryon-well-top);
+	box-shadow: inset 0 1dp 3dp #000000;
+}
+.opt-slider .level-gauge-fill {
+	decorator: linear-gradient(90deg, #713810 0%, #d99a38 60%, #ffdc8c 100%);
+}
+.opt-slider-thumb {
+	background-color: token(kryon-btn-text);
+}
+.opt-value {
+	color: token(kryon-btn-text);
+}
+
+/* Dropdowns: input wells */
+.option-dropdown-value {
+	background-color: token(kryon-well-top);
+	decorator: linear-gradient(180deg, token(kryon-well-top) 0%, token(kryon-well-bottom) 100%);
+	border: 1dp token(kryon-well-border);
+	border-radius: token(radius-sm)dp;
+	box-shadow: inset 0 2dp 7dp #000000;
+	color: token(kryon-field-text);
+}
+.option-dropdown-value:hover {
+	background-color: token(kryon-well-bottom);
+	border-color: token(kryon-btn-border-hover);
+}
+.option-dropdown-value.open {
+	border-color: token(kryon-well-focus);
+}
+.opt-caret {
+	border-color: token(kryon-title);
+}
+.option-dropdown-list,
+.opt-row-tip {
+	background-color: rgba(8, 10, 13, 245);
+	border: 1dp token(kryon-card-border);
+	border-radius: token(radius-sm)dp;
+}
+.option-dropdown-list scrollbarvertical sliderbar {
+	background-color: token(kryon-scroll-thumb);
+}
+.option-dropdown-list scrollbarvertical sliderbar:active {
+	background-color: token(kryon-scroll-thumb-hover);
+}
+.option-dropdown-option:hover {
+	background-color: token(kryon-row-hover);
+}
+.option-dropdown-option.selected {
+	color: token(kryon-btn-text);
+	background-color: rgba(211, 174, 102, 40);
+}
+
+/* Footer keycaps */
+.opt-footer-action:hover {
+	background-color: token(kryon-row-hover);
+}
+.opt-keycap {
+	color: token(kryon-tab-text);
+	background-color: token(kryon-tab-idle);
+	decorator: linear-gradient(180deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	border: 1dp token(kryon-tab-border);
+	border-radius: token(radius-sm)dp;
+	font-family: "token(font-title)";
+}
+.opt-footer-label {
+	letter-spacing: 1.4dp;
+	text-transform: uppercase;
+}

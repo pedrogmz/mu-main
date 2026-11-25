@@ -1,0 +1,49 @@
+/* Kryon server select: the two columns sit on a Kryon card instead of the bare scene, the groups
+   and channels are the web's tabs (base.rcss), and the load bars are thin gold gauges. Sizes stay
+   modern's (px inside the scaled scene window). */
+
+#panel {
+	background-color: token(kryon-card-bottom);
+	decorator:
+		radial-gradient(circle at 50% 0%, token(kryon-card-glow), transparent 55%),
+		linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-mid) 50%, token(kryon-card-bottom) 100%);
+	border-width: 1px;
+	border-color: token(kryon-card-border);
+	border-radius: token(radius-md)px;
+	padding: 16px;
+	box-shadow:
+		0 0 0 3px token(kryon-ring-outer),
+		0 0 0 4px token(kryon-ring-gold),
+		0 16px 40px rgba(0, 0, 0, 187),
+		inset 0 0 0 5px token(kryon-ring-inner-dark),
+		inset 0 0 0 6px token(kryon-filete);
+}
+
+.group-btn {
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-size: 11px;
+}
+#group_col {
+	margin-right: 10px;
+	padding-right: 10px;
+	border-right-width: 1px;
+	border-right-color: token(kryon-divider);
+}
+
+.server-gauge-segment {
+	background-color: token(kryon-scroll-track);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 199);
+}
+
+#pvp_notice,
+#desc_panel {
+	padding-top: 8px;
+	border-top-width: 1px;
+	border-top-color: token(kryon-divider);
+	text-align: center;
+}
+#desc_panel {
+	color: token(text-secondary);
+	font-size: 11px;
+}

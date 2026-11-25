@@ -1,0 +1,63 @@
+/* Kryon MU Helper windows (settings, detail, skill picker): the tabs as the web's tabs, the panes
+   and boxes as dark wells with a bronze edge, the number and text fields as input wells. Sizes are
+   px: these panels scale themselves. */
+
+.mh-title {
+	color: token(kryon-title);
+	font-family: "token(font-title)";
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+/* Tabs */
+.mh-tab,
+.mh-pane .p-tab {
+	background-color: token(kryon-tab-idle);
+	decorator: none;
+	border-color: token(kryon-tab-idle-border);
+}
+.mh-tab:hover {
+	border-color: token(kryon-btn-border-hover);
+}
+.mh-tab.active {
+	background-color: token(kryon-tab-bottom);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+	border-color: token(kryon-tab-border);
+}
+.mh-tab-label.active {
+	color: token(kryon-tab-text);
+}
+
+/* Panes and boxes */
+.mh-pane .p-body,
+.mh-box .b-fill {
+	background-color: rgba(4, 6, 9, 200);
+	border-color: rgba(141, 116, 75, 110);
+}
+
+/* Fields */
+.mh-number-plate,
+.mh-string-plate {
+	background-color: token(kryon-well-top);
+	decorator: linear-gradient(180deg, token(kryon-well-top) 0%, token(kryon-well-bottom) 100%);
+	border-color: token(kryon-well-border);
+	box-shadow: inset 0 1px 4px #000000;
+}
+.mh-field {
+	color: token(kryon-field-text);
+}
+.mh-range-digit {
+	color: token(kryon-btn-text);
+}
+
+/* Skill slots and list rows */
+.mh-slot {
+	border-color: rgba(141, 116, 75, 120);
+}
+.mh-slot:hover {
+	border-color: token(kryon-btn-border-hover);
+}
+.mh-extra-row.selected {
+	color: token(kryon-btn-text);
+	background-color: rgba(211, 174, 102, 40);
+}

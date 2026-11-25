@@ -162,6 +162,7 @@ void mu::ui::window::CMainFrameWindow::BindRmlModel(Rml::DataModelConstructor& c
 
     c.Bind("chainfo_alert", &model.chaInfoAlert);
     c.Bind("friend_alert", &model.friendAlert);
+    c.Bind("top_buttons_external", &model.topButtonsExternal);
 
     c.Bind("skill_slot_0_selected", &model.skillSlot0Selected);
     c.Bind("skill_slot_1_selected", &model.skillSlot1Selected);
@@ -964,6 +965,28 @@ void mu::ui::window::CMainFrameWindow::SetBtnState(int iBtnType, bool bStateDown
         }
         break;
     }
+}
+
+mu::ui::window::CMainFrameWindow::TopButtonsState mu::ui::window::CMainFrameWindow::GetTopButtonsState() const
+{
+    const MainFrameRmlModel& model = m_RmlView.GetModel();
+    TopButtonsState state;
+    state.cShopOpen = model.cShopOpen;
+    state.chaInfoOpen = model.chaInfoOpen;
+    state.myInvenOpen = model.myInvenOpen;
+    state.friendOpen = model.friendOpen;
+    state.windowOpen = model.windowOpen;
+    state.chaInfoAlert = model.chaInfoAlert;
+    state.friendAlert = model.friendAlert;
+    return state;
+}
+
+void mu::ui::window::CMainFrameWindow::SetTopButtonsExternal(bool external)
+{
+    if (m_RmlView.GetModel().topButtonsExternal == external)
+        return;
+    m_RmlView.GetModel().topButtonsExternal = external;
+    m_RmlView.MarkDirty("top_buttons_external");
 }
 
 void mu::ui::window::CMainFrameWindow::SyncDocVisibility(bool sceneAllowsShow)

@@ -1,0 +1,220 @@
+<rml>
+	<!-- rml-contract-optional-callback: muhelper_slot: this layout has no skill picker flyout; its catalog adds skills (muhelper_catalog_add) -->
+	<!-- rml-contract-optional-callback: muhelper_slot_clear: a left click removes a skill here (muhelper_slot_remove) -->
+<head>
+	<title>MU Helper</title>
+	<link type="text/rcss" href="base.rcss"/>
+	<link type="text/rcss" href="skill_icons.rcss"/>
+	<link type="text/rcss" href="master_skill_icons.rcss"/>
+	<link type="text/rcss" href="mu_helper_kryon.rcss"/>
+</head>
+<body>
+	<!-- Kryon's own CMuHelperConfigWindow: one centred card (workspace.rml puts its slot on the
+	     panel stage) instead of the docked column. Combat shows the attack rotation and the buffs as
+	     two lanes -- the chosen skills on top, the hero's learned skills underneath to add with one
+	     click -- pick-up shows its rules as cards, and the footer keeps the ranges, the HP potion and
+	     Start/Stop in reach on every tab. The per-skill timing, class and social options live on
+	     the third tab. Same model as ../../mu_helper_config.rml; ids the code looks up (the number
+	     fields, item_name, extra_list) are kept. -->
+	<div id="panel" data-model="mu_helper_config">
+		<div id="mhk_header">
+			<div id="mhk_mark"></div>
+			<div id="mhk_heading">
+				<span id="title">{{labels.title}}</span>
+				<span id="mhk_subtitle">{{labels.subtitle}}</span>
+			</div>
+			<div id="mhk_status" data-class-running="helper_active" data-class-safe="!helper_active &amp;&amp; safe_zone">
+				<div class="mhk-status-dot"></div>
+				<span data-if="helper_active">{{labels.status_running}}</span>
+				<span data-if="!helper_active &amp;&amp; safe_zone">{{labels.status_safe_zone}}</span>
+				<span data-if="!helper_active &amp;&amp; !safe_zone">{{labels.status_stopped}}</span>
+			</div>
+			<div id="btn_exit" class="modern-icon-btn-px" data-event-click="muhelper_button('close')" data-attr-data-hint="labels.close_tip">
+				<span class="modern-icon-btn-glyph-px">&#215;</span>
+			</div>
+		</div>
+
+		<div id="mhk_tabs">
+			<div id="tab_0" class="mhk-tab" data-class-active="active_tab == 0" data-event-click="muhelper_tab(0)">{{labels.tab_hunting}}</div>
+			<div id="tab_1" class="mhk-tab" data-class-active="active_tab == 1" data-event-click="muhelper_tab(1)">{{labels.tab_obtaining}}</div>
+			<div id="tab_2" class="mhk-tab" data-class-active="active_tab == 2" data-event-click="muhelper_tab(2)">{{labels.tab_other}}</div>
+		</div>
+
+		<div id="mhk_body">
+			<!-- Combat: attacks and buffs. -->
+			<div id="mhk_combat" class="mhk-page" data-class-hidden="active_tab != 0">
+				<div class="mhk-lanes">
+					<div class="mhk-lane">
+						<div class="mhk-lane-title"><div class="mhk-lane-icon mhk-icon-attack"></div><span>{{labels.attacks}}</span><span class="mhk-small">{{labels.rotation}}</span></div>
+						<div class="mhk-selected">
+							<div class="mhk-chip" data-class-empty="slots.s0 == 'none'" data-event-click="muhelper_slot_remove(0)" data-attr-data-hint="labels.remove_hint">
+								<div class="mhk-chip-icon" data-style-decorator="slots.s0"></div><div class="mhk-chip-x">&#215;</div><span class="mhk-chip-n">1</span>
+							</div>
+							<div class="mhk-chip" data-class-empty="slots.s1 == 'none'" data-event-click="muhelper_slot_remove(1)" data-attr-data-hint="labels.remove_hint">
+								<div class="mhk-chip-icon" data-style-decorator="slots.s1"></div><div class="mhk-chip-x">&#215;</div><span class="mhk-chip-n">2</span>
+							</div>
+							<div class="mhk-chip" data-if="features.skill3" data-class-empty="slots.s2 == 'none'" data-event-click="muhelper_slot_remove(2)" data-attr-data-hint="labels.remove_hint">
+								<div class="mhk-chip-icon" data-style-decorator="slots.s2"></div><div class="mhk-chip-x">&#215;</div><span class="mhk-chip-n">3</span>
+							</div>
+							<span class="mhk-hint">{{labels.catalog_hint}}</span>
+						</div>
+						<div class="mhk-catalog scroll-pane">
+							<div class="mhk-skill" data-for="sk : attack_catalog" data-class-added="sk.added" data-event-click="muhelper_catalog_add(sk.skill)">
+								<div class="mhk-skill-icon" data-style-decorator="sk.decorator"></div><div class="mhk-skill-plus">+</div>
+							</div>
+							<span class="mhk-empty" data-if="attack_catalog.size == 0">{{labels.catalog_empty}}</span>
+						</div>
+					</div>
+					<div class="mhk-lane">
+						<div class="mhk-lane-title"><div class="mhk-lane-icon mhk-icon-buff"></div><span>{{labels.buffs}}</span><span class="mhk-small">{{labels.missing_only}}</span></div>
+						<div class="mhk-selected">
+							<div class="mhk-chip" data-class-empty="slots.s3 == 'none'" data-event-click="muhelper_slot_remove(3)" data-attr-data-hint="labels.remove_hint">
+								<div class="mhk-chip-icon" data-style-decorator="slots.s3"></div><div class="mhk-chip-x">&#215;</div>
+							</div>
+							<div class="mhk-chip" data-class-empty="slots.s4 == 'none'" data-event-click="muhelper_slot_remove(4)" data-attr-data-hint="labels.remove_hint">
+								<div class="mhk-chip-icon" data-style-decorator="slots.s4"></div><div class="mhk-chip-x">&#215;</div>
+							</div>
+							<div class="mhk-chip" data-class-empty="slots.s5 == 'none'" data-event-click="muhelper_slot_remove(5)" data-attr-data-hint="labels.remove_hint">
+								<div class="mhk-chip-icon" data-style-decorator="slots.s5"></div><div class="mhk-chip-x">&#215;</div>
+							</div>
+							<span class="mhk-hint">{{labels.catalog_hint}}</span>
+						</div>
+						<div class="mhk-catalog scroll-pane">
+							<div class="mhk-skill" data-for="sk : buff_catalog" data-class-added="sk.added" data-event-click="muhelper_catalog_add(sk.skill)">
+								<div class="mhk-skill-icon" data-style-decorator="sk.decorator"></div><div class="mhk-skill-plus">+</div>
+							</div>
+							<span class="mhk-empty" data-if="buff_catalog.size == 0">{{labels.catalog_empty}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="mhk-options">
+					<div id="cb_combo" class="mhk-check" data-if="features.combo" data-class-checked="checks.combo" data-event-click="muhelper_toggle('combo')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.combo"></div><span>{{labels.combo}}</span></div>
+					<div id="cb_fallback" class="mhk-check" data-class-checked="checks.fallback" data-event-click="muhelper_toggle('fallback')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.fallback"></div><span>{{labels.fallback}}</span></div>
+					<div id="cb_buff_duration" class="mhk-check" data-class-checked="checks.buff_duration" data-event-click="muhelper_toggle('buff_duration')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.buff_duration"></div><span>{{labels.buff_duration}}</span></div>
+				</div>
+			</div>
+
+			<!-- Pick-up: the rules as cards. -->
+			<div id="mhk_pickup" class="mhk-page" data-class-hidden="active_tab != 1">
+				<div class="mhk-pickup-head">
+					<div class="mhk-pickup-copy"><span class="mhk-strong">{{labels.auto_pickup}}</span><span class="mhk-small">{{labels.auto_pickup_hint}}</span></div>
+					<div class="mhk-segment">
+						<div id="cb_pick_all" class="mhk-seg" data-class-active="checks.pick_all" data-event-click="muhelper_toggle('pick_all')"><div class="mhk-seg-icon mhk-icon-bag"></div><span>{{labels.pick_all}}</span></div>
+						<div id="cb_pick_selected" class="mhk-seg" data-class-active="checks.pick_selected" data-event-click="muhelper_toggle('pick_selected')"><div class="mhk-seg-icon mhk-icon-tag"></div><span>{{labels.pick_selected}}</span></div>
+					</div>
+				</div>
+				<div class="mhk-cards" data-class-dim="!checks.pick_selected">
+					<div id="cb_pick_zen" class="mhk-card" data-class-on="checks.pick_zen" data-event-click="muhelper_toggle('pick_zen')"><div class="mhk-card-icon mhk-icon-zen"></div><span class="mhk-card-name">{{labels.pick_zen}}</span><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.pick_zen"></div></div>
+					<div id="cb_pick_jewel" class="mhk-card" data-class-on="checks.pick_jewel" data-event-click="muhelper_toggle('pick_jewel')"><div class="mhk-card-icon mhk-icon-gem"></div><span class="mhk-card-name">{{labels.pick_jewel}}</span><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.pick_jewel"></div></div>
+					<div id="cb_pick_excellent" class="mhk-card" data-class-on="checks.pick_excellent" data-event-click="muhelper_toggle('pick_excellent')"><div class="mhk-card-icon mhk-icon-sparkle"></div><span class="mhk-card-name">{{labels.pick_excellent}}</span><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.pick_excellent"></div></div>
+					<div id="cb_pick_ancient" class="mhk-card" data-class-on="checks.pick_ancient" data-event-click="muhelper_toggle('pick_ancient')"><div class="mhk-card-icon mhk-icon-helm"></div><span class="mhk-card-name">{{labels.pick_ancient}}</span><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.pick_ancient"></div></div>
+					<div id="cb_pick_extra" class="mhk-card" data-class-on="checks.pick_extra" data-event-click="muhelper_toggle('pick_extra')"><div class="mhk-card-icon mhk-icon-tag"></div><span class="mhk-card-name">{{labels.pick_extra}}</span><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.pick_extra"></div></div>
+					<div id="cb_repair" class="mhk-card" data-class-on="checks.repair" data-event-click="muhelper_toggle('repair')"><div class="mhk-card-icon mhk-icon-repair"></div><span class="mhk-card-name">{{labels.repair}}</span><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.repair"></div></div>
+				</div>
+				<div class="mhk-extra" data-class-dim="!checks.pick_extra">
+					<div class="mhk-extra-entry">
+						<input id="item_name" type="text" class="text-field mhk-field" data-value="item_name"/>
+						<div id="btn_add_item" class="mhk-btn" data-event-click="muhelper_button('add_item')">{{labels.add}}</div>
+						<div id="btn_delete_item" class="mhk-btn" data-event-click="muhelper_button('delete_item')">{{labels.remove}}</div>
+					</div>
+					<div id="extra_list" class="scroll-pane">
+						<div class="mhk-extra-row" data-for="it : extra_items" data-class-selected="it.selected" data-event-click="muhelper_extra_select(it.index)">{{it.name}}</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Other settings: skill timing, movement, class and social options. -->
+			<div id="mhk_other" class="mhk-page scroll-pane" data-class-hidden="active_tab != 2">
+				<div class="mhk-section">
+					<span class="mhk-section-title">{{labels.activation_skill1}}</span>
+					<div class="mhk-row">
+						<div id="cb_skill2_delay" class="mhk-check" data-event-click="muhelper_toggle('skill2_delay')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.skill2_delay"></div><span>{{labels.delay}}</span></div>
+						<input id="skill2_delay" type="text" class="text-field text-field--numeric mhk-field mhk-num" data-value="skill2_delay"/><span class="mhk-unit">{{labels.seconds}}</span>
+						<div id="cb_skill2_condition" class="mhk-check" data-event-click="muhelper_toggle('skill2_condition')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.skill2_condition"></div><span>{{labels.condition}}</span></div>
+						<div id="btn_skill2_setting" class="mhk-btn" data-event-click="muhelper_button('skill2_setting')">{{labels.setting}}</div>
+					</div>
+				</div>
+				<div class="mhk-section" data-if="features.skill3">
+					<span class="mhk-section-title">{{labels.activation_skill2}}</span>
+					<div class="mhk-row">
+						<div id="cb_skill3_delay" class="mhk-check" data-event-click="muhelper_toggle('skill3_delay')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.skill3_delay"></div><span>{{labels.delay}}</span></div>
+						<input id="skill3_delay" type="text" class="text-field text-field--numeric mhk-field mhk-num" data-value="skill3_delay"/><span class="mhk-unit">{{labels.seconds}}</span>
+						<div id="cb_skill3_condition" class="mhk-check" data-event-click="muhelper_toggle('skill3_condition')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.skill3_condition"></div><span>{{labels.condition}}</span></div>
+						<div id="btn_skill3_setting" class="mhk-btn" data-event-click="muhelper_button('skill3_setting')">{{labels.setting}}</div>
+					</div>
+				</div>
+				<div class="mhk-section">
+					<span class="mhk-section-title">{{labels.distance}}</span>
+					<div class="mhk-row">
+						<div id="cb_long_distance" class="mhk-check" data-event-click="muhelper_toggle('long_distance')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.long_distance"></div><span>{{labels.long_distance}}</span></div>
+					</div>
+					<div class="mhk-row">
+						<div id="cb_orig_position" class="mhk-check" data-event-click="muhelper_toggle('orig_position')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.orig_position"></div><span>{{labels.orig_position}}</span></div>
+						<input id="distance_time" type="text" class="text-field text-field--numeric mhk-field mhk-num" data-value="distance_time"/><span class="mhk-unit">{{labels.seconds}}</span>
+					</div>
+				</div>
+				<div class="mhk-section">
+					<span class="mhk-section-title">{{labels.potion}}</span>
+					<div class="mhk-row">
+						<div id="cb_auto_heal" class="mhk-check" data-if="features.auto_heal" data-event-click="muhelper_toggle('auto_heal')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.auto_heal"></div><span>{{labels.auto_heal}}</span></div>
+						<div id="cb_drain_life" class="mhk-check" data-if="features.drain_life" data-event-click="muhelper_toggle('drain_life')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.drain_life"></div><span>{{labels.drain_life}}</span></div>
+						<div id="btn_potion_setting" class="mhk-btn" data-event-click="muhelper_button('potion_setting')">{{labels.setting}}</div>
+					</div>
+				</div>
+				<div class="mhk-section" data-if="features.pet || features.party">
+					<span class="mhk-section-title">{{labels.party}}</span>
+					<div class="mhk-row" data-if="features.pet">
+						<div id="cb_use_pet" class="mhk-check" data-event-click="muhelper_toggle('use_pet')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.use_pet"></div><span>{{labels.use_pet}}</span></div>
+						<div id="rb_raven_cease" class="mhk-check" data-event-click="muhelper_raven_mode(0)"><div class="checkbox-box modern-checkbox-px mhk-radio" data-class-checked="raven_mode == 0"></div><span>{{labels.raven_cease}}</span></div>
+						<div id="rb_raven_auto" class="mhk-check" data-event-click="muhelper_raven_mode(1)"><div class="checkbox-box modern-checkbox-px mhk-radio" data-class-checked="raven_mode == 1"></div><span>{{labels.raven_auto}}</span></div>
+						<div id="rb_raven_together" class="mhk-check" data-event-click="muhelper_raven_mode(2)"><div class="checkbox-box modern-checkbox-px mhk-radio" data-class-checked="raven_mode == 2"></div><span>{{labels.raven_together}}</span></div>
+					</div>
+					<div class="mhk-row" data-if="features.party">
+						<div id="cb_party" class="mhk-check" data-event-click="muhelper_toggle('party')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.party"></div><span>{{labels.party}}</span></div>
+						<div id="btn_party_setting" class="mhk-btn" data-event-click="muhelper_button('party_setting')">{{labels.setting}}</div>
+					</div>
+				</div>
+				<div class="mhk-section">
+					<span class="mhk-section-title">{{labels.tab_other}}</span>
+					<div class="mhk-row">
+						<div id="cb_auto_friend" class="mhk-check" data-event-click="muhelper_toggle('auto_friend')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.auto_friend"></div><span>{{labels.auto_friend}}</span></div>
+						<div id="cb_auto_guild" class="mhk-check" data-event-click="muhelper_toggle('auto_guild')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.auto_guild"></div><span>{{labels.auto_guild}}</span></div>
+						<div id="cb_auto_defend" class="mhk-check" data-event-click="muhelper_toggle('auto_defend')"><div class="checkbox-box modern-checkbox-px" data-class-checked="checks.auto_defend"></div><span>{{labels.auto_defend}}</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Ranges, HP potion and the actions, on every tab. -->
+		<div id="mhk_footer">
+			<div class="mhk-stepper">
+				<span class="mhk-stepper-label">{{labels.hunt_range}}</span>
+				<div id="btn_hunt_minus" class="mhk-step" data-event-click="muhelper_button('hunt_minus')">&#8722;</div>
+				<span id="h_range_digit" class="mhk-step-value">{{hunt_range}}</span>
+				<div id="btn_hunt_add" class="mhk-step" data-event-click="muhelper_button('hunt_add')">+</div>
+			</div>
+			<div class="mhk-stepper">
+				<span class="mhk-stepper-label">{{labels.pick_range}}</span>
+				<div id="btn_pick_minus" class="mhk-step" data-event-click="muhelper_button('pick_minus')">&#8722;</div>
+				<span id="o_range_digit" class="mhk-step-value">{{pick_range}}</span>
+				<div id="btn_pick_add" class="mhk-step" data-event-click="muhelper_button('pick_add')">+</div>
+			</div>
+			<div class="mhk-stepper mhk-potion" data-class-off="!checks.potion">
+				<div id="cb_potion" class="mhk-switch" data-class-on="checks.potion" data-event-click="muhelper_toggle('potion')"><div class="mhk-switch-knob"></div></div>
+				<div class="mhk-potion-icon"></div>
+				<span class="mhk-stepper-label">{{labels.potion_below}}</span>
+				<div id="btn_potion_minus" class="mhk-step" data-event-click="muhelper_button('potion_down')">&#8722;</div>
+				<span class="mhk-step-value mhk-step-pct">{{potion_threshold}}%</span>
+				<div id="btn_potion_plus" class="mhk-step" data-event-click="muhelper_button('potion_up')">+</div>
+			</div>
+			<div class="mhk-actions">
+				<div id="btn_init" class="mhk-btn" data-event-click="muhelper_button('init')">{{labels.init}}</div>
+				<div id="btn_save" class="mhk-btn" data-event-click="muhelper_button('save')">{{labels.save}}</div>
+				<div id="btn_start" class="mhk-btn mhk-btn-primary" data-class-running="helper_active" data-event-click="muhelper_button('start')">
+					<span data-if="!helper_active">{{labels.start}}</span><span data-if="helper_active">{{labels.stop}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</rml>

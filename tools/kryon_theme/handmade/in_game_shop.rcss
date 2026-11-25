@@ -1,0 +1,103 @@
+/* Kryon in-game shop, on the mint card (shared/mint_card.rcss): zones and storage tabs as the web's
+   tabs, categories as framed rows with a mint mark when chosen, the packages as dark wells, and
+   Kryon icons (handmade/icons) on the buttons modern still draws with the legacy sprites. Every
+   position stays modern's. */
+
+/* Zones and storage tabs */
+.igs-zone,
+.igs-storage-tab {
+	background-color: token(kryon-tab-idle);
+	border: 1px token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)px;
+}
+.igs-zone.selected,
+.igs-storage-tab.selected,
+.igs-storage-tab.selected.gift {
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+	border-color: token(kryon-tab-border);
+	box-shadow: inset 0 -2px 0 rgba(217, 154, 67, 217);
+}
+.igs-zone-label,
+.igs-category-label,
+.igs-storage-tab-label {
+	color: token(kryon-tab-idle-text);
+	font-family: "token(font-title)";
+}
+.selected .igs-zone-label,
+.selected .igs-category-label,
+.selected .igs-storage-tab-label {
+	color: token(kryon-mint-title);
+}
+
+/* Categories */
+.igs-category {
+	background-color: rgba(6, 8, 7, 200);
+	border: 1px token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)px;
+}
+.igs-category:hover {
+	border-color: token(kryon-btn-border-hover);
+}
+.igs-category.selected {
+	background-color: token(kryon-mint-wash);
+	border-color: token(kryon-mint-accent);
+	box-shadow: inset 2px 0 0 token(kryon-mint-accent);
+}
+
+/* Packages */
+.igs-package-card {
+	background-color: rgba(4, 7, 6, 210);
+	border: 1px rgba(141, 116, 75, 110);
+	border-radius: token(radius-sm)px;
+	box-shadow: inset 0 2px 6px #000000;
+}
+.igs-package-name {
+	color: token(kryon-mint-title);
+	font-family: "token(font-title)";
+}
+.igs-package-price,
+.igs-wallet-row {
+	color: token(kryon-btn-text);
+}
+
+/* Storage list */
+#igs_storage_list {
+	background-color: rgba(4, 7, 6, 210);
+}
+/* The rows set no color of their own and came out near-black on the dark list. */
+.igs-row {
+	color: token(text-primary);
+}
+.igs-row.selected {
+	color: token(kryon-mint-title);
+}
+.igs-row.selected .igs-row-back {
+	background-color: token(kryon-mint-wash);
+}
+#igs_storage_page_back {
+	background-color: token(kryon-well-top);
+	border: 1px token(kryon-well-border);
+}
+
+/* Icon buttons instead of the legacy sprites */
+#igs_page_prev, #igs_page_next,
+#igs_storage_prev, #igs_storage_next,
+#igs_gift, #igs_charge, #igs_refresh, #igs_close {
+	background-color: token(kryon-tab-idle);
+	border: 1px token(kryon-tab-border);
+	border-radius: token(radius-sm)px;
+}
+#igs_page_prev:hover, #igs_page_next:hover,
+#igs_storage_prev:hover, #igs_storage_next:hover,
+#igs_gift:hover, #igs_charge:hover, #igs_refresh:hover, #igs_close:hover {
+	background-color: token(kryon-tab-bottom);
+	border-color: token(kryon-btn-border-hover);
+}
+#igs_page_prev, #igs_page_prev:hover, #igs_page_prev:active,
+#igs_storage_prev, #igs_storage_prev:hover, #igs_storage_prev:active { decorator: image(icons/chevron_left.tga contain); }
+#igs_page_next, #igs_page_next:hover, #igs_page_next:active,
+#igs_storage_next, #igs_storage_next:hover, #igs_storage_next:active { decorator: image(icons/chevron_right.tga contain); }
+#igs_gift, #igs_gift:hover, #igs_gift:active { decorator: image(icons/gift.tga contain); }
+#igs_charge, #igs_charge:hover, #igs_charge:active { decorator: image(icons/coin.tga contain); }
+#igs_refresh, #igs_refresh:hover, #igs_refresh:active { decorator: image(icons/refresh.tga contain); }
+#igs_close, #igs_close:hover, #igs_close:active { decorator: image(icons/close.tga contain); }

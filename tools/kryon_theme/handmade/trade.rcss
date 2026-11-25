@@ -1,0 +1,23 @@
+/* Sharp text in the trade window. #panel is scaled by transform: scale(--root-scale), and RmlUi
+   rasterises glyphs at the computed font-size, so its text was stretched 1.5-2x (blurry). As in
+   base.rcss's .modern-header-title-px, each text leaf lays out at the physical size (reference px
+   times --root-scale) and scales back by 1 / --root-scale around its top-left corner, so its size
+   and place on screen are unchanged. The item warning badges keep their scale: C++ sizes them in
+   #panel's units, inline (item_warning_badges). */
+.guild-name,
+.id-text,
+.level-text,
+.warning-label,
+.notice-line {
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
+.guild-name { font-size: calc(9px * var(--root-scale, 1)); }
+.id-text-your,
+.id-text-my { font-size: calc(12px * var(--root-scale, 1)); }
+.level-text {
+	width: calc(69px * var(--root-scale, 1));
+	font-size: calc(11px * var(--root-scale, 1));
+}
+.warning-label,
+.notice-line { font-size: calc(7px * var(--root-scale, 1)); }

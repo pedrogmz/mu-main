@@ -1,5 +1,9 @@
 param (
-    [switch]$RebuildAssets
+    [switch]$RebuildAssets,
+    # Only repack the Data/ and fonts/ buckets (themes, RML/RCSS, items, maps...).
+    # Skips ninja, Main.data and the Main.wasm/Main.js copy: use it when no C++,
+    # shader or config.ini.template change was made.
+    [switch]$DataOnly
 )
 
 $ErrorActionPreference = "Stop"
@@ -16,12 +20,14 @@ if (-not $stackPublic) { $stackPublic = Join-Path $workspace "open-mu-browser-pr
 
 $env:PATH = "C:\Users\Poisson\.local\dotnet;C:\Users\Poisson\.local\cmake-3.31.5-windows-x86_64\bin;C:\Users\Poisson\.local\bin;C:\Users\Poisson\emsdk;C:\Users\Poisson\emsdk\upstream\emscripten;C:\Users\Poisson\emsdk\node\24.19.0_64bit\bin;C:\Users\Poisson\emsdk\python\3.13.3_64bit;" + $env:PATH
 
-Write-Host "=== Compiling MuMain to WebAssembly ===" -ForegroundColor Cyan
 Set-Location $repoRoot
 
 # Configured with: cmake --preset wasm-web -B out/build/wasm-merge
 # (out/build/wasm-web points at an old checkout path and no longer reconfigures).
 $buildDir = "out\build\wasm-merge"
+
+if (-not $DataOnly) {
+Write-Host "=== Compiling MuMain to WebAssembly ===" -ForegroundColor Cyan
 ninja -C $buildDir Main
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Compilation failed."
@@ -46,6 +52,9 @@ if ($LASTEXITCODE -ne 0) {
     Write-Error "file_packager failed."
     exit $LASTEXITCODE
 }
+} else {
+    Write-Host "=== -DataOnly: skipping compilation and Main.data ===" -ForegroundColor Yellow
+}
 
 Write-Host "=== Deploying to $stackPublic ===" -ForegroundColor Cyan
 if (Test-Path $stackPublic) {
@@ -59,10 +68,12 @@ if (Test-Path $stackPublic) {
         exit $LASTEXITCODE
     }
 
-    Copy-Item "$buildDir\src\Main.wasm" "$stackPublic\Main.wasm" -Force
-    Copy-Item "$buildDir\src\Main.js" "$stackPublic\Main.js" -Force
-    Copy-Item "$buildDir\src\Main.data.js" "$stackPublic\Main.data.js" -Force
-    Copy-Item "$buildDir\src\Main.data" "$stackPublic\Main.data" -Force
+    if (-not $DataOnly) {
+        Copy-Item "$buildDir\src\Main.wasm" "$stackPublic\Main.wasm" -Force
+        Copy-Item "$buildDir\src\Main.js" "$stackPublic\Main.js" -Force
+        Copy-Item "$buildDir\src\Main.data.js" "$stackPublic\Main.data.js" -Force
+        Copy-Item "$buildDir\src\Main.data" "$stackPublic\Main.data" -Force
+    }
     Write-Host "Deployed successfully to $stackPublic" -ForegroundColor Green
 } else {
     Write-Warning "Stack public directory not found at $stackPublic"

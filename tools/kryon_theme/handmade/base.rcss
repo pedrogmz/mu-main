@@ -1,0 +1,349 @@
+/* Kryon kit: the shared look of every window, after the web client's style -- a dark steel card
+   with a gold border, two outer rings and an inner gold line, small serif titles in spaced
+   capitals over a thin divider, bronze primary buttons, framed secondary buttons and dark input
+   wells. Appended to modern's retinted base.rcss, so it restyles modern's own classes and keeps
+   modern's layout. Colors are this theme's tokens (tokens.json's themeTokens).
+
+   The -px twins (modern-header-rail-px, modern-joint-px, ...) live inside panels that scale
+   themselves (the inventory family); they repeat the rules in px. */
+
+/* ---- Window card ---- */
+
+.modern-frame,
+.modern-frame-crimson {
+	background-color: token(kryon-card-bottom);
+	decorator:
+		radial-gradient(circle at 50% 0%, token(kryon-card-glow), transparent 55%),
+		linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-mid) 50%, token(kryon-card-bottom) 100%);
+	border-width: 1dp;
+	border-color: token(kryon-card-border);
+	border-radius: token(radius-md)dp;
+	box-shadow:
+		0 0 0 3dp token(kryon-ring-outer),
+		0 0 0 4dp token(kryon-ring-gold),
+		0 16dp 40dp rgba(0, 0, 0, 187),
+		inset 0 0 0 5dp token(kryon-ring-inner-dark),
+		inset 0 0 0 6dp token(kryon-filete);
+}
+/* The rings above replace modern's separate outer edge and carved groove. */
+.modern-shell-edge {
+	display: none;
+}
+.modern-groove {
+	border-color: transparent;
+	box-shadow: none;
+}
+/* The content plate keeps the card visible: no fill of its own. */
+.modern-panel,
+.modern-panel-crimson {
+	background-color: transparent;
+	decorator: none;
+	border-width: 0;
+	border-radius: 0;
+}
+.modern-frame-accent,
+.modern-frame-accent-crimson {
+	border-color: transparent;
+}
+
+/* ---- Title: no metal plate, spaced capitals over a thin divider ---- */
+
+.modern-header,
+.modern-header-rail,
+.modern-title-plate {
+	background-color: transparent;
+	decorator: none;
+	border-width: 0;
+	border-bottom-width: 1dp;
+	border-bottom-color: token(kryon-divider);
+	box-shadow: none;
+}
+.modern-header-rail-px {
+	background-color: transparent;
+	decorator: none;
+	border-width: 0;
+	border-bottom-width: 1px;
+	border-bottom-color: token(kryon-divider);
+	box-shadow: none;
+}
+.modern-header-accent {
+	display: none;
+}
+.modern-header-text,
+.modern-header-text-px {
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+.modern-header-title {
+	color: token(kryon-title);
+	font-family: "token(font-title)";
+	font-size: 10dp;
+	font-weight: normal;
+	letter-spacing: 2.4dp;
+	text-transform: uppercase;
+	font-effect: shadow(0dp 1dp #000000);
+}
+.modern-header-title-px {
+	color: token(kryon-title);
+	font-family: "token(font-title)";
+	font-weight: normal;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	font-effect: shadow(0px 1px #000000);
+}
+.modern-header-eyebrow {
+	color: token(kryon-label);
+	letter-spacing: 1.4dp;
+	text-transform: uppercase;
+}
+.title-glow {
+	decorator: radial-gradient(ellipse, rgba(239, 211, 152, 40), transparent 80%);
+}
+
+/* The diamond on the card's top edge (the web's loader card has one at top and bottom). */
+.modern-joint,
+.modern-header-rivet {
+	background-color: token(kryon-card-bottom);
+	decorator: none;
+	border-width: 1dp;
+	border-color: token(kryon-corner);
+	border-radius: 0;
+	transform: rotate(45deg);
+	box-shadow: inset 0 0 0 2dp token(kryon-card-bottom), inset 0 0 0 4dp token(kryon-btn-1);
+}
+.modern-joint-px {
+	background-color: token(kryon-card-bottom);
+	border-color: token(kryon-corner);
+	box-shadow: inset 0 0 0 2px token(kryon-card-bottom), inset 0 0 0 4px token(kryon-btn-1);
+}
+
+/* ---- Wells: recessed areas, input fields ---- */
+
+.modern-content-well {
+	background-color: transparent;
+	decorator: none;
+	border-width: 0;
+	box-shadow: none;
+}
+.modern-control-well,
+.modern-inset {
+	background-color: token(kryon-well-top);
+	decorator: linear-gradient(180deg, token(kryon-well-top) 0%, token(kryon-well-bottom) 100%);
+	border-width: 1dp;
+	border-color: token(kryon-well-border);
+	border-radius: token(radius-sm)dp;
+	box-shadow: inset 0 2dp 7dp #000000, 0 1dp 0 rgba(190, 163, 116, 32);
+}
+.modern-inset.focused {
+	border-color: token(kryon-well-focus);
+}
+.text-field {
+	color: token(kryon-field-text);
+	font-family: "token(font-body)";
+	background-color: token(kryon-well-top);
+	decorator: linear-gradient(180deg, token(kryon-well-top) 0%, token(kryon-well-bottom) 100%);
+	border-width: 1dp;
+	border-color: token(kryon-well-border);
+	border-radius: token(radius-sm)dp;
+	box-shadow: inset 0 2dp 7dp #000000;
+}
+.text-field:focus {
+	border-color: token(kryon-well-focus);
+	box-shadow: inset 0 2dp 7dp #000000, 0 0 0 2dp token(kryon-well-halo);
+}
+.text-field selection {
+	color: #1b0e08;
+	background-color: #f5cf8a;
+}
+/* The zen readout (inventory, shops, storage). */
+.modern-wallet-px {
+	background-color: token(kryon-well-top);
+	decorator: linear-gradient(180deg, token(kryon-well-top) 0%, token(kryon-well-bottom) 100%);
+	border-color: token(kryon-well-border);
+	box-shadow: inset 0 2px 5px #000000;
+}
+.modern-wallet-label-px {
+	color: token(kryon-label);
+	letter-spacing: 0.14em;
+}
+.modern-wallet-value-px {
+	color: token(kryon-btn-text);
+	font-family: "token(font-title)";
+}
+.modern-footer,
+.modern-footer-band {
+	border-top-color: token(kryon-divider);
+}
+
+/* ---- Buttons: framed secondary, bronze primary ---- */
+
+/* Every button starts as the web's framed secondary: dark steel with a bronze edge, so the one
+   bronze primary action stands out. */
+.btn,
+.btn-icon,
+.modern-btn-px,
+.modern-icon-btn-px {
+	color: token(kryon-tab-text);
+	background-color: token(kryon-tab-idle);
+	decorator: linear-gradient(180deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	border-color: token(kryon-tab-border);
+	border-radius: token(radius-sm)dp;
+	font-family: "token(font-title)";
+	font-effect: shadow(0dp 1dp #000000);
+}
+.btn,
+.btn-icon {
+	border-width: 1dp;
+	box-shadow: inset 0 0 0 1dp #130e08, 0 2dp 6dp rgba(0, 0, 0, 136);
+}
+/* Mixed case: windows size their buttons for their labels, and spaced capitals would overflow. */
+.btn {
+	letter-spacing: 0.4dp;
+}
+.btn:hover,
+.btn-icon:hover,
+.modern-btn-px:hover,
+.modern-icon-btn-px:hover {
+	color: token(kryon-btn-text-hover);
+	border-color: token(kryon-btn-border-hover);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+}
+.btn:active,
+.btn-icon:active {
+	transform: translateY(1dp);
+	decorator: linear-gradient(0deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	box-shadow: inset 0 1dp 3dp rgba(0, 0, 0, 184);
+}
+
+/* The window's one primary action: the web's forged SIGN IN button. */
+.btn-ok,
+.btn-icon-primary {
+	color: token(kryon-btn-text);
+	background-color: token(kryon-btn-3);
+	decorator: linear-gradient(180deg, token(kryon-btn-1) 0%, token(kryon-btn-2) 48%, token(kryon-btn-3) 52%, token(kryon-btn-4) 100%);
+	border-color: token(kryon-btn-border);
+	box-shadow:
+		inset 0 0 0 2dp token(kryon-btn-ring),
+		inset 0 3dp 0 token(kryon-btn-shine),
+		0 4dp 12dp rgba(0, 0, 0, 136);
+}
+.btn-ok {
+	letter-spacing: 1.2dp;
+	text-transform: uppercase;
+}
+.btn-ok:hover,
+.btn-icon-primary:hover {
+	color: token(kryon-btn-text-hover);
+	border-color: token(kryon-btn-border-hover);
+	decorator: linear-gradient(180deg, token(kryon-btn-hover-1) 0%, token(kryon-btn-hover-2) 48%, token(kryon-btn-hover-3) 52%, token(kryon-btn-hover-4) 100%);
+}
+.btn-ok:active,
+.btn-icon-primary:active {
+	decorator: linear-gradient(0deg, token(kryon-btn-1) 0%, token(kryon-btn-2) 48%, token(kryon-btn-3) 52%, token(kryon-btn-4) 100%);
+	box-shadow: inset 0 0 0 2dp token(kryon-btn-ring), inset 0 2dp 4dp rgba(0, 0, 0, 184);
+}
+.btn.disabled,
+.btn-ok.disabled,
+.btn-icon.disabled {
+	color: token(text-disabled);
+	background-color: token(kryon-tab-idle);
+	decorator: none;
+	border-color: token(kryon-tab-idle-border);
+	box-shadow: none;
+	opacity: 0.6;
+}
+.btn-icon-label,
+.btn-icon-primary .btn-icon-label {
+	color: token(kryon-btn-text);
+}
+.btn-icon-caption {
+	color: token(kryon-title);
+	font-family: "token(font-title)";
+	letter-spacing: 1dp;
+	text-transform: uppercase;
+}
+.modern-icon-btn-glyph-px {
+	color: token(kryon-btn-text);
+}
+
+/* ---- Server list: the web's tabs ---- */
+
+.server-group-btn,
+.server-option-btn {
+	color: token(kryon-tab-idle-text);
+	background-color: token(kryon-tab-idle);
+	decorator: linear-gradient(180deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	border: 1dp token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)dp;
+	font-family: "token(font-body)";
+}
+.server-group-btn:hover,
+.server-option-btn:hover {
+	color: token(kryon-btn-text-hover);
+	border-color: token(kryon-btn-border-hover);
+	background-color: token(kryon-row-hover);
+}
+.server-group-btn.checked {
+	color: token(kryon-tab-text);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+	border-color: token(kryon-tab-border);
+	box-shadow: inset 0 0 0 1dp #130e08, inset 0 -2dp 0 rgba(217, 154, 67, 217);
+}
+.server-option-btn {
+	color: token(server-button);
+}
+
+/* ---- Checkbox, slots, scrollbars ---- */
+
+.checkbox-box,
+.modern-checkbox-px {
+	background-color: token(kryon-well-top);
+	decorator: none;
+	border-color: token(kryon-well-border);
+	border-radius: 0;
+}
+.checkbox-box.checked,
+.modern-checkbox-px.checked {
+	background-color: token(kryon-gold-fill-bottom);
+	decorator: linear-gradient(180deg, token(kryon-gold-fill-top) 0%, token(kryon-gold-fill-bottom) 100%);
+	border-color: token(kryon-well-focus);
+}
+.checkbox-label {
+	color: token(text-secondary);
+}
+.slot {
+	border-color: token(kryon-ring-gold);
+}
+.slot--selected {
+	border-color: token(kryon-well-focus);
+	background-color: rgba(211, 174, 102, 25);
+}
+.scroll-pane scrollbarvertical slidertrack {
+	background-color: token(kryon-scroll-track);
+}
+.scroll-pane scrollbarvertical sliderbar {
+	background-color: token(kryon-scroll-thumb);
+}
+.scroll-pane scrollbarvertical sliderbar:hover,
+.scroll-pane scrollbarvertical sliderbar:active {
+	background-color: token(kryon-scroll-thumb-hover);
+}
+
+/* ---- Helpers for Kryon's own stylesheets ---- */
+
+/* A gold corner bracket (the web's login card has them in its top corners): give an element a
+   size and position, then one of the corner classes. */
+.kryon-corner {
+	position: absolute;
+	width: 12dp;
+	height: 12dp;
+	pointer-events: none;
+	background-color: transparent;
+	border-width: 0;
+	border-color: token(kryon-corner);
+	transform: none;
+	box-shadow: none;
+}
+.kryon-corner-tl { border-top-width: 2dp; border-left-width: 2dp; }
+.kryon-corner-tr { border-top-width: 2dp; border-right-width: 2dp; }

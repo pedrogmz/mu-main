@@ -59,12 +59,16 @@ namespace mu::ui::window
         void FilterByAttackSkills();
         void FilterByBuffSkills();
 
+        // The hero's learned skills the MU Helper can use as attacks (`attack`) or as buffs, in
+        // skill-list order. The picker's own list, and the config window's inline catalog.
+        static std::vector<int> CollectLearnedSkills(bool attack);
+        static bool IsBuffSkill(int iSkillType);
+
     private:
         void PrepareSkillsToRender();
         void Pick(int index);
 
         static bool IsAttackSkill(int iSkillType);
-        static bool IsBuffSkill(int iSkillType);
         static bool IsHealingSkill(int iSkillType);
         static bool IsDefenseSkill(int iSkillType);
 

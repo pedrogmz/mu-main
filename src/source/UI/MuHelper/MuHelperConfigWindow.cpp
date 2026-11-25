@@ -283,6 +283,21 @@ void CMuHelperConfigWindow::OnButton(const Rml::String& key)
     }
     else if (key == "init") InitConfig();
     else if (key == "close") g_pNewUISystem->Hide(INTERFACE_MUHELPER);
+    else if (key == "potion_up" || key == "potion_down")
+    {
+        // The detail panel's gauge works in tenths; keep to its steps and give it the new value.
+        const int step = (key == "potion_up") ? 10 : -10;
+        c.iPotionThreshold = std::clamp((c.iPotionThreshold / 10) * 10 + step, 10, 100);
+        if (g_pMuHelperDetail)
+            g_pMuHelperDetail->ApplySavedConfig();
+    }
+    else if (key == "start")
+    {
+        // Starting runs what is on screen: save it first, as the Save button would.
+        if (!g_MuHelper.IsActive())
+            SaveConfig();
+        g_MuHelper.Toggle();
+    }
 }
 
 void CMuHelperConfigWindow::OnSlotClick(int slot)
@@ -313,6 +328,45 @@ void CMuHelperConfigWindow::OnSlotClear(int slot)
 
     m_aiSelectedSkills[slot] = -1;
     ClearCombo();
+}
+
+void CMuHelperConfigWindow::OnCatalogAdd(int iSkill)
+{
+    if (iSkill <= 0 || IsSkillAssigned(iSkill))
+        return;
+
+    const bool buff = CMuHelperSkillPicker::IsBuffSkill(iSkill);
+    const int first = buff ? 3 : 0;
+    const int count = buff ? 3 : (UI::MuHelper::ResolveClassFeatures(BaseClass()).skill3 ? 3 : 2);
+
+    int target = first + count - 1;
+    for (int slot = first; slot < first + count; ++slot)
+    {
+        if (m_aiSelectedSkills[slot] <= 0)
+        {
+            target = slot;
+            break;
+        }
+    }
+
+    if (m_aiSelectedSkills[target] > 0)
+        ClearCombo(); // replacing a skill can break the combo's three-skill chain
+    m_iSelectedSkillSlot = target;
+    m_aiSelectedSkills[target] = -1;
+    AssignSkill(iSkill);
+}
+
+void CMuHelperConfigWindow::SyncCatalog()
+{
+    auto build = [this](bool attack)
+    {
+        std::vector<MuHelperCatalogSkill> catalog;
+        for (const int skill : CMuHelperSkillPicker::CollectLearnedSkills(attack))
+            catalog.push_back({UI::MuHelper::SkillIconDecorator(skill), skill, IsSkillAssigned(skill)});
+        return catalog;
+    };
+    SyncField(m_RmlView.Binder(), &MuHelperConfigRmlModel::attackCatalog, "attack_catalog", build(true));
+    SyncField(m_RmlView.Binder(), &MuHelperConfigRmlModel::buffCatalog, "buff_catalog", build(false));
 }
 
 void CMuHelperConfigWindow::ClearCombo()
@@ -510,6 +564,9 @@ void CMuHelperConfigWindow::BindRmlModel(Rml::DataModelConstructor& c, MuHelperC
     c.Bind("hunt_range", &model.huntRange);
     c.Bind("pick_range", &model.pickRange);
     c.Bind("raven_mode", &model.ravenMode);
+    c.Bind("potion_threshold", &model.potionThreshold);
+    c.Bind("helper_active", &model.helperActive);
+    c.Bind("safe_zone", &model.safeZone);
 
     auto features = c.RegisterStruct<MuHelperConfigFeatures>();
     features.RegisterMember("skill3", &MuHelperConfigFeatures::skill3);
@@ -570,6 +627,14 @@ void CMuHelperConfigWindow::BindRmlModel(Rml::DataModelConstructor& c, MuHelperC
     c.RegisterArray<std::vector<MuHelperExtraItem>>();
     c.Bind("extra_items", &model.extraItems);
 
+    auto catalogSkill = c.RegisterStruct<MuHelperCatalogSkill>();
+    catalogSkill.RegisterMember("decorator", &MuHelperCatalogSkill::decorator);
+    catalogSkill.RegisterMember("skill", &MuHelperCatalogSkill::skill);
+    catalogSkill.RegisterMember("added", &MuHelperCatalogSkill::added);
+    c.RegisterArray<std::vector<MuHelperCatalogSkill>>();
+    c.Bind("attack_catalog", &model.attackCatalog);
+    c.Bind("buff_catalog", &model.buffCatalog);
+
     auto labels = c.RegisterStruct<MuHelperConfigLabels>();
     labels.RegisterMember("title", &MuHelperConfigLabels::title);
     labels.RegisterMember("tab_hunting", &MuHelperConfigLabels::tabHunting);
@@ -615,6 +680,24 @@ void CMuHelperConfigWindow::BindRmlModel(Rml::DataModelConstructor& c, MuHelperC
     labels.RegisterMember("save", &MuHelperConfigLabels::save);
     labels.RegisterMember("init", &MuHelperConfigLabels::init);
     labels.RegisterMember("close_tip", &MuHelperConfigLabels::closeTip);
+    labels.RegisterMember("subtitle", &MuHelperConfigLabels::subtitle);
+    labels.RegisterMember("status_running", &MuHelperConfigLabels::statusRunning);
+    labels.RegisterMember("status_stopped", &MuHelperConfigLabels::statusStopped);
+    labels.RegisterMember("status_safe_zone", &MuHelperConfigLabels::statusSafeZone);
+    labels.RegisterMember("attacks", &MuHelperConfigLabels::attacks);
+    labels.RegisterMember("rotation", &MuHelperConfigLabels::rotation);
+    labels.RegisterMember("buffs", &MuHelperConfigLabels::buffs);
+    labels.RegisterMember("missing_only", &MuHelperConfigLabels::missingOnly);
+    labels.RegisterMember("catalog_hint", &MuHelperConfigLabels::catalogHint);
+    labels.RegisterMember("catalog_empty", &MuHelperConfigLabels::catalogEmpty);
+    labels.RegisterMember("remove_hint", &MuHelperConfigLabels::removeHint);
+    labels.RegisterMember("start", &MuHelperConfigLabels::start);
+    labels.RegisterMember("stop", &MuHelperConfigLabels::stop);
+    labels.RegisterMember("hunt_range", &MuHelperConfigLabels::huntRange);
+    labels.RegisterMember("pick_range", &MuHelperConfigLabels::pickRange);
+    labels.RegisterMember("potion_below", &MuHelperConfigLabels::potionBelow);
+    labels.RegisterMember("auto_pickup", &MuHelperConfigLabels::autoPickup);
+    labels.RegisterMember("auto_pickup_hint", &MuHelperConfigLabels::autoPickupHint);
     c.Bind("labels", &model.labels);
 
     c.BindEventCallback("muhelper_tab",
@@ -654,6 +737,19 @@ void CMuHelperConfigWindow::BindRmlModel(Rml::DataModelConstructor& c, MuHelperC
             if (event.GetParameter<int>("button", -1) != 1 || args.size() != 1)
                 return;
             OnSlotClear(args[0].Get<int>(-1));
+        });
+    // The centred layout's slots: a left click removes the skill, a catalog click adds one.
+    c.BindEventCallback("muhelper_slot_remove",
+        [this](Rml::DataModelHandle, Rml::Event&, const Rml::VariantList& args)
+        {
+            if (args.size() == 1)
+                OnSlotClear(args[0].Get<int>(-1));
+        });
+    c.BindEventCallback("muhelper_catalog_add",
+        [this](Rml::DataModelHandle, Rml::Event&, const Rml::VariantList& args)
+        {
+            if (args.size() == 1)
+                OnCatalogAdd(args[0].Get<int>(0));
         });
     c.BindEventCallback("muhelper_extra_select",
         [this](Rml::DataModelHandle, Rml::Event&, const Rml::VariantList& args)
@@ -714,6 +810,24 @@ void CMuHelperConfigWindow::BindRmlModel(Rml::DataModelConstructor& c, MuHelperC
     l.save = Narrow(I18N::Game::SaveSetting);
     l.init = Narrow(I18N::Game::Initialization);
     l.closeTip = Narrow(I18N::Game::Close388);
+    l.subtitle = Narrow(I18N::Game::SetUpYourAutomaticHuntingRotation);
+    l.statusRunning = Narrow(I18N::Game::MUHelperStatusRunning);
+    l.statusStopped = Narrow(I18N::Game::MUHelperStatusStopped);
+    l.statusSafeZone = Narrow(I18N::Game::MUHelperStatusSafeZone);
+    l.attacks = Narrow(I18N::Game::MUHelperAttackSkills);
+    l.rotation = Narrow(I18N::Game::MUHelperRotationOrder);
+    l.buffs = Narrow(I18N::Game::MUHelperBuffSkills);
+    l.missingOnly = Narrow(I18N::Game::MUHelperCastOnlyWhenMissing);
+    l.catalogHint = Narrow(I18N::Game::MUHelperClickASkillToAddIt);
+    l.catalogEmpty = Narrow(I18N::Game::MUHelperNoSkillsOfThisKindLearned);
+    l.removeHint = Narrow(I18N::Game::MUHelperClickToRemove);
+    l.start = Narrow(I18N::Game::MUHelperStartButton);
+    l.stop = Narrow(I18N::Game::MUHelperStopButton);
+    l.huntRange = Narrow(I18N::Game::MUHelperAttackRange);
+    l.pickRange = Narrow(I18N::Game::MUHelperPickUpRange);
+    l.potionBelow = Narrow(I18N::Game::MUHelperHPPotionBelow);
+    l.autoPickup = Narrow(I18N::Game::MUHelperAutoPickUp);
+    l.autoPickupHint = Narrow(I18N::Game::MUHelperChooseWhatIsPickedUpAutomatically);
 }
 
 void CMuHelperConfigWindow::OnRmlBuilt()
@@ -776,6 +890,9 @@ void CMuHelperConfigWindow::SyncRmlModel()
     SyncField(m_RmlView.Binder(), &MuHelperConfigRmlModel::huntRange, "hunt_range", c.iHuntingRange);
     SyncField(m_RmlView.Binder(), &MuHelperConfigRmlModel::pickRange, "pick_range", c.iObtainingRange);
     SyncField(m_RmlView.Binder(), &MuHelperConfigRmlModel::ravenMode, "raven_mode", c.iDarkRavenMode);
+    SyncField(m_RmlView.Binder(), &MuHelperConfigRmlModel::potionThreshold, "potion_threshold", c.iPotionThreshold);
+    SyncField(m_RmlView.Binder(), &MuHelperConfigRmlModel::helperActive, "helper_active", g_MuHelper.IsActive());
+    SyncField(m_RmlView.Binder(), &MuHelperConfigRmlModel::safeZone, "safe_zone", Hero != nullptr && Hero->SafeZone);
 
     const UI::MuHelper::ClassFeatures f = UI::MuHelper::ResolveClassFeatures(BaseClass());
     MuHelperConfigFeatures features;
@@ -824,6 +941,8 @@ void CMuHelperConfigWindow::SyncRmlModel()
     slots.s4 = UI::MuHelper::SkillIconDecorator(m_aiSelectedSkills[4]);
     slots.s5 = UI::MuHelper::SkillIconDecorator(m_aiSelectedSkills[5]);
     SyncField(m_RmlView.Binder(), &MuHelperConfigRmlModel::slots, "slots", slots);
+
+    SyncCatalog();
 
     if (m_bExtraItemsDirty)
     {

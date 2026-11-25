@@ -101,6 +101,17 @@ namespace mu::ui::window
             m_bRmlCommandClicked = true;
         }
 
+        // The top-right buttons (shop, character, inventory, friends, menu) for a bar drawn outside
+        // RmlUi -- the web page's (UI/HUD/WebTopButtons.cpp).
+        struct TopButtonsState
+        {
+            bool cShopOpen = false, chaInfoOpen = false, myInvenOpen = false, friendOpen = false, windowOpen = false;
+            bool chaInfoAlert = false, friendAlert = false;
+        };
+        TopButtonsState GetTopButtonsState() const;
+        // Hides main_frame_top.rml's button row while another bar draws those buttons.
+        void SetTopButtonsExternal(bool external);
+
     private:
         void SyncRmlModel();
         void BuildRmlUi();
@@ -154,6 +165,9 @@ namespace mu::ui::window
             // Alert-blink dots: bound boolean + CSS dot, computed each frame from the same state
             // the legacy blink read.
             bool chaInfoAlert = false, friendAlert = false;
+
+            // Another bar (the web page's) draws the top-right buttons, so main_frame_top.rml hides its row.
+            bool topButtonsExternal = false;
 
             // Which of #skill_slot_0..4 shows the active skill (see
             // CSkillList::IsHotKeySlotCurrentSkill()). 5 named fields, not an array -- RmlUi's

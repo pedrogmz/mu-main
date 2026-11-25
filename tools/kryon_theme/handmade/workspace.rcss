@@ -1,0 +1,27 @@
+/* The location bar sits 5dp (10px at a 2x UI) in from the corner, like the web shell's
+   #game-controls bar sits 10px in from its corner, so its outer gold rings are not cut by the
+   screen edge. A relative offset moves the slot (the game reads its final position) without
+   growing the header. */
+#shell_header .slot[data-window="mu_helper_bar"] {
+	position: relative;
+	left: 5dp;
+	top: 5dp;
+}
+
+/* The MU Helper's centred card (Kryon's workspace.rml gives it this region in the content area).
+   The game sets the region's height from its 440-unit card; capping it to the content area makes
+   WindowPlacement draw the card at the scale that fits, so it never runs under the header or the
+   HUD. Top, bottom and auto margins centre it vertically when there is room to spare. */
+.mu-helper-stage {
+	left: 0;
+	right: 0;
+	top: 6dp;
+	bottom: 6dp;
+	margin-top: auto;
+	margin-bottom: auto;
+	max-height: calc(100% - 12dp);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}

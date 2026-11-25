@@ -1,0 +1,11 @@
+/* Sharp text in the personal shop window. #panel is scaled by transform: scale(--root-scale); RmlUi
+   rasterises glyphs at the computed font-size, so its text was stretched 1.5-2x (blurry). As in
+   base.rcss's .modern-header-title-px, the text lays out at the physical size (reference px times
+   --root-scale) and scales back by 1 / --root-scale around its top-left corner, so its size and
+   place on screen are unchanged. */
+.pshop-title-strip-text {
+	width: calc(166px * var(--root-scale, 1));
+	font-size: calc(12px * var(--root-scale, 1));
+	transform-origin: left top;
+	transform: scale(calc(1 / var(--root-scale, 1)));
+}
