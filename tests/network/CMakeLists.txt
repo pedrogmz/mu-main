@@ -6,6 +6,13 @@ mu_add_test(
 )
 
 mu_add_test(
+    NAME test_round_trip_meter
+    SOURCES
+        test_round_trip_meter.cpp
+        ${CMAKE_SOURCE_DIR}/src/source/Network/RoundTripMeter.cpp
+)
+
+mu_add_test(
     NAME test_byte_order
     SOURCES
         test_byte_order.cpp
@@ -53,6 +60,15 @@ mu_add_test(
     SOURCES
         test_illusion_temple_result.cpp
         ${CMAKE_SOURCE_DIR}/src/source/Network/Server/IllusionTempleResult.cpp
+)
+
+mu_add_test(
+    NAME test_pickup_reply
+    SOURCES
+        test_pickup_reply.cpp
+        ${CMAKE_SOURCE_DIR}/src/source/App/Platform/Windows/Winmain.cpp
+    LINK_LIBS
+        MuClient
 )
 
 mu_add_test(

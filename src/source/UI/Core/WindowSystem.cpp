@@ -131,7 +131,7 @@ bool CSystem::Create()
     m_pNewUIMng = new CManager;
 
     m_pNewChatLogWindow = new CChatLogWindow;
-    if (false == m_pNewChatLogWindow->Create(m_pNewUIMng, 6))
+    if (false == m_pNewChatLogWindow->Create(m_pNewUIMng))
         return false;
 
     m_pNewSystemLogWindow = new CSystemLogWindow;
@@ -1902,7 +1902,7 @@ void CSystem::UpdateSendMoveInterface()
 {
     if (IsVisible(INTERFACE_TRADE))
     {
-        SocketClient->ToGameServer()->SendTradeCancel();
+        g_pTrade->CancelTrade();
         Hide(INTERFACE_TRADE);
     }
     if (IsVisible(INTERFACE_STORAGE_EXT))

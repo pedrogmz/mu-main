@@ -5,6 +5,7 @@ set(MU_PLATFORM_SOURCES "posix")
 # No saved logins, shop downloads or CPU usage in the browser; the log also goes to the devtools console.
 set(MU_TARGET_ADAPTERS
   "Core/Platform/Adapters/UserFolderSdl.cpp"
+  "Core/Platform/Adapters/UserFilesOnDisk.cpp"
   "Core/Platform/Adapters/CredentialsUnavailable.cpp"
   "GameShop/FileDownloader/Adapters/ShopDownloadUnavailable.cpp"
   "Core/Utilities/Adapters/CpuUsageUnavailable.cpp"

@@ -22,7 +22,8 @@
 		     transparency step (back_alpha) fades the plate and not the frame. -->
 		<div id="chat_ring"></div>
 		<div id="resize_handle" data-class-hidden="!show_frame"
-		     data-event-drag="chat_resize_drag"></div>
+		     data-event-dragstart="chat_resize_start" data-event-drag="chat_resize_drag"
+		     data-event-dragend="chat_resize_end"></div>
 
 		<div id="lines" class="scroll-pane" data-style-height="client_height + 'dp'">
 			<!-- data-attr-class replaces the whole class attribute, so every class this line needs

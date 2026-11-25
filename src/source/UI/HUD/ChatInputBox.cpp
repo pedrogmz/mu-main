@@ -259,6 +259,8 @@ bool mu::ui::window::CChatInputBox::UpdateKeyEvent()
             m_pNewUIChatLogWnd->SetSizeAuto();
             m_pNewUIChatLogWnd->UpdateWndSize();
             m_pNewUIChatLogWnd->UpdateScrollPos();
+            // The server keeps the chat box size with the key configuration: saved as it changes.
+            SaveOptionsIfInGame();
             PlayBuffer(SOUND_CLICK01);
             return false;
         }
@@ -457,9 +459,11 @@ void mu::ui::window::CChatInputBox::SendChatMessage()
                     wchar_t* pszMapName = szChatText + wcslen(I18N::Game::Warp) + 1;
                     int iMapIndex = g_pMoveCommandWindow->GetMapIndexFromMovereq(pszMapName);
 
-                    if (g_pMoveCommandWindow->IsTheMapInDifferentServer(gMapManager.WorldActive, iMapIndex))
+                    // A warp can end the session here (a map on another game server): the settings the
+                    // server keeps go first. A name of no warp moves nowhere, so nothing is saved.
+                    if (iMapIndex != -1)
                     {
-                        SaveOptions();
+                        SaveOptionsIfInGame();
                     }
 
                     SocketClient->ToGameServer()->SendWarpCommandRequest(g_pMoveCommandWindow->GetMoveCommandKey(), iMapIndex);
@@ -574,6 +578,8 @@ void mu::ui::window::CChatInputBox::BindRmlModel(Rml::DataModelConstructor& c, C
             m_pNewUIChatLogWnd->SetSizeAuto();
             m_pNewUIChatLogWnd->UpdateWndSize();
             m_pNewUIChatLogWnd->UpdateScrollPos();
+            // The server keeps the chat box size with the key configuration: saved as it changes.
+            SaveOptionsIfInGame();
             PlayBuffer(SOUND_CLICK01);
         });
 
@@ -589,6 +595,7 @@ void mu::ui::window::CChatInputBox::BindRmlModel(Rml::DataModelConstructor& c, C
         [this](Rml::DataModelHandle, Rml::Event&, const Rml::VariantList&)
         {
             m_pNewUIChatLogWnd->SetBackAlphaAuto();
+            SaveOptionsIfInGame();
             PlayBuffer(SOUND_CLICK01);
         });
 }

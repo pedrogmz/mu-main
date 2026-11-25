@@ -13,6 +13,8 @@
 #include "Engine/Physics/PhysicsManager.h"
 #include "GameLogic/Pets/CSPetSystem.h"
 #include "GameLogic/Social/MonkSystem.h"
+#include "Network/Server/WSclient.h"
+#include "Render/Effects/AuraJointLifecycle.h"
 #include "Render/Effects/StatDownDebuffLights.h"
 #include "Render/Effects/ZzzEffect.h"
 #include "Data/GameData/ItemData/ItemModelSlots.h"
@@ -37,12 +39,15 @@
 #include "RepeatedDraws.h"
 
 #include <algorithm>
+#include <array>
 #include <cstring>
 #include <cwchar>
 #include <functional>
 #include <memory>
 #include <new>
 #include <vector>
+
+extern float BoneScale;
 
 namespace
 {
@@ -98,6 +103,51 @@ struct CharacterScope
     CHARACTER& character()
     {
         return characters[1];
+    }
+};
+
+// A skeleton's cloth mesh before any draw has prepared the shared BMD's skin.
+struct MagicSkeletonScope : CharacterScope
+{
+    static constexpr int MeshIndex = 2;
+    static constexpr int PinBone = 18;
+    std::array<Mesh_t, MeshIndex + 1> meshes{};
+    std::array<Vertex_t, 2> vertices{};
+    float previousBoneScale = BoneScale;
+    const float (*previousActiveBones)[3][4] = g_pActiveBoneTransform;
+
+    MagicSkeletonScope() : CharacterScope(MODEL_MAGIC_SKELETON)
+    {
+        BMD& model = Models[MODEL_MAGIC_SKELETON];
+        model.NumMeshs = static_cast<short>(meshes.size());
+        model.Meshs = meshes.data();
+        meshes[MeshIndex].NumVertices = static_cast<short>(vertices.size());
+        meshes[MeshIndex].Vertices = vertices.data();
+        vertices[0].Node = PinBone;
+        vertices[1].Node = 48; // The vertex whose null palette read appeared in the crash dump.
+        for (int bone = 0; bone < MAX_BONES; ++bone)
+            for (int axis = 0; axis < 3; ++axis)
+                bones[bone][axis][axis] = 1.f;
+        BoneScale = 1.f;
+        CHARACTER& c = character();
+        c.MonsterIndex = MONSTER_MAGIC_SKELETON_1;
+        c.GuildMarkIndex = -1;
+        c.Object.EnableBoneMatrix = true;
+        c.Object.Alpha = 1.f;
+        PlaceObjectModel(&c.Object, &model);
+        Engine::Object::Pose::Record(&c.Object, &model, false);
+    }
+
+    ~MagicSkeletonScope()
+    {
+        OBJECT& o = character().Object;
+        // Keep this test independent of the existing base-array deletion bug in DeleteCloth.
+        delete[] static_cast<CPhysicsClothMesh*>(o.m_pCloth);
+        o.m_pCloth = nullptr;
+        Models[MODEL_MAGIC_SKELETON].Meshs = nullptr;
+        Models[MODEL_MAGIC_SKELETON].NumMeshs = 0;
+        BoneScale = previousBoneScale;
+        SetActiveBoneTransform(previousActiveBones);
     }
 };
 
@@ -525,6 +575,52 @@ TEST_CASE("A drawn caped monster's cloth is made and simulated by the update, no
     DeleteCloth(&c, &o);
 }
 
+TEST_CASE("Magic Skeleton cloth is skinned before its first draw and follows the current pose [effects]")
+{
+    MagicSkeletonScope scope;
+    OBJECT& o = scope.character().Object;
+    BMD& model = Models[o.Type];
+    REQUIRE(model.m_pCurrentBoneTransform == nullptr);
+    Vector(1000.f, 2000.f, 300.f, o.Position);
+
+    UpdateCharacterEffects();
+
+    REQUIRE(o.m_pCloth != nullptr);
+    auto* cloth = static_cast<CPhysicsClothMesh*>(o.m_pCloth);
+    CHECK(cloth->GetNumVertices() == 2);
+    CHECK(cloth->GetOwner() == &o);
+    vec3_t pinned;
+    cloth->GetPosition(0, &pinned);
+    CHECK(pinned[0] == doctest::Approx(o.Position[0]));
+    CHECK(pinned[1] == doctest::Approx(o.Position[1]));
+
+    // Another instance of this model was skinned last; the update must replace its palette.
+    auto otherBones = std::make_unique<vec34_t[]>(MAX_BONES);
+    OBB_t obb{};
+    model.TransformCheap(otherBones.get(), o.BoundingBoxMin, o.BoundingBoxMax, &obb, true);
+    constexpr float BoneMovement = 75.f;
+    o.BoneTransform[MagicSkeletonScope::PinBone][0][3] = BoneMovement;
+
+    UpdateCharacterEffects();
+
+    CHECK(model.m_pCurrentBoneTransform == o.BoneTransform);
+    cloth->GetPosition(0, &pinned);
+    CHECK(pinned[0] == doctest::Approx(o.Position[0] + BoneMovement));
+}
+
+TEST_CASE("A Magic Skeleton without a cloth mesh stays safe across repeated updates [effects]")
+{
+    MagicSkeletonScope scope;
+    OBJECT& o = scope.character().Object;
+    Models[o.Type].NumMeshs = MagicSkeletonScope::MeshIndex;
+
+    UpdateCharacterEffects();
+    UpdateCharacterEffects();
+
+    CHECK(o.m_pCloth == nullptr);
+    CHECK(o.m_byNumCloth == 0);
+}
+
 TEST_CASE("A GM's transformation spawns its lights from the update, and none while cloaked [effects]")
 {
     CharacterScope scope(MODEL_PLAYER);
@@ -577,17 +673,22 @@ TEST_CASE("A character's mark spawns its sprite in the update, and its draw spaw
     FenrirScope::ClearSpawns();
 }
 
-TEST_CASE("A wing's item effect spawns its lights on the bones it is given, and its draw spawns none [effects]")
+TEST_CASE("A wing's effect spawns its lights on the bones it is given, and its draw spawns none [effects]")
 {
     FenrirScope scope;
+    // The Wing of Eternal's lights are data (section 7b).
+    const ShippedLooksScope looks;
+    REQUIRE(looks.IsComplete());
     ItemModelDatabaseScope restoreModels;
     Data::Items::ItemModelDefinition eternal;
     eternal.group = 12;
     eternal.number = 37;
     eternal.file = "Data/Item/Wing37.bmd";
-    eternal.itemEffect = "wingOfEternal";
+    eternal.effect = "wingOfEternal";
     g_ItemModelDatabase.Build(std::vector<Data::Items::ItemModelDefinition>{eternal}, Data::Effects::GlowColorList{});
     BMD* b = &Models[MODEL_WING_OF_ETERNAL];
+    // The scope's models aren't loaded: the wing has as many bones as its pose holds.
+    b->NumBones = MAX_BONES;
     b->BodyScale = 1.f;
     Vector(0.f, 0.f, 0.f, b->BodyOrigin);
     OBJECT wing;
@@ -677,7 +778,7 @@ TEST_CASE("A dying Blood Assassin breaks apart from the update, body and head, a
     FenrirScope::ClearSpawns();
 
     DrawLook look = DrawLook::Of(o);
-    CheckDrawSpawnsNone([&] { map->RenderObjectMesh(&o, look, b, false); });
+    CheckDrawSpawnsNone([&] { map->RenderObjectMesh(&o, look, b); });
     CHECK(liveEffects() == 0);
     map->UpdateMonsterEffects(&c, &o, b);
     CHECK(liveEffects() == 2);
@@ -1040,7 +1141,7 @@ TEST_CASE("Drawing an item's effect or style again and again leaves the look on 
     eye.group = 14;
     eye.number = 17;
     eye.file = "Data/Item/EventBullCatEye.bmd";
-    eye.itemEffect = "devilsEye";
+    eye.effect = "devilsEye";
     Data::Items::ItemModelDefinition bone;
     bone.group = 13;
     bone.number = 17;
@@ -1176,9 +1277,7 @@ TEST_CASE("A Lion Gate is placed by its update, not by its draw [effects]")
     Vector(23410.f, 2860.f, 0.f, gate.Position); // tile 234, 28
     BMD* b = &Models[gate.Type];
 
-    DrawLook look = DrawLook::Of(gate);
-    CheckDrawSpawnsNone([&] { GMEmpireGuardian1::Make()->RenderMonster(&gate, look, b); });
-    CHECK(gate.Position[0] == 23410.f);
+    // Its draw is the goneWhenDying look of Data/Effects/RenderStyles.json, which moves nothing.
 
     GMEmpireGuardian1::Make()->MoveMonsterVisual(&scope.character(), &gate, b);
     CHECK(gate.Position[0] == 23450.f);
@@ -1220,8 +1319,8 @@ TEST_CASE("A dying Dreadfear fades in its update, by the reference clock, not in
         CheckDrawSpawnsNone(
             [&]
             {
-                M38Kanturu2nd::Render_Kanturu2nd_MonsterObjectMesh(&dreadfear, look, b, 0);
-                M39Kanturu3rd::RenderKanturu3rdMonsterObjectMesh(&dreadfear, look, b, false);
+                M38Kanturu2nd::Render_Kanturu2nd_MonsterObjectMesh(&dreadfear, look, b);
+                M39Kanturu3rd::RenderKanturu3rdMonsterObjectMesh(&dreadfear, look, b);
             });
         CHECK(dreadfear.Alpha == 0.5f);
 
@@ -1291,7 +1390,7 @@ TEST_CASE("Drawing an object whose pose the update has not built leaves its pose
     REQUIRE_FALSE(Engine::Object::Pose::IsCurrent(&rock, b, true));
     const float before = rock.BoneTransform[0][0][3];
 
-    CheckDrawSpawnsNone([&] { CHECK(Calc_RenderObject(&rock, false, 0, 0)); });
+    CheckDrawSpawnsNone([&] { CHECK(Calc_RenderObject(&rock, false, 0)); });
     CHECK_FALSE(Engine::Object::Pose::IsCurrent(&rock, b, true));
     CHECK(rock.BoneTransform[0][0][3] == before);
 }
@@ -1332,15 +1431,21 @@ TEST_CASE("A character drawn before the update posed it is posed into draw bones
 TEST_CASE("Cursed Castle Water lights the bone it is given from the update, and its draw spawns none [effects]")
 {
     FenrirScope scope;
+    // Its look and its light are data (design L29, section 7b).
+    const ShippedLooksScope looks;
+    REQUIRE(looks.IsComplete());
     ItemModelDatabaseScope restoreModels;
     Data::Items::ItemModelDefinition water;
     water.group = 14;
     water.number = 64;
     water.file = "Data/Item/Water.bmd";
     water.renderStyle = "cursedCastleWater";
+    water.effect = "cursedCastleWater";
     g_ItemModelDatabase.Build(std::vector<Data::Items::ItemModelDefinition>{water}, Data::Effects::GlowColorList{});
     const int model = Data::Items::ToModelSlot(Data::Items::MakeItemType(14, 64));
     BMD* b = &Models[model];
+    // The scope's models aren't loaded: the water has as many bones as its pose holds.
+    b->NumBones = MAX_BONES;
     b->BodyScale = 1.f;
     Vector(0.f, 0.f, 0.f, b->BodyOrigin);
     OBJECT item;
@@ -1355,8 +1460,8 @@ TEST_CASE("Cursed Castle Water lights the bone it is given from the update, and 
     for (int i = 0; i < MAX_SPRITES; ++i)
         CHECK_FALSE(Sprites[i].Live);
 
-    REQUIRE(Render::Items::Styles::Spawns(model));
-    Render::Items::Styles::Spawn(b, &item, model, scope.bones.get());
+    REQUIRE(Render::Items::ItemEffects::Spawns(model));
+    Render::Items::ItemEffects::Spawn(b, &item, model, scope.bones.get());
     int onPose = 0;
     for (int i = 0; i < MAX_SPRITES; ++i)
     {
@@ -1390,7 +1495,7 @@ TEST_CASE("A Dragon Kick afterimage leaves the fading character's alpha, place a
     CHECK(o->AnimationFrame == 4.f);
     CHECK(o->Position[0] == 1000.f);
 
-    RepeatedDraws::CheckChangesNothing([o] { RenderObject_AfterImage(o, true, 0, 0); });
+    RepeatedDraws::CheckChangesNothing([o] { RenderObject_AfterImage(o, true, 0); });
     CHECK(o->Alpha == 0.4f);
     CHECK(o->AnimationFrame == 4.f);
 }
@@ -1868,4 +1973,134 @@ TEST_CASE("Dark Side's fingerprint follows a dummy's step, not only how many dum
     float frame = 0.f;
     monk.IsDummyRender(placed, target, frame, 1);
     CHECK(monk.DarksideStateHash() != before);
+}
+
+namespace
+{
+int LiveAuraJoints(const OBJECT* target)
+{
+    int live = 0;
+    for (int i = 0; i < MAX_JOINTS; ++i)
+    {
+        const JOINT& joint = Joints[i];
+        live += joint.Live && joint.Type == MODEL_SPEARSKILL && joint.Target == target &&
+                        (joint.SubType == 4 || joint.SubType == 9)
+                    ? 1
+                    : 0;
+    }
+    return live;
+}
+
+// The character index the aura's joints carry: MoveJoint reads that character's Helper and SafeZone.
+bool AuraJointsBelongTo(const OBJECT* target, int characterIndex)
+{
+    for (int i = 0; i < MAX_JOINTS; ++i)
+    {
+        const JOINT& joint = Joints[i];
+        if (joint.Live && joint.Type == MODEL_SPEARSKILL && joint.Target == target &&
+            (joint.SubType == 4 || joint.SubType == 9) && joint.m_iChaIndex != characterIndex)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+void ClearJoints()
+{
+    for (int i = 0; i < MAX_JOINTS; ++i)
+        Joints[i].Live = false;
+}
+
+// What UnRegisterBuff does to the look when a buff ends.
+void EndBuff(OBJECT* o, eBuffState buff)
+{
+    ClearBuffPhysicalEffect(buff, o);
+    g_CharacterUnRegisterBuff(o, buff);
+}
+} // namespace
+
+TEST_CASE("Greater Damage alone spawns no swirling aura, Greater Defense and the Elf Soldier buff spawn it [effects]")
+{
+    CharacterScope scope(MODEL_PLAYER);
+    CHARACTER& c = scope.character();
+    OBJECT* o = &c.Object;
+    o->Kind = KIND_PLAYER;
+    for (auto& weapon : c.Weapon)
+        weapon.LinkBone = 33;
+    ClearJoints();
+    FenrirScope::ClearSpawns();
+
+    SUBCASE("Greater Damage")
+    {
+        g_CharacterRegisterBuff(o, eBuff_Attack);
+        UpdateBuffAuraEffects(&c, o, &Models[MODEL_PLAYER]);
+        CHECK(LiveAuraJoints(o) == 0);
+    }
+
+    SUBCASE("Greater Defense")
+    {
+        g_CharacterRegisterBuff(o, eBuff_Defense);
+        UpdateBuffAuraEffects(&c, o, &Models[MODEL_PLAYER]);
+        CHECK(LiveAuraJoints(o) == 5);
+        CHECK(AuraJointsBelongTo(o, 1));
+    }
+
+    SUBCASE("Elf Soldier buff")
+    {
+        g_CharacterRegisterBuff(o, eBuff_HelpNpc);
+        UpdateBuffAuraEffects(&c, o, &Models[MODEL_PLAYER]);
+        CHECK(LiveAuraJoints(o) == 5);
+        CHECK(AuraJointsBelongTo(o, 1));
+    }
+
+    SUBCASE("Greater Defense ends while the Elf Soldier buff stays")
+    {
+        g_CharacterRegisterBuff(o, eBuff_HelpNpc);
+        g_CharacterRegisterBuff(o, eBuff_Defense);
+        UpdateBuffAuraEffects(&c, o, &Models[MODEL_PLAYER]);
+        EndBuff(o, eBuff_Defense);
+        MoveJoints();
+        CHECK(LiveAuraJoints(o) == 5);
+    }
+
+    SUBCASE("Greater Defense ends alone")
+    {
+        g_CharacterRegisterBuff(o, eBuff_Defense);
+        UpdateBuffAuraEffects(&c, o, &Models[MODEL_PLAYER]);
+        EndBuff(o, eBuff_Defense);
+        MoveJoints();
+        CHECK(LiveAuraJoints(o) == 0);
+    }
+
+    SUBCASE("An aura left on a Greater Damage player ends")
+    {
+        g_CharacterRegisterBuff(o, eBuff_Attack);
+        Render::Effects::SpawnDefenseAura(o, 1);
+        REQUIRE(LiveAuraJoints(o) == 5);
+        MoveJoints();
+        CHECK(LiveAuraJoints(o) == 0);
+    }
+
+    SUBCASE("The aura ends when a Greater Defense player is cloaked")
+    {
+        g_CharacterRegisterBuff(o, eBuff_Defense);
+        UpdateBuffAuraEffects(&c, o, &Models[MODEL_PLAYER]);
+        REQUIRE(LiveAuraJoints(o) == 5);
+        g_CharacterRegisterBuff(o, eBuff_Cloaking);
+        MoveJoints();
+        CHECK(LiveAuraJoints(o) == 0);
+    }
+
+    SUBCASE("Greater Defense on a cloaked player")
+    {
+        g_CharacterRegisterBuff(o, eBuff_Defense);
+        g_CharacterRegisterBuff(o, eBuff_Cloaking);
+        UpdateBuffAuraEffects(&c, o, &Models[MODEL_PLAYER]);
+        CHECK(LiveAuraJoints(o) == 0);
+    }
+
+    g_CharacterClearBuff(o);
+    ClearJoints();
+    FenrirScope::ClearSpawns();
 }

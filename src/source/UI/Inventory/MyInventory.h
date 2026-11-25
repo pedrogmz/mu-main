@@ -228,6 +228,8 @@ namespace mu::ui::window
         void DeleteEquippingEffectBug(ITEM* pItem);
 
     private:
+        // The pet or mount which accompanies the hero for an equipped helper item.
+        void CreatePetOrMount(ITEM* pItem);
         void LoadImages() const;
         void UnloadImages();
 
@@ -236,6 +238,11 @@ namespace mu::ui::window
         int FindItemIndexWithTagInUseOrder(Data::Items::ItemTag tag) const;
 
         bool EquipmentWindowProcess();
+        // Whether this frame's release of the held item goes to the grid: its first cell's centre can be in the grid
+        // while the pointer is still on an equipment slot above it, and then the grid, which shows where it lands,
+        // takes the release if its drop does anything (CInventoryActionController::DropOutcomeOn). Otherwise the
+        // slot takes the release.
+        bool ReleaseGoesToGrid() const;
         // The pointer over the drawn panel.
         bool IsPointerOverPanel() const;
         // Whether the item in equipmentSlot may be taken off here; tells the

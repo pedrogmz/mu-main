@@ -70,6 +70,7 @@ mu::ui::window::CPickedItem::CPickedItem()
     m_pSrcInventory = nullptr;
     m_pPickedItem = nullptr;
     m_bShow = true;
+    m_bUsedOnItem = false;
     m_Pos.x = m_Pos.y = 0;
     m_Size.cx = m_Size.cy = 0;
 }
@@ -195,6 +196,16 @@ void mu::ui::window::CPickedItem::GetRect(RECT& rcBox)
     rcBox.bottom = rcBox.top + m_Size.cy;
 }
 
+void mu::ui::window::CPickedItem::MarkUsedOnItem()
+{
+    m_bUsedOnItem = true;
+}
+
+bool mu::ui::window::CPickedItem::IsUsedOnItem() const
+{
+    return m_bUsedOnItem;
+}
+
 int mu::ui::window::CPickedItem::GetSourceLinealPos()
 {
     if (m_pSrcInventory)
@@ -209,16 +220,22 @@ int mu::ui::window::CPickedItem::GetSourceLinealPos()
     return -1;
 }
 
+UI::Items::HeldItemPlace mu::ui::window::CPickedItem::PlaceIn(const CInventoryCtrl& grid) const
+{
+    const POINT pointer = CInventoryCtrl::PointerPos();
+    return UI::Items::PlaceHeldItem(grid.Geometry(), static_cast<float>(pointer.x), static_cast<float>(pointer.y),
+                                    m_Anchor);
+}
+
 bool mu::ui::window::CPickedItem::GetTargetPos(CInventoryCtrl* pDest, int& iTargetColumnX, int& iTargetRowY)
 {
-    if (pDest != nullptr)
-    {
-        const POINT pointer = pDest->PointerPos();
-        const POINT itemTopLeft = TopLeftIn(pDest, pointer.x, pointer.y);
+    if (pDest == nullptr)
+        return false;
 
-        return pDest->GetSquarePosAtPt(itemTopLeft.x, itemTopLeft.y, iTargetColumnX, iTargetRowY);
-    }
-    return false;
+    const UI::Items::HeldItemPlace place = PlaceIn(*pDest);
+    iTargetColumnX = place.column;
+    iTargetRowY = place.row;
+    return pDest->Geometry().HasCell(iTargetColumnX, iTargetRowY);
 }
 
 int mu::ui::window::CPickedItem::GetTargetLinealPos(CInventoryCtrl* pDest)
@@ -1131,10 +1148,9 @@ void mu::ui::window::CInventoryCtrl::UpdateCells()
 
     // The picked item's own position is in its owner window's space; every placed window has its
     // own, so take the item's box from the pointer in this grid's space.
-    const POINT pointer = PointerPos();
-    const POINT itemTopLeft = ms_pPickedItem->TopLeftIn(this, pointer.x, pointer.y);
+    const UI::Items::HeldItemPlace place = ms_pPickedItem->PlaceIn(*this);
     const SIZE pickedSize = ms_pPickedItem->SizeIn(this);
-    RECT rcPickedItem{itemTopLeft.x, itemTopLeft.y, itemTopLeft.x + pickedSize.cx, itemTopLeft.y + pickedSize.cy};
+    RECT rcPickedItem{place.left, place.top, place.left + pickedSize.cx, place.top + pickedSize.cy};
     RECT rcInventory, rcIntersect;
     GetRect(rcInventory);
     if (!IntersectRect(&rcIntersect, &rcPickedItem, &rcInventory))
@@ -1142,9 +1158,8 @@ void mu::ui::window::CInventoryCtrl::UpdateCells()
 
     ITEM* pPickItem = ms_pPickedItem->GetItem();
     const ITEM_ATTRIBUTE* pItemAttr = &ItemAttribute[pPickItem->Type];
-    int iColumnX = 0, iRowY = 0;
+    int iColumnX = place.column, iRowY = place.row;
     int nItemColumn = pItemAttr->Width, nItemRow = pItemAttr->Height;
-    m_Geometry.CellOf(static_cast<float>(itemTopLeft.x), static_cast<float>(itemTopLeft.y), iColumnX, iRowY);
 
     bool bWarning = false;
     if (iColumnX < 0 && iColumnX >= -nItemColumn)

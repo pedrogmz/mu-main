@@ -1024,8 +1024,22 @@
   <data name="Translate Item Names" xml:space="preserve">
     <value>Gegenstandsnamen übersetzen</value>
   </data>
-  <data name="Windowed mode" xml:space="preserve">
-    <value>Fenstermodus</value>
+  <data name="Display mode" xml:space="preserve">
+    <value>Anzeigemodus</value>
+  </data>
+  <data name="Windowed" xml:space="preserve">
+    <value>Fenster</value>
+  </data>
+  <data name="Borderless fullscreen" xml:space="preserve">
+    <value>Randloses Vollbild</value>
+  </data>
+  <data name="Fullscreen" xml:space="preserve">
+    <value>Vollbild</value>
+  </data>
+  <data name="Display mode tooltip" xml:space="preserve">
+    <value>Randloses Vollbild füllt den Bildschirm in der Desktop-Auflösung
+und wechselt sofort zu anderen Fenstern.
+Vollbild stellt den Monitor auf die gewählte Auflösung um.</value>
   </data>
   <data name="Close388" xml:space="preserve">
     <value>Schließen</value>
@@ -9215,5 +9229,38 @@
   </data>
   <data name="Critical damage total: +%d" xml:space="preserve">
     <value>Gesamt: +%d</value>
+  </data>
+  <data name="Attack rate (PvM): +%d" xml:space="preserve">
+    <value>Angriffsrate (PvM): +%d</value>
+  </data>
+  <data name="Dark Raven damage: +%d~%d" xml:space="preserve">
+    <value>Schaden des {item:13,5:gen}: +%d~%+d</value>
+  </data>
+  <data name="Dark Raven attack speed: +%d" xml:space="preserve">
+    <value>Angriffsgeschwindigkeit des {item:13,5:gen}: +%d</value>
+  </data>
+  <data name="Dark Raven attack success rate: +%d" xml:space="preserve">
+    <value>Angriffserfolgsrate des {item:13,5:gen}: +%d</value>
+  </data>
+  <data name="Dark Horse damage: +%d~%d" xml:space="preserve">
+    <value>Schaden des {item:13,4:gen}: +%d~%+d</value>
+  </data>
+  <data name="Dark Horse attack speed: +%d" xml:space="preserve">
+    <value>Angriffsgeschwindigkeit des {item:13,4:gen}: +%d</value>
+  </data>
+  <data name="Dark Horse attack success rate: +%d" xml:space="preserve">
+    <value>Angriffserfolgsrate des {item:13,4:gen}: +%d</value>
+  </data>
+  <data name="Guild members as guild master: +%d" xml:space="preserve">
+    <value>Gildenmitglieder als Gildenmeister: +%d</value>
+  </data>
+  <data name="WarpBlockedByEquipment" xml:space="preserve">
+    <value>Mit Ihrer Ausrüstung können Sie sich nicht dorthin teleportieren.</value>
+  </data>
+  <data name="Warp master level %d" xml:space="preserve">
+    <value>ML %d</value>
+  </data>
+  <data name="Warp resets %d" xml:space="preserve">
+    <value>R %d</value>
   </data>
 </root>

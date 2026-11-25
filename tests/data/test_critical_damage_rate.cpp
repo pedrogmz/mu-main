@@ -239,7 +239,7 @@ TEST_CASE("An item's luck counts while it is not broken and the hero can wear it
 // member has a value the client doesn't know.
 TEST_CASE("The hero's own mastered buff adds its master skill's value to the critical damage rate [data][items]")
 {
-    // The Scroll of Battle's value is in the item option table (ItemAddOption.bmd).
+    // The Scroll of Battle's value is in its buff (Data/Buffs/Buffs.json).
     ClientDataScope client(ClientDirectory);
     TooltipDataScope data;
     EquipmentScope equipment;
@@ -527,7 +527,6 @@ TEST_CASE("The critical hit texts are built again only when what they show chang
     UI::Character::CriticalHitTexts texts;
     UI::Character::CriticalHitTexts::Parts parts;
     parts.damageRange = {1909, 2575};
-    parts.locale = "en";
 
     CHECK(texts.Update(parts));
     CHECK(texts.RateLine().text == "Critical damage rate: 0%");
@@ -549,12 +548,13 @@ TEST_CASE("The critical hit texts are built again only when what they show chang
     CHECK(texts.Update(parts));
     CHECK(Texts(texts.DamageHintLines())[1] == "Normal hit: 1909~2600");
 
+    // A language switch reaches the texts through Invalidate (the window's TextsChangedWatch).
     I18N::SetLocale("de");
-    parts.locale = "de";
+    texts.Invalidate();
     CHECK(texts.Update(parts));
     CHECK(texts.RateLine().text == "Kritische Schadensrate: 5%");
     I18N::SetLocale("en");
-    parts.locale = "en";
+    texts.Invalidate();
     CHECK(texts.Update(parts));
 
     // A buff's skill renamed (the skill editor) and the Scroll of Battle renamed ("Translate item names", the item

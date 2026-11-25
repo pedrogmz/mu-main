@@ -75,6 +75,7 @@ namespace mu::ui::window
         ITEM* m_pPickedItem;
 
         bool m_bShow;
+        bool m_bUsedOnItem;
         POINT m_Pos;
         SIZE m_Size;
         UI::Items::PickupAnchor m_Anchor;
@@ -99,6 +100,9 @@ namespace mu::ui::window
         void GetRect(RECT& rcBox);
         // The item's top-left in `grid`'s space, with the pointer at (pointerX, pointerY) there.
         POINT TopLeftIn(const CInventoryCtrl* grid, int pointerX, int pointerY) const;
+        // The item's top-left in `grid`'s space at the pointer, and the cell it lands on there
+        // (UI::Items::PlaceHeldItem). The drop and the drop preview both use it.
+        UI::Items::HeldItemPlace PlaceIn(const CInventoryCtrl& grid) const;
         // The item's size in `grid`'s cells.
         SIZE SizeIn(const CInventoryCtrl* grid) const;
 
@@ -109,6 +113,11 @@ namespace mu::ui::window
         bool IsVisible() const;
         void ShowPickedItem();
         void HidePickedItem();
+
+        // The held item was used on another item (a jewel on a weapon, ...). It stays in the hand until the server
+        // answers with the update of the target item, which consumes it.
+        void MarkUsedOnItem();
+        bool IsUsedOnItem() const;
 
         void Render3D();
     };

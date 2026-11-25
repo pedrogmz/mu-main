@@ -47,6 +47,9 @@ void InitializeDotNetBridge(const DotNetBridge::ManagedSymbolSource& source);
 // browser build's packet senders write their packets themselves and send them through this.
 void Connection_SendRaw(int32_t handle, const BYTE* data, int32_t size);
 
+// The WebSocket relay the connections opened from now on go through ({host} and {port} filled in), or empty for TCP.
+void SetConnectionRelay(const char16_t* relay);
+
 class Connection
 {
 private:
