@@ -138,6 +138,20 @@ body {
 	top: 5dp;
 }
 
-/* The MU Helper's centred card (Kryon's workspace.rml moves its slot to the panel stage): 440 of
-   the stage's 480 units tall, so 20 down centres it. */
-.panel-stage .slot[data-window="mu_helper"] { margin-top: 20dp; }
+/* The MU Helper's centred card (Kryon's workspace.rml gives it this region in the content area).
+   The game sets the region's height from its 440-unit card; capping it to the content area makes
+   WindowPlacement draw the card at the scale that fits, so it never runs under the header or the
+   HUD. Top, bottom and auto margins centre it vertically when there is room to spare. */
+.mu-helper-stage {
+	left: 0;
+	right: 0;
+	top: 6dp;
+	bottom: 6dp;
+	margin-top: auto;
+	margin-bottom: auto;
+	max-height: calc(100% - 12dp);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}

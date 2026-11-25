@@ -269,6 +269,22 @@ body { pointer-events: none; }
 	color: token(kryon-tab-text);
 }
 .mhk-check .checkbox-box { flex: 0 0 auto; position: relative; margin-right: 6px; }
+/* Unchecked boxes: the theme's well colour vanishes on this card, so a gilded edge and a darker
+   fill keep them visible; the checked state keeps the theme's gold fill. */
+.mhk-check .checkbox-box,
+.mhk-card .checkbox-box {
+	width: 12px;
+	height: 12px;
+	background-color: #07080a;
+	border-width: 1px;
+	border-color: token(kryon-ring-gold);
+	box-shadow: none;
+}
+.mhk-check .checkbox-box.checked,
+.mhk-card .checkbox-box.checked {
+	background-color: token(kryon-gold-fill-bottom);
+	border-color: token(kryon-well-focus);
+}
 .mhk-check:hover { color: token(kryon-btn-text-hover); }
 .mhk-radio { border-radius: 6px; }
 
@@ -288,7 +304,7 @@ body { pointer-events: none; }
 	color: token(kryon-title);
 }
 .mhk-row { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 4px; }
-.mhk-field { height: 20px; }
+.mhk-field { height: 20px; padding: 0 6px; box-sizing: border-box; }
 .mhk-num { width: 36px; text-align: center; }
 .mhk-unit { margin-left: -8px; color: token(kryon-label); }
 

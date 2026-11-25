@@ -87,6 +87,12 @@
 				<div class="region dock-left" data-ref-height="432">
 					<div class="slot" data-window="move_map"></div>
 				</div>
+				<!-- Kryon: the MU Helper is a centred card, not a docked column. It sits in the content
+				     area (between the header and the HUD) at the panel scale; the theme caps the region
+				     to the content area, so on short screens the card is drawn smaller to fit. -->
+				<div class="region mu-helper-stage" data-scale="panel" data-ref-height="440">
+					<div class="slot" data-window="mu_helper"></div>
+				</div>
 				<!-- The chat: the log stands on the input box, which stands on the content area's
 				     bottom edge. Windows draw over it; it takes no room from them. -->
 				<div class="region chat-stack" data-scale="hud">
@@ -124,8 +130,6 @@
 		<div class="slot" data-window="cursed_temple_entry"></div>
 		<div class="slot" data-window="cursed_temple_result"></div>
 		<div class="slot" data-window="in_game_shop"></div>
-		<!-- Kryon: the MU Helper is a centred card here, not a docked column. -->
-		<div class="slot" data-window="mu_helper"></div>
 	</div>
 </body>
 </rml>
