@@ -1,0 +1,460 @@
+/* Kryon MU Helper: the centred card of mu_helper_config.rml (Kryon's fork). Drawn on the panel
+   stage, in its 640x480 reference px. The card, buttons and tabs repeat the web shell's Kryon
+   kit (index.html's #game-controls and .hud-btn); skill icons are the client's own atlases. */
+
+body { pointer-events: none; }
+.hidden, #panel .hidden { display: none; }
+
+#panel {
+	position: absolute;
+	transform-origin: left top;
+	width: 600px;
+	height: 440px;
+	display: flex;
+	flex-direction: column;
+	padding: 10px 12px 10px 12px;
+	box-sizing: border-box;
+	pointer-events: auto;
+	font-family: "token(font-body)";
+	font-size: 12px;
+	color: token(kryon-tab-text);
+	background-color: token(kryon-card-bottom);
+	decorator:
+		radial-gradient(circle at 50% 0%, token(kryon-card-glow), transparent 55%),
+		linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-mid) 50%, token(kryon-card-bottom) 100%);
+	border-width: 1px;
+	border-color: token(kryon-card-border);
+	border-radius: token(radius-md)px;
+	box-shadow:
+		0 0 0 3px token(kryon-ring-outer),
+		0 0 0 4px token(kryon-ring-gold),
+		0 16px 40px rgba(0, 0, 0, 187),
+		inset 0 0 0 3px token(kryon-ring-inner-dark),
+		inset 0 0 0 4px token(kryon-filete);
+}
+
+/* ---- Header: mark, title, status pill, close ------------------------------------------------- */
+#mhk_header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex: 0 0 auto;
+	height: 40px;
+	padding: 0 4px 6px 4px;
+	border-bottom: 1px token(kryon-divider);
+}
+#mhk_mark {
+	flex: 0 0 auto;
+	width: 30px;
+	height: 30px;
+	margin-right: 10px;
+	border: 1px token(kryon-btn-border);
+	border-radius: 15px;
+	background-color: token(kryon-btn-3);
+	decorator: image(icons/chat_gens.tga contain);
+	box-shadow: inset 0 0 0 2px token(kryon-btn-ring), 0 0 8px token(kryon-well-halo);
+}
+#mhk_heading { flex: 1 1 auto; display: flex; flex-direction: column; }
+#title {
+	font-family: "token(font-title)";
+	font-size: 17px;
+	color: token(kryon-mint-title);
+	letter-spacing: 1px;
+	font-effect: shadow(0px 1px #000000);
+}
+#mhk_subtitle { font-size: 11px; color: token(kryon-label); }
+
+#mhk_status {
+	flex: 0 0 auto;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 22px;
+	padding: 0 10px 0 8px;
+	margin-right: 34px;
+	border: 1px token(kryon-tab-idle-border);
+	border-radius: 11px;
+	background-color: rgba(0, 0, 0, 120);
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: token(kryon-tab-idle-text);
+}
+.mhk-status-dot {
+	width: 8px;
+	height: 8px;
+	margin-right: 6px;
+	border-radius: 4px;
+	background-color: token(semantic-neutral);
+}
+#mhk_status.running { color: token(kryon-mint-accent); border-color: token(kryon-mint-border); }
+#mhk_status.running .mhk-status-dot { background-color: token(kryon-mint-accent); box-shadow: 0 0 6px token(kryon-mint-accent); }
+#mhk_status.safe { color: token(semantic-danger); }
+#mhk_status.safe .mhk-status-dot { background-color: token(semantic-danger); }
+
+#btn_exit { position: absolute; right: 10px; top: 12px; }
+
+/* ---- Tabs ------------------------------------------------------------------------------------ */
+#mhk_tabs {
+	display: flex;
+	flex-direction: row;
+	flex: 0 0 auto;
+	margin: 8px 0 8px 0;
+	gap: 6px;
+}
+.mhk-tab {
+	flex: 1 1 0;
+	height: 24px;
+	line-height: 22px;
+	text-align: center;
+	font-family: "token(font-title)";
+	font-size: 12px;
+	color: token(kryon-tab-idle-text);
+	background-color: token(kryon-tab-idle);
+	decorator: linear-gradient(180deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	border: 1px token(kryon-tab-idle-border);
+	border-radius: token(radius-sm)px;
+	cursor: pointer;
+}
+.mhk-tab:hover { color: token(kryon-btn-text-hover); border-color: token(kryon-btn-border-hover); }
+.mhk-tab.active {
+	color: token(kryon-tab-text);
+	background-color: token(kryon-tab-bottom);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+	border-color: token(kryon-tab-border);
+	box-shadow: inset 0 -2px 0 rgba(217, 154, 67, 217);
+}
+
+/* ---- Body and pages -------------------------------------------------------------------------- */
+#mhk_body { position: relative; flex: 1 1 auto; min-height: 0; }
+.mhk-page { position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex; flex-direction: column; }
+#mhk_other { display: block; overflow-y: auto; padding-right: 6px; }
+
+.mhk-small { font-size: 10px; color: token(kryon-label); text-transform: uppercase; letter-spacing: 1px; }
+.mhk-strong { font-family: "token(font-title)"; font-size: 14px; color: token(kryon-title); }
+
+/* ---- Combat lanes ---------------------------------------------------------------------------- */
+.mhk-lanes { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: row; gap: 10px; }
+.mhk-lane {
+	flex: 1 1 0;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	border: 1px token(kryon-well-border);
+	border-radius: token(radius-md)px;
+	background-color: token(kryon-well-top);
+	decorator: linear-gradient(180deg, token(kryon-well-top) 0%, token(kryon-well-bottom) 100%);
+	box-shadow: inset 0 2px 7px #000000;
+}
+.mhk-lane-title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 26px;
+	padding: 0 8px;
+	font-family: "token(font-title)";
+	font-size: 13px;
+	color: token(kryon-title);
+}
+.mhk-lane-title span { margin-right: 8px; }
+.mhk-lane-title .mhk-small { margin-left: auto; margin-right: 0; }
+.mhk-lane-icon { width: 16px; height: 16px; margin-right: 6px; }
+.mhk-icon-attack { decorator: image(icons/chat_gens.tga contain); }
+.mhk-icon-buff { decorator: image(icons/chat_guild.tga contain); }
+
+/* The chosen skills: fixed slots, each a framed icon with its remove badge. */
+.mhk-selected {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 54px;
+	padding: 0 8px 6px 8px;
+	gap: 8px;
+}
+.mhk-chip {
+	position: relative;
+	flex: 0 0 auto;
+	width: 34px;
+	height: 46px;
+	border: 1px token(kryon-btn-border);
+	border-radius: token(radius-md)px;
+	background-color: #000000;
+	box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 160), 0 0 6px token(kryon-well-halo);
+	cursor: pointer;
+}
+.mhk-chip:hover { border-color: token(semantic-danger); }
+.mhk-chip-icon { position: absolute; left: 2px; top: 2px; width: 30px; height: 42px; }
+.mhk-chip-x {
+	position: absolute;
+	right: -6px;
+	top: -6px;
+	width: 14px;
+	height: 14px;
+	line-height: 13px;
+	text-align: center;
+	font-size: 11px;
+	color: #fff0d2;
+	background-color: #8f3828;
+	border: 1px #e7a26e;
+	border-radius: 7px;
+}
+.mhk-chip-n {
+	position: absolute;
+	left: 2px;
+	bottom: 1px;
+	font-size: 10px;
+	color: token(kryon-btn-text);
+	font-effect: shadow(0px 1px #000000);
+}
+.mhk-chip.empty {
+	border-color: token(kryon-tab-idle-border);
+	background-color: transparent;
+	box-shadow: none;
+	cursor: default;
+}
+.mhk-chip.empty .mhk-chip-x, .mhk-chip.empty .mhk-chip-icon { display: none; }
+.mhk-chip.empty .mhk-chip-n { left: 0; right: 0; bottom: auto; top: 14px; text-align: center; font-size: 13px; color: token(kryon-tab-idle-text); }
+.mhk-hint { flex: 1 1 auto; text-align: right; font-size: 10px; color: token(kryon-label); }
+
+/* The learned skills to add. */
+.mhk-catalog {
+	flex: 1 1 auto;
+	min-height: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	gap: 6px;
+	padding: 8px;
+	overflow-y: auto;
+	border-top: 1px token(kryon-row-divider);
+}
+.mhk-skill {
+	position: relative;
+	flex: 0 0 auto;
+	width: 32px;
+	height: 44px;
+	border: 1px token(kryon-tab-border);
+	border-radius: token(radius-md)px;
+	background-color: #000000;
+	cursor: pointer;
+}
+.mhk-skill:hover { border-color: token(kryon-btn-border-hover); box-shadow: 0 0 8px token(kryon-well-halo); }
+.mhk-skill-icon { position: absolute; left: 1px; top: 1px; width: 30px; height: 42px; }
+.mhk-skill-plus {
+	position: absolute;
+	right: -4px;
+	bottom: -4px;
+	width: 13px;
+	height: 13px;
+	line-height: 12px;
+	text-align: center;
+	font-size: 11px;
+	color: #0a160d;
+	background-color: #8fe5a7;
+	border: 1px #dffff0;
+	border-radius: 7px;
+}
+.mhk-skill.added { opacity: 0.35; cursor: default; }
+.mhk-skill.added .mhk-skill-plus { display: none; }
+.mhk-empty { font-size: 11px; color: token(kryon-label); }
+
+/* ---- Checkboxes, rows, inputs ---------------------------------------------------------------- */
+.mhk-options { flex: 0 0 auto; display: flex; flex-direction: row; flex-wrap: wrap; gap: 14px; padding: 8px 2px 0 2px; }
+.mhk-check {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	cursor: pointer;
+	color: token(kryon-tab-text);
+}
+.mhk-check .checkbox-box { flex: 0 0 auto; position: relative; margin-right: 6px; }
+.mhk-check:hover { color: token(kryon-btn-text-hover); }
+.mhk-radio { border-radius: 6px; }
+
+.mhk-section {
+	display: block;
+	margin-bottom: 8px;
+	padding: 6px 10px 8px 10px;
+	border: 1px token(kryon-row-divider);
+	border-radius: token(radius-md)px;
+	background-color: rgba(0, 0, 0, 90);
+}
+.mhk-section-title {
+	display: block;
+	margin-bottom: 6px;
+	font-family: "token(font-title)";
+	font-size: 12px;
+	color: token(kryon-title);
+}
+.mhk-row { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 4px; }
+.mhk-field { height: 20px; }
+.mhk-num { width: 36px; text-align: center; }
+.mhk-unit { margin-left: -8px; color: token(kryon-label); }
+
+/* ---- Buttons (the web's .hud-btn and its forged primary) -------------------------------------- */
+.mhk-btn {
+	flex: 0 0 auto;
+	height: 24px;
+	line-height: 22px;
+	padding: 0 12px;
+	text-align: center;
+	font-family: "token(font-title)";
+	font-size: 12px;
+	color: token(kryon-tab-text);
+	background-color: token(kryon-tab-idle);
+	decorator: linear-gradient(180deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	border: 1px token(kryon-tab-border);
+	border-radius: token(radius-sm)px;
+	box-shadow: inset 0 0 0 1px #130e08, 0 2px 6px rgba(0, 0, 0, 135);
+	cursor: pointer;
+	font-effect: shadow(0px 1px #000000);
+}
+.mhk-btn:hover {
+	color: token(kryon-btn-text-hover);
+	border-color: token(kryon-btn-border-hover);
+	background-color: token(kryon-tab-bottom);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+}
+.mhk-btn-primary {
+	height: 30px;
+	line-height: 28px;
+	padding: 0 22px;
+	font-size: 13px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	color: token(kryon-btn-text);
+	background-color: token(kryon-btn-3);
+	decorator: linear-gradient(180deg, token(kryon-btn-1) 0%, token(kryon-btn-2) 48%, token(kryon-btn-3) 52%, token(kryon-btn-4) 100%);
+	border-color: token(kryon-btn-border);
+	box-shadow: inset 0 0 0 2px token(kryon-btn-ring), inset 0 3px 0 token(kryon-btn-shine), 0 4px 12px rgba(0, 0, 0, 135);
+}
+.mhk-btn-primary:hover {
+	border-color: token(kryon-btn-border-hover);
+	decorator: linear-gradient(180deg, token(kryon-btn-hover-1) 0%, token(kryon-btn-hover-2) 48%, token(kryon-btn-hover-3) 52%, token(kryon-btn-hover-4) 100%);
+}
+/* Running: the same forged button, tinted to stop. */
+.mhk-btn-primary.running { color: #ffd9cc; border-color: #b0573f; decorator: linear-gradient(180deg, #6e2e22 0%, #45201a 48%, #2e1611 52%, #4d231b 100%); }
+
+/* ---- Pick-up --------------------------------------------------------------------------------- */
+.mhk-pickup-head { display: flex; flex-direction: row; align-items: center; flex: 0 0 auto; margin-bottom: 10px; }
+.mhk-pickup-copy { flex: 1 1 auto; display: flex; flex-direction: column; }
+.mhk-pickup-copy .mhk-small { text-transform: none; letter-spacing: 0; font-size: 11px; }
+.mhk-segment { flex: 0 0 auto; display: flex; flex-direction: row; gap: 6px; }
+.mhk-seg {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 26px;
+	padding: 0 10px;
+	color: token(kryon-tab-idle-text);
+	background-color: token(kryon-tab-idle);
+	border: 1px token(kryon-tab-idle-border);
+	border-radius: 13px;
+	cursor: pointer;
+}
+.mhk-seg:hover { color: token(kryon-btn-text-hover); }
+.mhk-seg.active { color: token(kryon-btn-text); background-color: token(kryon-tab-bottom); border-color: token(kryon-btn-border); }
+.mhk-seg-icon { width: 16px; height: 16px; margin-right: 6px; }
+
+.mhk-cards { flex: 0 0 auto; display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px; }
+.mhk-card {
+	position: relative;
+	width: 182px;
+	height: 44px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0 10px 0 8px;
+	box-sizing: border-box;
+	border: 1px token(kryon-tab-idle-border);
+	border-radius: token(radius-md)px;
+	background-color: token(kryon-well-top);
+	decorator: linear-gradient(180deg, token(kryon-well-bottom) 0%, token(kryon-well-top) 100%);
+	cursor: pointer;
+}
+.mhk-card:hover { border-color: token(kryon-btn-border-hover); }
+.mhk-card.on { border-color: token(kryon-btn-border); box-shadow: inset 0 0 12px token(kryon-row-hover), 0 0 6px token(kryon-well-halo); }
+.mhk-card-icon { flex: 0 0 auto; width: 28px; height: 28px; margin-right: 10px; }
+.mhk-card-name { flex: 1 1 auto; font-size: 12px; }
+.mhk-card .checkbox-box { position: relative; flex: 0 0 auto; }
+.mhk-cards.dim .mhk-card, .mhk-extra.dim { opacity: 0.45; }
+
+.mhk-icon-zen { decorator: image(icons/coin.tga contain); }
+.mhk-icon-gem { decorator: image(icons/gem.tga contain); }
+.mhk-icon-sparkle { decorator: image(icons/sparkle.tga contain); }
+.mhk-icon-helm { decorator: image(icons/helm.tga contain); }
+.mhk-icon-tag { decorator: image(icons/tag.tga contain); }
+.mhk-icon-bag { decorator: image(icons/bag.tga contain); }
+.mhk-icon-repair { decorator: image(icons/repair.tga contain); }
+
+.mhk-extra { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; margin-top: 10px; }
+.mhk-extra-entry { flex: 0 0 auto; display: flex; flex-direction: row; align-items: center; gap: 6px; margin-bottom: 6px; }
+.mhk-extra-entry .mhk-field { flex: 1 1 auto; }
+#extra_list {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow-y: auto;
+	border: 1px token(kryon-well-border);
+	border-radius: token(radius-md)px;
+	background-color: token(kryon-well-top);
+}
+.mhk-extra-row { display: block; padding: 3px 8px; border-bottom: 1px token(kryon-row-divider); cursor: pointer; }
+.mhk-extra-row:hover { background-color: token(kryon-row-hover); }
+.mhk-extra-row.selected { color: token(kryon-btn-text); background-color: token(kryon-tab-bottom); }
+
+/* ---- Footer: ranges, potion, actions --------------------------------------------------------- */
+#mhk_footer {
+	flex: 0 0 auto;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	margin-top: 10px;
+	padding-top: 8px;
+	border-top: 1px token(kryon-divider);
+}
+.mhk-stepper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 28px;
+	padding: 0 6px 0 8px;
+	border: 1px token(kryon-tab-idle-border);
+	border-radius: token(radius-md)px;
+	background-color: rgba(0, 0, 0, 110);
+}
+.mhk-stepper-label { margin-right: 6px; font-size: 11px; color: token(kryon-label); }
+.mhk-step {
+	width: 18px;
+	height: 18px;
+	line-height: 16px;
+	text-align: center;
+	color: token(kryon-tab-text);
+	background-color: token(kryon-tab-idle);
+	border: 1px token(kryon-tab-border);
+	border-radius: token(radius-sm)px;
+	cursor: pointer;
+}
+.mhk-step:hover { color: token(kryon-btn-text-hover); border-color: token(kryon-btn-border-hover); background-color: token(kryon-tab-bottom); }
+.mhk-step-value { min-width: 20px; padding: 0 4px; text-align: center; font-family: "token(font-title)"; font-size: 13px; color: token(kryon-btn-text); }
+.mhk-step-pct { min-width: 36px; }
+
+.mhk-potion.off .mhk-step, .mhk-potion.off .mhk-step-value, .mhk-potion.off .mhk-potion-icon { opacity: 0.4; }
+.mhk-potion-icon { width: 18px; height: 18px; margin-right: 4px; decorator: image(icons/potion.tga contain); }
+.mhk-switch {
+	position: relative;
+	width: 28px;
+	height: 14px;
+	margin-right: 6px;
+	border: 1px token(kryon-tab-idle-border);
+	border-radius: 7px;
+	background-color: token(kryon-tab-idle);
+	cursor: pointer;
+}
+.mhk-switch-knob { position: absolute; left: 1px; top: 1px; width: 10px; height: 10px; border-radius: 5px; background-color: token(kryon-tab-idle-text); }
+.mhk-switch.on { border-color: token(kryon-mint-border); background-color: token(kryon-mint-wash); }
+.mhk-switch.on .mhk-switch-knob { left: 15px; background-color: token(kryon-mint-accent); }
+
+.mhk-actions { flex: 1 1 auto; display: flex; flex-direction: row; justify-content: flex-end; align-items: center; gap: 6px; }

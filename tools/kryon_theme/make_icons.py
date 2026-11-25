@@ -215,7 +215,38 @@ def crown(pen):  # the party leader
     pen.line((6, 20), (18, 20))
 
 
+def gem(pen):  # MU Helper pick-up: jewels
+    pen.poly((7, 5), (17, 5), (21, 10), (12, 20), (3, 10))
+    pen.line((3, 10), (21, 10))
+    pen.line((9.5, 5), (8, 10), (12, 20), (16, 10), (14.5, 5))
+
+def sparkle(pen):  # MU Helper pick-up: excellent items, a four-point glint
+    pen.poly((12, 3), (14, 10), (21, 12), (14, 14), (12, 21), (10, 14), (3, 12), (10, 10))
+    pen.circle(19, 5, 1.2, fill=True)
+
+def helm(pen):  # MU Helper pick-up: set (ancient) items
+    pen.line((5, 19), (5, 11), (7, 6.5), (12, 4.5), (17, 6.5), (19, 11), (19, 19))
+    pen.line((5, 19), (10, 19), (10, 13), (14, 13), (14, 19), (19, 19))
+    pen.line((12, 4.5), (12, 9))
+
+def bag(pen):  # MU Helper pick-up: everything nearby
+    pen.line((8, 7), (6, 4), (18, 4), (16, 7))
+    pen.line((8, 7), (4.5, 12), (4.5, 18), (7, 20.5), (17, 20.5), (19.5, 18), (19.5, 12), (16, 7))
+    pen.line((8, 7), (16, 7))
+
+def tag(pen):  # MU Helper pick-up: the named extra items
+    pen.poly((4, 4), (12, 4), (20.5, 12.5), (12.5, 20.5), (4, 12))
+    pen.circle(8.5, 8.5, 1.4, fill=True)
+
+def potion(pen):  # MU Helper: the HP potion
+    pen.line((10, 3), (14, 3))
+    pen.line((10.5, 3), (10.5, 8), (6, 12.5), (6, 17), (8.5, 20.5), (15.5, 20.5), (18, 17), (18, 12.5),
+             (13.5, 8), (13.5, 3))
+    pen.line((6.5, 14), (17.5, 14))
+
+
 ICONS = {
+    "gem": gem, "sparkle": sparkle, "helm": helm, "bag": bag, "tag": tag, "potion": potion,
     "chevron_left": chevron_left, "chevron_right": chevron_right, "gift": gift, "coin": coin,
     "refresh": refresh, "crown": crown,
     "close": close, "plus": plus, "expand": expand, "repair": repair, "shop": shop,

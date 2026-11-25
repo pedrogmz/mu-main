@@ -9621,4 +9621,58 @@
   <data name="Critical damage total: +%d" xml:space="preserve">
     <value>Total: +%d</value>
   </data>
+  <data name="SetUpYourAutomaticHuntingRotation" xml:space="preserve">
+    <value>Set up your automatic hunting rotation</value>
+  </data>
+  <data name="MUHelperStatusRunning" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="MUHelperStatusStopped" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="MUHelperStatusSafeZone" xml:space="preserve">
+    <value>Safe zone</value>
+  </data>
+  <data name="MUHelperAttackSkills" xml:space="preserve">
+    <value>Attacks</value>
+  </data>
+  <data name="MUHelperRotationOrder" xml:space="preserve">
+    <value>Rotation</value>
+  </data>
+  <data name="MUHelperBuffSkills" xml:space="preserve">
+    <value>Buffs</value>
+  </data>
+  <data name="MUHelperCastOnlyWhenMissing" xml:space="preserve">
+    <value>Only when missing</value>
+  </data>
+  <data name="MUHelperClickASkillToAddIt" xml:space="preserve">
+    <value>Click a skill to add it</value>
+  </data>
+  <data name="MUHelperNoSkillsOfThisKindLearned" xml:space="preserve">
+    <value>No skills of this kind learned</value>
+  </data>
+  <data name="MUHelperClickToRemove" xml:space="preserve">
+    <value>Click to remove</value>
+  </data>
+  <data name="MUHelperStartButton" xml:space="preserve">
+    <value>Start Helper</value>
+  </data>
+  <data name="MUHelperStopButton" xml:space="preserve">
+    <value>Stop Helper</value>
+  </data>
+  <data name="MUHelperAttackRange" xml:space="preserve">
+    <value>Attack range</value>
+  </data>
+  <data name="MUHelperPickUpRange" xml:space="preserve">
+    <value>Pick-up range</value>
+  </data>
+  <data name="MUHelperHPPotionBelow" xml:space="preserve">
+    <value>HP potion below</value>
+  </data>
+  <data name="MUHelperAutoPickUp" xml:space="preserve">
+    <value>Auto pick-up</value>
+  </data>
+  <data name="MUHelperChooseWhatIsPickedUpAutomatically" xml:space="preserve">
+    <value>Choose what is picked up automatically.</value>
+  </data>
 </root>

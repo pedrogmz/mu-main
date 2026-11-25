@@ -99,29 +99,33 @@ void CMuHelperSkillPicker::FilterByBuffSkills()
     PrepareSkillsToRender();
 }
 
+std::vector<int> CMuHelperSkillPicker::CollectLearnedSkills(bool attack)
+{
+    std::vector<int> skills;
+    if (CharacterAttribute == nullptr || CharacterAttribute->SkillNumber <= 0)
+        return skills;
+
+    for (int i = 0; i < MAX_MAGIC; ++i)
+    {
+        const int iSkillType = CharacterAttribute->Skill[i];
+        if (iSkillType == 0 || (iSkillType >= AT_SKILL_STUN && iSkillType <= AT_SKILL_REMOVAL_BUFF))
+            continue;
+
+        const BYTE bySkillUseType = SkillAttribute[iSkillType].SkillUseType;
+        if (bySkillUseType == SKILL_USE_TYPE_MASTER || bySkillUseType == SKILL_USE_TYPE_MASTERLEVEL)
+            continue;
+
+        if (attack ? IsAttackSkill(iSkillType) : IsBuffSkill(iSkillType))
+            skills.push_back(iSkillType);
+    }
+    return skills;
+}
+
 void CMuHelperSkillPicker::PrepareSkillsToRender()
 {
     m_aiSkillsToRender.clear();
-
-    if (CharacterAttribute->SkillNumber > 0)
-    {
-        for (int i = 0; i < MAX_MAGIC; ++i)
-        {
-            const int iSkillType = CharacterAttribute->Skill[i];
-            if (iSkillType == 0 || (iSkillType >= AT_SKILL_STUN && iSkillType <= AT_SKILL_REMOVAL_BUFF))
-                continue;
-
-            const BYTE bySkillUseType = SkillAttribute[iSkillType].SkillUseType;
-            if (bySkillUseType == SKILL_USE_TYPE_MASTER || bySkillUseType == SKILL_USE_TYPE_MASTERLEVEL)
-                continue;
-
-            if ((m_bFilterByAttackSkills && IsAttackSkill(iSkillType))
-                || (m_bFilterByBuffSkills && IsBuffSkill(iSkillType)))
-            {
-                m_aiSkillsToRender.push_back(iSkillType);
-            }
-        }
-    }
+    if (m_bFilterByAttackSkills || m_bFilterByBuffSkills)
+        m_aiSkillsToRender = CollectLearnedSkills(m_bFilterByAttackSkills);
 
     m_bEntriesDirty = true;
 }

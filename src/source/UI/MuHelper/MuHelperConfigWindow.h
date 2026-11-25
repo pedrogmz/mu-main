@@ -55,6 +55,17 @@ namespace mu::ui::window
         bool operator==(const MuHelperSlotIcons&) const = default;
     };
 
+    // One learned skill in the inline catalog a theme can show beside the slots (Kryon's centred
+    // MU Helper): clicking it fills the first free slot of its group.
+    struct MuHelperCatalogSkill
+    {
+        Rml::String decorator;
+        int skill = 0;
+        bool added = false; // already in one of the six slots
+
+        bool operator==(const MuHelperCatalogSkill&) const = default;
+    };
+
     struct MuHelperExtraItem
     {
         Rml::String name;
@@ -73,6 +84,10 @@ namespace mu::ui::window
         Rml::String repair, pickAll, pickSelected, pickJewel, pickAncient, pickZen, pickExcellent, pickExtra;
         Rml::String autoFriend, autoGuild, autoDefend;
         Rml::String setting, add, remove, save, init, closeTip;
+        // The centred layout's own strings (Kryon).
+        Rml::String subtitle, statusRunning, statusStopped, statusSafeZone;
+        Rml::String attacks, rotation, buffs, missingOnly, catalogHint, catalogEmpty, removeHint;
+        Rml::String start, stop, huntRange, pickRange, potionBelow, autoPickup, autoPickupHint;
     };
 
     struct MuHelperConfigRmlModel
@@ -83,6 +98,9 @@ namespace mu::ui::window
         int huntRange = 0;
         int pickRange = 0;
         int ravenMode = 0;
+        int potionThreshold = 0; // percent of max HP, 0-100 in steps of 10
+        bool helperActive = false;
+        bool safeZone = false;
 
         MuHelperConfigFeatures features;
         MuHelperConfigChecks checks;
@@ -93,6 +111,8 @@ namespace mu::ui::window
         Rml::String skill3Delay;
         Rml::String itemName;
         std::vector<MuHelperExtraItem> extraItems;
+        std::vector<MuHelperCatalogSkill> attackCatalog;
+        std::vector<MuHelperCatalogSkill> buffCatalog;
 
         MuHelperConfigLabels labels;
     };
@@ -148,6 +168,10 @@ namespace mu::ui::window
         void OnButton(const Rml::String& key);
         void OnSlotClick(int slot);
         void OnSlotClear(int slot);
+        // The inline catalog's click: the first free slot of the skill's group, or its last slot
+        // when all are taken.
+        void OnCatalogAdd(int iSkill);
+        void SyncCatalog();
         void SelectTab(int tab);
         void AddExtraItem();
         void RemoveExtraItem();

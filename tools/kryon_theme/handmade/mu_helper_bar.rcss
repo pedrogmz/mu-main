@@ -1,25 +1,43 @@
-/* Kryon MU Helper bar: a small Kryon card with framed buttons. The dots keep their meaning colors
-   (gray settings, green start, red stop). */
+/* Kryon location bar: only the map name and coordinates, drawn as the same card as the web
+   shell's #game-controls bar (index.html) and at its size beside it: obsidian gradient with a
+   bronze glow, gilded 1dp border and the double outer ring. The MU Helper buttons are not shown
+   in this theme (the helper is still reachable from its window and hotkey). */
 
 #panel {
+	width: 124dp;
+	height: 18dp;
 	background-color: token(kryon-card-bottom);
-	decorator: linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-bottom) 100%);
-	border: 1dp token(kryon-card-border);
+	decorator:
+		radial-gradient(circle at 50% 0%, token(kryon-card-glow), transparent 55%),
+		linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-mid) 50%, token(kryon-card-bottom) 100%);
+	border-width: 1dp;
+	border-color: token(kryon-card-border);
 	border-radius: token(radius-md)dp;
-	box-shadow: 0 0 0 2dp token(kryon-ring-outer), 0 0 0 3dp token(kryon-ring-gold), 0 6dp 16dp rgba(0, 0, 0, 160);
+	box-shadow:
+		0 0 0 1.5dp token(kryon-ring-outer),
+		0 0 0 2dp token(kryon-ring-gold),
+		0 6dp 16dp rgba(0, 0, 0, 179),
+		inset 0 0 0 1.5dp token(kryon-ring-inner-dark),
+		inset 0 0 0 2dp token(kryon-filete);
 }
+
 #text {
-	color: token(kryon-title);
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	line-height: 18dp;
+	text-align: center;
+	font-size: 9dp;
+	color: token(kryon-tab-text);
 	font-family: "token(font-title)";
+	font-effect: shadow(0dp 1dp #000000);
 }
-.mu-btn {
-	background-color: token(kryon-tab-idle);
-	decorator: linear-gradient(180deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
-	border: 1dp token(kryon-tab-border);
-	border-radius: token(radius-sm)dp;
-}
-.mu-btn:hover {
-	background-color: token(kryon-tab-bottom);
-	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
-	border: 1dp token(kryon-btn-border-hover);
+
+/* No MU Helper controls on the location bar. */
+.mu-btn,
+#btn_config,
+#btn_start,
+#btn_stop {
+	display: none;
 }

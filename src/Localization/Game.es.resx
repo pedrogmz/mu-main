@@ -9106,4 +9106,58 @@
   <data name="Critical damage total: +%d" xml:space="preserve">
     <value>Total: +%d</value>
   </data>
+  <data name="SetUpYourAutomaticHuntingRotation" xml:space="preserve">
+    <value>Configura tu rotación automática de caza</value>
+  </data>
+  <data name="MUHelperStatusRunning" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="MUHelperStatusStopped" xml:space="preserve">
+    <value>Detenido</value>
+  </data>
+  <data name="MUHelperStatusSafeZone" xml:space="preserve">
+    <value>Zona segura</value>
+  </data>
+  <data name="MUHelperAttackSkills" xml:space="preserve">
+    <value>Ataques</value>
+  </data>
+  <data name="MUHelperRotationOrder" xml:space="preserve">
+    <value>Rotación</value>
+  </data>
+  <data name="MUHelperBuffSkills" xml:space="preserve">
+    <value>Buffs</value>
+  </data>
+  <data name="MUHelperCastOnlyWhenMissing" xml:space="preserve">
+    <value>Solo si falta</value>
+  </data>
+  <data name="MUHelperClickASkillToAddIt" xml:space="preserve">
+    <value>Pulsa una habilidad para añadirla</value>
+  </data>
+  <data name="MUHelperNoSkillsOfThisKindLearned" xml:space="preserve">
+    <value>No conoces habilidades de este tipo</value>
+  </data>
+  <data name="MUHelperClickToRemove" xml:space="preserve">
+    <value>Pulsa para quitar</value>
+  </data>
+  <data name="MUHelperStartButton" xml:space="preserve">
+    <value>Iniciar Helper</value>
+  </data>
+  <data name="MUHelperStopButton" xml:space="preserve">
+    <value>Detener Helper</value>
+  </data>
+  <data name="MUHelperAttackRange" xml:space="preserve">
+    <value>Rango ataque</value>
+  </data>
+  <data name="MUHelperPickUpRange" xml:space="preserve">
+    <value>Rango recoger</value>
+  </data>
+  <data name="MUHelperHPPotionBelow" xml:space="preserve">
+    <value>Poción HP al bajar de</value>
+  </data>
+  <data name="MUHelperAutoPickUp" xml:space="preserve">
+    <value>Auto recoger</value>
+  </data>
+  <data name="MUHelperChooseWhatIsPickedUpAutomatically" xml:space="preserve">
+    <value>Elige qué botín se recoge solo.</value>
+  </data>
 </root>

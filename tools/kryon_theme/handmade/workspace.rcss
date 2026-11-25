@@ -1,0 +1,13 @@
+/* The location bar sits 5dp (10px at a 2x UI) in from the corner, like the web shell's
+   #game-controls bar sits 10px in from its corner, so its outer gold rings are not cut by the
+   screen edge. A relative offset moves the slot (the game reads its final position) without
+   growing the header. */
+#shell_header .slot[data-window="mu_helper_bar"] {
+	position: relative;
+	left: 5dp;
+	top: 5dp;
+}
+
+/* The MU Helper's centred card (Kryon's workspace.rml moves its slot to the panel stage): 440 of
+   the stage's 480 units tall, so 20 down centres it. */
+.panel-stage .slot[data-window="mu_helper"] { margin-top: 20dp; }

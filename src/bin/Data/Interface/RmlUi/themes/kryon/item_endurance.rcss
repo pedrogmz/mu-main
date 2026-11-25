@@ -128,3 +128,72 @@ body {
 .icon-tint { left: 0; width: 23px; }
 .icon-tint.half-left { left: 0; width: 11px; }
 .icon-tint.half-right { left: 11px; width: 11px; }
+
+/* ---- handmade/item_endurance.rcss: the Kryon look, appended so it wins by source order. ---- */
+/* Kryon pet / summon HP frames: each one a small Kryon card like the party list's (party_list.rcss)
+   -- steel fill, bronze edge, the name in the title face -- with the health drawn in a dark well
+   instead of the legacy Pet_Back art. The frames keep modern's size and place (57 x 23, 24 apart),
+   so C++'s hit test on .pet is unchanged. The HP stays red like the party cards': it is gameplay
+   information. The durability icons are the game's item art and stay modern's. */
+
+/* The card: .pet-fill is the body, .pet-frame becomes the bar's well. */
+.pet-fill {
+	left: 0;
+	top: 0;
+	width: 55px;
+	height: 21px;
+	background-color: token(kryon-card-bottom);
+	decorator: linear-gradient(110deg, token(kryon-card-top) 0%, token(kryon-card-bottom) 100%);
+	border: 1px rgba(175, 139, 76, 170);
+	border-radius: token(radius-sm)px;
+	box-shadow: 0 0 0 1px token(kryon-ring-outer), 0 2px 5px rgba(0, 0, 0, 150);
+}
+.pet-frame {
+	left: 4px;
+	top: 15px;
+	width: 49px;
+	height: 3px;
+	decorator: none;
+	background-color: rgba(2, 4, 5, 230);
+	border-radius: 1px;
+	box-shadow: 0 0 0 1px rgba(98, 83, 56, 160);
+}
+
+/* The bar: the legacy texture is hidden (image-color alpha 0) and the element's own background,
+   as wide as the health (item_endurance.rml binds its width), draws the fill. */
+.pet-bar {
+	left: 4px;
+	top: 15px;
+	image-color: rgba(255, 255, 255, 0);
+	background-color: token(semantic-danger);
+	decorator: linear-gradient(180deg, #e46a5e 0%, #c0392f 55%, #7e2019 100%);
+	border-radius: 1px;
+}
+
+/* The name in the title face, above the well. */
+.pet-name-box { top: 3px; }
+.pet-name {
+	color: token(text-primary);
+	font-family: "token(font-title)";
+	font-effect: shadow(0px 1px #000000);
+}
+
+/* The elf's arrow count: a Kryon tag instead of the bare black strip. */
+#arrows {
+	color: token(kryon-btn-text);
+	font-family: "token(font-title)";
+	background-color: rgba(8, 10, 13, 200);
+	font-effect: shadow(0px 1px #000000);
+}
+
+/* The durability tooltip in the Kryon frame. */
+.durability-tip {
+	font-family: "token(font-title)";
+	background-color: rgba(8, 10, 13, 220);
+	border: 1px rgba(175, 139, 76, 170);
+	padding: 1px 4px;
+}
+
+/* Kryon's location bar sits 5dp down and draws gold rings past its edge (mu_helper_bar.rcss,
+   workspace.rcss), reaching the original's (2, 26) on a 4:3 screen: the frames start a little lower. */
+#pet_column { top: 32px; }
