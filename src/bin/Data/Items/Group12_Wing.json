@@ -3874,6 +3874,302 @@
         "summoner": 1,
         "rageFighter": 1
       }
+    },
+    {
+      "number": 262,
+      "name": {
+        "en": "Cloak of Death",
+        "de": "Todesumhang",
+        "es": "Capa de la Muerte",
+        "pt": "Capa da Morte"
+      },
+      "tags": ["cape", "valuable"],
+      "options": ["secondTierWing", "luck"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease2nd"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb2nd"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 2,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "second",
+      "statProfile": "secondTierCape",
+      "level": 150,
+      "durability": 210,
+      "defense": 27,
+      "requirements": {
+        "level": 290
+      },
+      "classRequirements": {
+        "darkLord": 1,
+        "rageFighter": 1
+      }
+    },
+    {
+      "number": 263,
+      "name": {
+        "en": "Wings of Chaos",
+        "de": "Flügel des Chaos",
+        "es": "Alas del Caos",
+        "pt": "Asas do Caos"
+      },
+      "tags": ["valuable"],
+      "options": ["secondTierWing", "luck"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease2nd"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb2nd"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 4,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "second",
+      "statProfile": "secondTierWing",
+      "level": 150,
+      "durability": 210,
+      "defense": 46,
+      "requirements": {
+        "level": 290
+      },
+      "classRequirements": {
+        "darkKnight": 2,
+        "magicGladiator": 1
+      }
+    },
+    {
+      "number": 264,
+      "name": {
+        "en": "Wings of Magic",
+        "de": "Flügel der Magie",
+        "es": "Alas de Magia",
+        "pt": "Asas da Magia"
+      },
+      "tags": ["valuable"],
+      "options": ["secondTierWing", "luck"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease2nd"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb2nd"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 4,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "second",
+      "statProfile": "secondTierWing",
+      "level": 150,
+      "durability": 210,
+      "defense": 37,
+      "requirements": {
+        "level": 290
+      },
+      "classRequirements": {
+        "darkWizard": 2,
+        "magicGladiator": 1,
+        "summoner": 2
+      }
+    },
+    {
+      "number": 265,
+      "name": {
+        "en": "Wings of Life",
+        "de": "Flügel des Lebens",
+        "es": "Alas de Vida",
+        "pt": "Asas da Vida"
+      },
+      "tags": ["valuable"],
+      "options": ["secondTierWing", "luck"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease2nd"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb2nd"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 4,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "second",
+      "statProfile": "secondTierWing",
+      "level": 150,
+      "durability": 210,
+      "defense": 37,
+      "requirements": {
+        "level": 290
+      },
+      "classRequirements": {
+        "fairyElf": 2
+      }
     }
   ]
 }

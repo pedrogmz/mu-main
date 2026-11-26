@@ -1542,6 +1542,70 @@
       "glow": {
         "level": 0
       }
+    },
+    {
+      "number": 262,
+      "file": "Data/Item/MonsterWings/cape_of_death.bmd",
+      "textureFolders": ["Item/MonsterWings"],
+      "inventory": {
+        "anchor": [0.5, 0.5],
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "glow": {
+        "level": 0,
+        "excellent": false
+      }
+    },
+    {
+      "number": 263,
+      "file": "Data/Item/MonsterWings/chaoswing.bmd",
+      "textureFolders": ["Item/MonsterWings"],
+      "inventory": {
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "glow": {
+        "level": 0,
+        "excellent": false
+      },
+      "effect": "wingsOfChaos"
+    },
+    {
+      "number": 264,
+      "file": "Data/Item/MonsterWings/magic_wing.bmd",
+      "textureFolders": ["Item/MonsterWings"],
+      "inventory": {
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "glow": {
+        "level": 0,
+        "excellent": false
+      },
+      "effect": "wingsOfMagic"
+    },
+    {
+      "number": 265,
+      "file": "Data/Item/MonsterWings/flamewing.bmd",
+      "textureFolders": ["Item/MonsterWings"],
+      "inventory": {
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "glow": {
+        "level": 0,
+        "excellent": false
+      },
+      "effect": "wingsOfLife"
     }
   ]
 }
