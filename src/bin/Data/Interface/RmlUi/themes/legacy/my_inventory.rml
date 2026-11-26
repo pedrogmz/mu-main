@@ -74,6 +74,13 @@
 
 		<div id="btn_expand" class="inv-btn inv-btn-expand" data-event-click="my_inventory_expand_click" data-attr-data-hint="expand_tooltip"></div>
 
+		<!-- OpenMU's jewel bank (CJewelBankWindow): shown once the server sent its state. The original
+		     has no such button, so it has no art; the glyph stands in for it. -->
+		<div id="btn_jewelbank" class="inv-btn inv-btn-jewelbank" data-class-hidden="!jewel_bank_visible"
+		     data-event-click="my_inventory_jewel_bank_click" data-attr-data-hint="jewel_bank_tooltip">
+			<span class="inv-btn-jewelbank-glyph">&#9670;</span>
+		</div>
+
 		<!-- Set/Socket option header: one centred line with both labels at the same size (the native
 		     client shrank each label into its own narrow box, so a long label came out smaller -- not
 		     reproduced). Hover areas stay the former native half-width split, as empty boxes. -->

@@ -70,6 +70,32 @@ public:
     /// </summary>
     /// <param name="token">The token the server sends back.</param>
     void SendRoundTripRequest(uint32_t token);
+
+    /// <summary>
+    /// Sends a JewelBankStateRequest (C1 F5 0E): the server answers with the JewelBankStateExtended.
+    /// </summary>
+    void SendJewelBankStateRequest();
+
+    /// <summary>
+    /// Sends a JewelBankDepositRequest (C1 F5 10): the server moves every jewel of this kind, single jewels and
+    /// bundles, from the inventory into the jewel bank.
+    /// </summary>
+    /// <param name="itemGroup">The group of the single jewel.</param>
+    /// <param name="itemNumber">The number of the single jewel.</param>
+    void SendJewelBankDepositRequest(BYTE itemGroup, uint16_t itemNumber);
+
+    /// <summary>
+    /// Sends a JewelBankWithdrawRequest (C1 F5 12): the server puts the amount into the inventory.
+    /// </summary>
+    /// <param name="itemGroup">The group of the single jewel.</param>
+    /// <param name="itemNumber">The number of the single jewel.</param>
+    /// <param name="amount">The number of single jewels.</param>
+    void SendJewelBankWithdrawRequest(BYTE itemGroup, uint16_t itemNumber, uint32_t amount);
+
+    /// <summary>
+    /// Sends a JewelBankDepositAllRequest (C1 F5 14): the server moves every accepted jewel into the jewel bank.
+    /// </summary>
+    void SendJewelBankDepositAllRequest();
 };
 
 /// <summary>

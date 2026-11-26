@@ -104,6 +104,7 @@ CSystem::CSystem()
     m_pNewLuckyCoinRegistration = nullptr;
     m_pNewExchangeLuckyCoinWindow = nullptr;
     m_pNewDuelWatchWindow = nullptr;
+    m_pNewJewelBankWindow = nullptr;
 #ifdef PBG_ADD_INGAMESHOP_UI_MAINFRAME
     m_pNewInGameShop = nullptr;
 #endif //PBG_ADD_INGAMESHOP_UI_MAINFRAME
@@ -474,6 +475,10 @@ bool CSystem::LoadMainSceneInterface()
     if (m_pNewDuelWatchWindow->Create(m_pNewUIMng) == false)
         return false;
 
+    m_pNewJewelBankWindow = new CJewelBankWindow;
+    if (m_pNewJewelBankWindow->Create(m_pNewUIMng) == false)
+        return false;
+
     m_pNewDuelWatchMainFrameWindow = new CDuelWatchMainFrameWindow;
     if (m_pNewDuelWatchMainFrameWindow->Create(m_pNewUIMng) == false)
         return false;
@@ -585,6 +590,7 @@ bool CSystem::LoadMainSceneInterface()
     slot(INTERFACE_INVENTORY_EXT, "inventory_extension", m_pNewMyInventoryExt, "inventory_extension.rml");
     slot(INTERFACE_STORAGE, "storage", m_pNewStorageInventory, "storage.rml");
     slot(INTERFACE_STORAGE_EXT, "storage_extension", m_pNewStorageInventoryExt, "storage_ext.rml");
+    slot(INTERFACE_JEWEL_BANK, "jewel_bank", m_pNewJewelBankWindow, "jewel_bank.rml");
     slot(INTERFACE_NPCSHOP, "npc_shop", m_pNewNPCShop, "npc_shop.rml");
     slot(INTERFACE_MIXINVENTORY, "mix", m_pNewMixInventory, "mix_inventory.rml");
     slot(INTERFACE_TRADE, "trade", m_pNewTrade, "trade.rml");
@@ -692,6 +698,7 @@ void CSystem::UnloadMainSceneInterface()
     SAFE_DELETE(m_pNewLuckyCoinRegistration);
     SAFE_DELETE(m_pNewExchangeLuckyCoinWindow);
     SAFE_DELETE(m_pNewDuelWatchWindow);
+    SAFE_DELETE(m_pNewJewelBankWindow);
     SAFE_DELETE(m_pNewDuelWindow);
     SAFE_DELETE(m_pNewDuelWatchMainFrameWindow);
     SAFE_DELETE(m_pNewDuelWatchUserListWindow);
@@ -1049,6 +1056,12 @@ void CSystem::Show(DWORD dwKey)
     else if (dwKey == INTERFACE_DUELWATCH)
     {
         m_pNewDuelWatchWindow->OpeningProcess();
+    }
+    else if (dwKey == INTERFACE_JEWEL_BANK)
+    {
+        // Like the vault, it takes the place beside the inventory: the NPC windows close.
+        HideAllGroupA();
+        m_pNewJewelBankWindow->OpeningProcess();
     }
     else if (dwKey == INTERFACE_DUELWATCH_MAINFRAME)
     {
@@ -1444,6 +1457,10 @@ void CSystem::Hide(DWORD dwKey)
     {
         m_pNewDuelWatchWindow->ClosingProcess();
     }
+    else if (dwKey == INTERFACE_JEWEL_BANK)
+    {
+        m_pNewJewelBankWindow->ClosingProcess();
+    }
     else if (dwKey == INTERFACE_DUELWATCH_MAINFRAME)
     {
         m_pNewDuelWatchMainFrameWindow->ClosingProcess();
@@ -1569,6 +1586,7 @@ void CSystem::HideAllGroupA()
         INTERFACE_GUILDINFO,
         INTERFACE_KANTURU2ND_ENTERNPC,
         INTERFACE_DUELWATCH,
+        INTERFACE_JEWEL_BANK,
         INTERFACE_DOPPELGANGER_NPC,
         INTERFACE_GOLD_BOWMAN,
         INTERFACE_GOLD_BOWMAN_LENA,
@@ -1619,6 +1637,7 @@ void CSystem::HideAllGroupB()
         INTERFACE_KANTURU2ND_ENTERNPC,
         INTERFACE_CURSEDTEMPLE_NPC,
         INTERFACE_DUELWATCH,
+        INTERFACE_JEWEL_BANK,
         INTERFACE_DOPPELGANGER_NPC,
         INTERFACE_GOLD_BOWMAN,
         INTERFACE_GOLD_BOWMAN_LENA,

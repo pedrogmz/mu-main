@@ -96,6 +96,26 @@
 .inv-btn-myshop.close-mode { decorator: image(inv-btn-myshop-close); }
 .inv-btn-expand  { left: 124px;     decorator: image(inv-btn-expand); }
 
+/* OpenMU's jewel bank: no original art, a small dark box with a yellow glyph after the original
+   four buttons, where the row has room for 24 units. */
+.inv-btn-jewelbank {
+	left: 163px;
+	top: 393px;
+	width: 24px;
+	height: 24px;
+	background-color: #202020;
+	border: 1px #646464;
+}
+.inv-btn-jewelbank-glyph {
+	display: block;
+	text-align: center;
+	line-height: 22px;
+	font-family: "DejaVu Sans";
+	font-size: 12px;
+	color: #ffff80;
+	pointer-events: none;
+}
+
 /* Button centres (x + 18) less half the row. */
 
 /* Set/Socket option header labels -- one centred line at the native y + 25, gray by default,

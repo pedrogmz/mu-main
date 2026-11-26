@@ -1,0 +1,72 @@
+/* Legacy theme for CJewelBankWindow, in the look of the original's docked windows: the
+   docked_panel_frame.rcss frame (linked first; newui_item_back01 top), the title bold (220, 220, 220),
+   the jewel names white and the stored amounts bold yellow (255, 255, 128), the buttons plain dark boxes
+   like the original's very small buttons. The original has no jewel bank; the geometry is the modern
+   theme's. Coordinates are reference px inside #panel. */
+
+.frame-top { decorator: image(docked-bg-top-b); }
+#panel { pointer-events: auto; }
+
+.sharp-text { display: block; position: absolute; white-space: nowrap; pointer-events: none; }
+
+#jb_title { top: 13px; font-weight: bold; color: #dcdcdc; }
+#jb_hint { top: 36px; color: #b4b4b4; }
+#jb_unavailable { top: 180px; color: #ffffff; }
+
+#jb_rows {
+	position: absolute;
+	left: 12px;
+	top: 58px;
+	width: 166px;
+	height: 304px;
+	overflow-y: auto;
+	pointer-events: auto;
+}
+
+.jb-row {
+	display: block;
+	position: relative;
+	width: 166px;
+	height: 30px;
+	border-bottom: 1px #3c3c3c;
+}
+
+.jb-name { left: 6px; top: 3px; color: #ffffff; }
+.jb-amount { right: 56px; top: 15px; font-weight: bold; color: #808080; }
+.jb-row.stored .jb-amount { color: #ffff80; }
+
+.jb-btn {
+	display: block;
+	position: absolute;
+	top: 4px;
+	width: 22px;
+	height: 22px;
+	cursor: pointer;
+	pointer-events: auto;
+	background-color: #202020;
+	border: 1px #646464;
+}
+.jb-btn:hover { border-color: #c8c8c8; }
+.jb-btn.locked { pointer-events: none; opacity: 0.4; }
+.jb-deposit { left: 116px; }
+.jb-withdraw { left: 141px; }
+.jb-glyph { font-weight: bold; color: #ffffff; }
+
+.jb-wide-btn {
+	display: block;
+	position: absolute;
+	left: 35px;
+	top: 372px;
+	width: 120px;
+	height: 26px;
+	cursor: pointer;
+	pointer-events: auto;
+	background-color: #202020;
+	border: 1px #646464;
+}
+.jb-wide-btn:hover { border-color: #c8c8c8; }
+.jb-wide-btn.locked { pointer-events: none; opacity: 0.4; }
+.jb-wide-label { font-weight: bold; color: #ffffff; }
+
+/* Lengths inside counter-scaled layers: reference px times the panel's --root-scale. */
+.jb-name { width: calc(108px * var(--root-scale)); }

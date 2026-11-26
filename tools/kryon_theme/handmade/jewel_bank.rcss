@@ -1,0 +1,91 @@
+/* The Kryon look of the jewel bank (CJewelBankWindow). The card, rings and corner close come from
+   docked_panel_frame.rcss's overlay; this adds the window's own parts: the title as the docked
+   windows' uppercase serif over a bronze divider, the rows as quiet bands with Kryon's hover and
+   divider, the stored amounts in gold, "+" and "-" as the idle tab plates of the theme's buttons,
+   and Deposit all as the window's one amber plate. Sizes are px: the panel scales itself. */
+
+#jb_title {
+	color: token(kryon-title);
+	font-family: "token(font-title)";
+	font-weight: normal;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	font-effect: shadow(0px 1px #000000);
+}
+#jb_hint {
+	top: 38px;
+	color: token(kryon-label);
+}
+/* The bronze divider under the title, like the docked windows' header. */
+#jb_rows {
+	top: 60px;
+	border-top: 1px token(kryon-divider);
+}
+#jb_unavailable { color: token(kryon-label); }
+
+.jb-row {
+	border-bottom: 1px token(kryon-row-divider);
+	border-radius: token(radius-sm)px;
+}
+.jb-row:hover { background-color: token(kryon-row-hover); }
+.jb-name {
+	color: token(text-primary);
+	font-family: "token(font-body)";
+}
+.jb-amount {
+	color: token(text-disabled);
+	font-family: "token(font-title)";
+	font-effect: shadow(0px 1px #000000);
+}
+.jb-row.stored .jb-amount { color: token(accent-gold); }
+
+.jb-btn {
+	background-color: token(kryon-tab-idle);
+	decorator: linear-gradient(180deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	border-color: token(kryon-tab-border);
+	border-radius: token(radius-sm)px;
+	box-shadow: inset 0 0 0 1px #130e08, 0 2px 6px rgba(0, 0, 0, 136);
+}
+.jb-btn:hover {
+	border-color: token(kryon-btn-border-hover);
+	decorator: linear-gradient(180deg, token(kryon-tab-top) 0%, token(kryon-tab-bottom) 100%);
+}
+.jb-btn:active {
+	decorator: linear-gradient(0deg, token(kryon-card-top) 0%, token(kryon-tab-idle) 100%);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 184);
+}
+.jb-btn.locked { opacity: 0.35; }
+.jb-glyph {
+	color: token(kryon-tab-text);
+	font-family: "DejaVu Sans";
+	font-effect: shadow(0px 1px #000000);
+}
+.jb-btn:hover .jb-glyph { color: token(kryon-btn-text-hover); }
+
+/* The window's one primary action: Kryon's amber plate, like the login's sign in. */
+.jb-wide-btn {
+	background-color: token(kryon-btn-3);
+	decorator: linear-gradient(180deg, token(kryon-btn-1) 0%, token(kryon-btn-2) 48%, token(kryon-btn-3) 52%, token(kryon-btn-4) 100%);
+	border-color: token(kryon-btn-border);
+	border-radius: token(radius-sm)px;
+	box-shadow:
+		inset 0 0 0 2px token(kryon-btn-ring),
+		inset 0 3px 0 token(kryon-btn-shine),
+		0 4px 12px rgba(0, 0, 0, 136);
+}
+.jb-wide-btn:hover {
+	border-color: token(kryon-btn-border-hover);
+	decorator: linear-gradient(180deg, token(kryon-btn-hover-1) 0%, token(kryon-btn-hover-2) 48%, token(kryon-btn-hover-3) 52%, token(kryon-btn-hover-4) 100%);
+}
+.jb-wide-btn:active {
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 184);
+}
+.jb-wide-label {
+	color: token(kryon-btn-text);
+	font-family: "token(font-title)";
+	font-weight: normal;
+	letter-spacing: 1.2px;
+	text-transform: uppercase;
+	font-effect: shadow(0px 1px #000000);
+}
+.jb-wide-btn:hover .jb-wide-label { color: token(kryon-btn-text-hover); }
