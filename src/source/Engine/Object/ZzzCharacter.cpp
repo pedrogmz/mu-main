@@ -73,6 +73,7 @@
 #include "Render/Items/ItemDisplay.h"
 #include "Render/Items/ItemRenderStyles.h"
 #include "Render/Monsters/MonsterLooks.h"
+#include "Data/GameData/ItemData/ItemModelDatabase.h"
 #include "Data/GameData/ItemData/ItemModelSlots.h"
 #include "Data/GameData/ItemData/ItemType.h"
 #include "Data/GameData/MonsterData/MonsterDatabase.h"
@@ -13713,9 +13714,11 @@ void ReadEquipmentExtended(int Key, BYTE flags, BYTE* Equipment, CHARACTER* pCha
         
         if (Equipment[offset] != 0xFF && Equipment[offset + 1] != 0xFF)
         {
-            short number = Equipment[offset + 1] + ((Equipment[offset] & 0xF) << 4);
+            // The low nibble of the first byte is the high part of the 12-bit number, as for the weapons above:
+            // the wings from number 256 on (e.g. 12,262) need it.
+            short number = MAKEWORD(Equipment[offset + 1], Equipment[offset] & 0xF);
             BYTE group = (Equipment[offset] & 0xF0) >> 4;
-            if (number > MAX_ITEM_INDEX)
+            if (number >= MAX_ITEM_INDEX)
             {
                 // not supported
             }
@@ -14025,7 +14028,7 @@ void PrepareCarriedParts(CHARACTER* c)
 
     if (!gMapManager.InChaosCastle() && w->Type != -1)
     {
-        w->LinkBone = IsLinkedCape(w->Type) ? 19 : 47;
+        w->LinkBone = IsLinkedCape(w->Type) ? LinkedCapeBone(w->Type) : 47;
         w->PlaySpeed = IsFlying(o) ? (w->Type == MODEL_WING_OF_STORM ? 0.5f : 1.f) : 0.25f;
     }
     else if (BloodCastleQuestItem(c) != 0)
@@ -14057,9 +14060,17 @@ bool IsFlying(const OBJECT* o)
     return o->CurrentAction == PLAYER_FLY || o->CurrentAction == PLAYER_FLY_CROSSBOW;
 }
 
+// The bone of the character a cape hangs from: the item model's "linkBone" (Data/Items/Models), 0 for the wings,
+// which are drawn on the character's own position.
+int LinkedCapeBone(int type)
+{
+    const Data::Items::ItemModelDefinition* model = g_ItemModelDatabase.Find(Data::Items::ToItemType(type));
+    return model != nullptr ? model->linkBone : 0;
+}
+
 bool IsLinkedCape(int type)
 {
-    return type == MODEL_CAPE_OF_EMPEROR || type == MODEL_CAPE_OF_OVERRULE;
+    return LinkedCapeBone(type) != 0;
 }
 
 int BloodCastleQuestItem(const CHARACTER* c)

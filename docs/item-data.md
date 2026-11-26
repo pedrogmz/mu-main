@@ -1524,6 +1524,7 @@ and server share.
 | `effect` | What the model does before it is drawn (sprites and particles on its bones, a pulsing glow mesh, ...), see below. Optional. |
 | `effectValues` | The values the item sets for the fields of its effect that each item sets, like `renderStyleValues`. Optional. |
 | `cloth` | `true` for capes that are worn as cloth: when one is put on or taken off, the character's cloth is deleted, so the next cape builds its own. Optional. The flag does not make a cape cloth; which capes are drawn as cloth, and how, is still decided in code. |
+| `linkBone` | For capes that hang from a bone of the character's body: the bone, e.g. `19` (the shoulders) for the Cape of Emperor, the Cape of Overrule and the fourth tier cloaks. The model then follows that bone instead of being drawn on the character's own position, as wings are. Optional; 0 or left out = a wing |
 | `material` | `{ "specular": 0.5 }`: the strength of the highlight under Enhanced lighting, 0 (none) to 1; see [enhanced-look.md](enhanced-look.md). Optional. |
 
 `inventory` and `ground` hold these values; a missing value has the
@@ -1976,7 +1977,7 @@ A shared model has a `name` of letters and digits and the `file`,
 `textureFolders`, `noneBlendMeshes` and `meshNames` of a model entry. Its file is
 opened once, by the first of its items, and its textures are loaded once;
 the other items use that data. Everything else (`inventory`, `ground`,
-`glow`, `renderStyle`, `effect`, `cloth`) stays each item's own.
+`glow`, `renderStyle`, `effect`, `cloth`, `linkBone`) stays each item's own.
 Changing a shared model changes all its items; the model tool lists them
 first (see [Item Model](#item-model)).
 

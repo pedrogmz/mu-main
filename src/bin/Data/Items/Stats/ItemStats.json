@@ -118,6 +118,18 @@
       "caption": {"en": "Damage Increase in % (3rd Wings and Capes)"},
       "values": 39,
       "perLevel": 2
+    },
+    {
+      "name": "wingDamageAbsorb4th",
+      "caption": {"en": "Damage Absorption in % (4th Wings and Cloaks)"},
+      "values": 43,
+      "perLevel": 2
+    },
+    {
+      "name": "wingDamageIncrease4th",
+      "caption": {"en": "Damage Increase in % (4th Wings and Cloaks)"},
+      "values": 49,
+      "perLevel": 2
     }
   ],
   "default": {
