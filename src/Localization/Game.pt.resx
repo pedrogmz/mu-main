@@ -7716,6 +7716,9 @@ Tela cheia muda o monitor para a resolução escolhida.</value>
   <data name="The same type seal is already in use." xml:space="preserve">
     <value>O mesmo tipo de selo já está em uso.</value>
   </data>
+  <data name="Egypt" xml:space="preserve">
+    <value>Egito</value>
+  </data>
   <data name="Karutan" xml:space="preserve">
     <value>Karutan</value>
   </data>

@@ -7736,6 +7736,9 @@ Vollbild stellt den Monitor auf die gewählte Auflösung um.</value>
   <data name="The same type seal is already in use." xml:space="preserve">
     <value>Ein Siegel derselben Art ist bereits aktiv.</value>
   </data>
+  <data name="Egypt" xml:space="preserve">
+    <value>Ägypten</value>
+  </data>
   <data name="Karutan" xml:space="preserve">
     <value>Karutan</value>
   </data>
