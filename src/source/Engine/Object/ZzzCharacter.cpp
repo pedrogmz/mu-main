@@ -13713,9 +13713,11 @@ void ReadEquipmentExtended(int Key, BYTE flags, BYTE* Equipment, CHARACTER* pCha
         
         if (Equipment[offset] != 0xFF && Equipment[offset + 1] != 0xFF)
         {
-            short number = Equipment[offset + 1] + ((Equipment[offset] & 0xF) << 4);
+            // The low nibble of the first byte is the high part of the 12-bit number, as for the weapons above:
+            // the wings from number 256 on (e.g. 12,262) need it.
+            short number = MAKEWORD(Equipment[offset + 1], Equipment[offset] & 0xF);
             BYTE group = (Equipment[offset] & 0xF0) >> 4;
-            if (number > MAX_ITEM_INDEX)
+            if (number >= MAX_ITEM_INDEX)
             {
                 // not supported
             }
