@@ -146,6 +146,9 @@ struct ItemModelDefinition
     // A cape worn as cloth: putting it on or taking it off deletes the cloth
     // of the character. Which capes are drawn as cloth is decided in code.
     bool cloth = false;
+    // The bone of the character the model hangs from when it's worn on the back (a cape that follows the
+    // character's body, e.g. 19 for the Cape of Emperor); 0: it's drawn on the character's own position, as wings are.
+    int linkBone = 0;
     ItemGlow glow;
     ItemMaterial material;
     // The look of the model when it is more than a plain textured model: the

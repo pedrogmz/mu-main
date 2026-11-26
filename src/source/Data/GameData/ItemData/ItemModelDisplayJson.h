@@ -9,7 +9,8 @@
 //   "inventory": { "anchor": [0.8, 0.85], "offset": [-0.02, 0.03], "rotation": [180, 270, 15],
 //                  "scale": 0.0039, "bodyHeight": -160 },
 //   "ground": { "rotation": [60, 0, -45], "scale": 0.7, "bodyHeight": -160 },
-//   "cloth": true
+//   "cloth": true,
+//   "linkBone": 19
 //
 // Values equal to their default (ItemInventoryDisplay, ItemGroundDisplay)
 // are left out, and so is an object without other values.
@@ -18,6 +19,7 @@ namespace Data::Items::DisplayJson
 constexpr const char* InventoryKey = "inventory";
 constexpr const char* GroundKey = "ground";
 constexpr const char* ClothKey = "cloth";
+constexpr const char* LinkBoneKey = "linkBone";
 
 // Keys of the lists that are written on one line.
 constexpr const char* AnchorKey = "anchor";

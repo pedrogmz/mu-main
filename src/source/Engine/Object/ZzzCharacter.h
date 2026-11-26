@@ -190,8 +190,10 @@ bool RenderCharacterBackItem(const CHARACTER* c, const OBJECT* o, bool bTranslat
 bool DrawsWeaponOnBack(const CHARACTER* c, const OBJECT* o, int index);
 void PrepareCarriedParts(CHARACTER* c);
 bool IsFlying(const OBJECT* o);
-// The capes that hang from the shoulders (bone 19) and link to the body.
+// The capes that hang from a bone of the body (the item model's "linkBone", e.g. 19, the shoulders) and link to it.
 bool IsLinkedCape(int type);
+// That bone of a linked cape; 0 for other models.
+int LinkedCapeBone(int type);
 // The Archangel quest item a Blood Castle player carries on the back, or 0.
 int BloodCastleQuestItem(const CHARACTER* c);
 // The quest item plays on the wing part, at its own speed.

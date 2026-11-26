@@ -121,6 +121,21 @@ void ReadCloth(const OrderedJson& json, bool& cloth, const ReportIssue& report)
     }
     cloth = field->get<bool>();
 }
+
+void ReadLinkBone(const OrderedJson& json, int& linkBone, const ReportIssue& report)
+{
+    const auto field = json.find(LinkBoneKey);
+    if (field == json.end())
+    {
+        return;
+    }
+    if (!field->is_number_integer() || field->get<int>() < 0)
+    {
+        report(ItemDataIssueSeverity::Fatal, LinkBoneKey, "must be a bone number (0 or more)");
+        return;
+    }
+    linkBone = field->get<int>();
+}
 } // namespace
 
 void Write(const ItemModelDefinition& model, OrderedJson& json)
@@ -139,6 +154,10 @@ void Write(const ItemModelDefinition& model, OrderedJson& json)
     {
         json[ClothKey] = true;
     }
+    if (model.linkBone != 0)
+    {
+        json[LinkBoneKey] = model.linkBone;
+    }
 }
 
 void Read(const OrderedJson& json, ItemModelDefinition& model, const ReportIssue& report)
@@ -146,5 +165,6 @@ void Read(const OrderedJson& json, ItemModelDefinition& model, const ReportIssue
     ReadInventory(json, model.inventory, report);
     ReadGround(json, model.ground, report);
     ReadCloth(json, model.cloth, report);
+    ReadLinkBone(json, model.linkBone, report);
 }
 } // namespace Data::Items::DisplayJson
