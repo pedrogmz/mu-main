@@ -1626,6 +1626,8 @@ const wchar_t* CMapManager::FindMapName(int iMap)
     case WD_80KARUTAN1:
     case WD_81KARUTAN2:
         return I18N::Game::Karutan;
+    case WD_82EGYPT:
+        return I18N::Game::Egypt;
     default:
         return nullptr;
     }

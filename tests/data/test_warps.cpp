@@ -169,7 +169,7 @@ TEST_CASE("Warps: the shipped file reads without problems and writes back as it 
     const Data::Maps::WarpsLoadResult result = Data::Maps::LoadWarpsFile(ShippedFile());
     INFO(Messages(result.issues));
     CHECK(result.issues.empty());
-    CHECK(result.list.warps.size() == 37);
+    CHECK(result.list.warps.size() == 38);
 
     const std::optional<std::string> text = Data::ReadTextFile(ShippedFile());
     REQUIRE(text);

@@ -242,7 +242,8 @@ TEST_CASE("map names use the argument and bounded event aliases [ui][map-name]")
         CheckName(39, I18N::Game::RefineryTower);
         for (int id : {80, 81})
             CheckName(id, I18N::Game::Karutan);
-        for (int id : {INT_MIN, -1, 43, 54, 82, INT_MAX})
+        CheckName(82, I18N::Game::Egypt);
+        for (int id : {INT_MIN, -1, 43, 54, 83, INT_MAX})
         {
             CheckName(id, I18N::Game::UnknownMap);
             CHECK(gMapManager.FindMapName(id) == nullptr);
@@ -605,7 +606,7 @@ TEST_CASE("map-name Japanese face covers every Japanese map name [ui][map-name]"
     const auto filename = std::string(MU_FONT_DIR) + "/NotoSansJP-Regular.otf";
     REQUIRE(FT_New_Face(library.get(), filename.c_str(), 0, &rawFace) == 0);
     std::unique_ptr<FT_FaceRec_, decltype(&FT_Done_Face)> face(rawFace, FT_Done_Face);
-    for (int map = 0; map <= WD_81KARUTAN2; ++map)
+    for (int map = 0; map <= WD_82EGYPT; ++map)
     {
         const wchar_t* name = gMapManager.FindMapName(map);
         if (!name)

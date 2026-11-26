@@ -7716,6 +7716,9 @@ Pantalla completa cambia el monitor a la resolución elegida.</value>
   <data name="The same type seal is already in use." xml:space="preserve">
     <value>El mismo tipo de sello ya está en uso.</value>
   </data>
+  <data name="Egypt" xml:space="preserve">
+    <value>Egipto</value>
+  </data>
   <data name="Karutan" xml:space="preserve">
     <value>Karutan</value>
   </data>
