@@ -35,12 +35,15 @@
    family (generalized from this window's own original recipe -- see that file's comment) at their
    default geometry, which already matches this window exactly. Only per-instance specifics stay
    here: each button's own left offset, the exit button's warm-red accent, myshop's close-mode
-   accent. */
-.inv-btn-exit   { left: 15px;  color: #d59b79; border-color: #5c382b; }
-.inv-btn-repair { left: 56px;  }
-.inv-btn-myshop { left: 97px;  }
+   accent. Five buttons share the row since the jewel bank's, so they are narrower than the
+   family's default 37px. */
+.inv-btn-exit, .inv-btn-repair, .inv-btn-myshop, .inv-btn-expand, .inv-btn-jewelbank { width: 30px; }
+.inv-btn-exit   { left: 13px;  color: #d59b79; border-color: #5c382b; }
+.inv-btn-repair { left: 46px;  }
+.inv-btn-myshop { left: 79px;  }
 .inv-btn-myshop.close-mode { color: token(accent-gold-hover); border-color: token(border-hover); }
-.inv-btn-expand { left: 138px; }
+.inv-btn-expand { left: 112px; }
+.inv-btn-jewelbank { left: 145px; }
 
 /* Set/Socket option header labels -- gray/yellow match legacy since they're semantic
    (active vs. inactive), not part of modern's chrome palette. */

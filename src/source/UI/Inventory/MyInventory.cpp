@@ -33,6 +33,7 @@ extern bool SelectFlag;
 #include "GameLogic/Social/MonkSystem.h"
 #include "Character/CharacterManager.h"
 #include "GameLogic/Items/ItemCategories.h"
+#include "GameLogic/Items/JewelBank.h"
 #include "Data/GameData/ItemData/ItemDatabase.h"
 #include "Audio/DSPlaySound.h"
 #include "Engine/Object/ZzzInterface.h"
@@ -160,6 +161,8 @@ void CMyInventory::BindRmlModel(Rml::DataModelConstructor& c, MyInventoryRmlMode
 
     c.Bind("exit_tooltip", &model.exitTooltip);
     c.Bind("expand_tooltip", &model.expandTooltip);
+    c.Bind("jewel_bank_visible", &model.jewelBankVisible);
+    c.Bind("jewel_bank_tooltip", &model.jewelBankTooltip);
 
     c.Bind("set_option_label", &model.setOptionLabel);
     c.Bind("socket_option_label", &model.socketOptionLabel);
@@ -218,6 +221,8 @@ void CMyInventory::BindRmlModel(Rml::DataModelConstructor& c, MyInventoryRmlMode
         });
     c.BindEventCallback("my_inventory_expand_click",
         [this](Rml::DataModelHandle, Rml::Event&, const Rml::VariantList&) { g_pNewUISystem->Toggle(INTERFACE_INVENTORY_EXT); });
+    c.BindEventCallback("my_inventory_jewel_bank_click",
+        [](Rml::DataModelHandle, Rml::Event&, const Rml::VariantList&) { g_pNewUISystem->Toggle(INTERFACE_JEWEL_BANK); });
 }
 
 // #title is the drag handle (MakeDraggable). The paperdoll and grid follow their drawn boxes, so
@@ -938,6 +943,11 @@ void CMyInventory::SyncRmlModel()
 
     syncWide(&MyInventoryRmlModel::exitTooltip, "exit_tooltip", I18N::Game::CloseIV);
     syncWide(&MyInventoryRmlModel::expandTooltip, "expand_tooltip", I18N::Game::OpenExpandedInventoryK);
+
+    // Only a server with the jewel bank answers the request sent on entering the world.
+    syncBool(&MyInventoryRmlModel::jewelBankVisible, "jewel_bank_visible",
+             GameLogic::Items::JewelBank::Received().known && !otherWindowOpen);
+    syncWide(&MyInventoryRmlModel::jewelBankTooltip, "jewel_bank_tooltip", I18N::Game::JewelBank);
 
     // Label text is static per-language but still routed through syncWide (change-checked) rather
     // than bound once at Create() time.

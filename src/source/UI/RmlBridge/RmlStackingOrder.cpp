@@ -82,6 +82,7 @@ constexpr DocumentPlacement Placements[] = {
     {"lucky_coin_registration.rml", 4.2f, MainScene},
     {"mu_helper_bar.rml", 4.3f, MainScene}, // the location bar (CNewUIHeroPositionInfo)
     {"guild_make.rml", 4.3f, MainScene},
+    {"jewel_bank.rml", 4.4f, MainScene}, // CJewelBankWindow, a window of its own beside the inventory
     {"guild_info.rml", 4.5f, MainScene},
     {"npc_shop.rml", 4.55f, MainScene},
     {"inventory_extension.rml", 4.55f, MainScene},

@@ -9263,4 +9263,19 @@ Vollbild stellt den Monitor auf die gewählte Auflösung um.</value>
   <data name="Warp resets %d" xml:space="preserve">
     <value>R %d</value>
   </data>
+  <data name="Jewel Bank" xml:space="preserve">
+    <value>Juwelenbank</value>
+  </data>
+  <data name="Deposit all" xml:space="preserve">
+    <value>Alle einlagern</value>
+  </data>
+  <data name="Shared by all characters of the account." xml:space="preserve">
+    <value>Gemeinsam für alle Charaktere des Accounts.</value>
+  </data>
+  <data name="Enter the amount of jewels you would like to withdraw." xml:space="preserve">
+    <value>Geben Sie die Anzahl der Juwelen ein, die Sie entnehmen möchten.</value>
+  </data>
+  <data name="The jewel bank is not available on this server." xml:space="preserve">
+    <value>Die Juwelenbank ist auf diesem Server nicht verfügbar.</value>
+  </data>
 </root>

@@ -9153,4 +9153,19 @@ Tela cheia muda o monitor para a resolução escolhida.</value>
   <data name="Warp resets %d" xml:space="preserve">
     <value>R %d</value>
   </data>
+  <data name="Jewel Bank" xml:space="preserve">
+    <value>Banco de joias</value>
+  </data>
+  <data name="Deposit all" xml:space="preserve">
+    <value>Depositar tudo</value>
+  </data>
+  <data name="Shared by all characters of the account." xml:space="preserve">
+    <value>Compartilhado por todos os personagens da conta.</value>
+  </data>
+  <data name="Enter the amount of jewels you would like to withdraw." xml:space="preserve">
+    <value>Digite a quantidade de joias que deseja retirar.</value>
+  </data>
+  <data name="The jewel bank is not available on this server." xml:space="preserve">
+    <value>O banco de joias não está disponível neste servidor.</value>
+  </data>
 </root>

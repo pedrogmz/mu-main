@@ -1,0 +1,47 @@
+<rml>
+<head>
+	<title>Jewel Bank (CJewelBankWindow)</title>
+	<link type="text/rcss" href="base.rcss"/>
+	<link type="text/rcss" href="docked_panel_frame.rcss"/>
+	<link type="text/rcss" href="jewel_bank.rcss"/>
+</head>
+<body>
+	<!-- The jewel bank of OpenMU (CJewelBankWindow), docked beside the inventory: the account's
+	     stored jewels by number, one row per jewel the server accepts, each with Deposit (every
+	     jewel of that kind in the inventory, single jewels and bundles) and Withdraw (an amount,
+	     asked in the generic dialog), and Deposit all below. The workspace slot places and scales
+	     #panel; everything inside is reference px; text is .sharp-text at the native size,
+	     counter-scaled out of the panel. C++ keeps the received state, Escape and the requests;
+	     clicks are queued with jewel_deposit(i), jewel_withdraw(i) and jewel_deposit_all. -->
+	<div id="panel" data-model="jewel_bank">
+		<div class="frame-piece frame-top"></div>
+		<div class="frame-piece frame-left"></div>
+		<div class="frame-piece frame-right"></div>
+		<div class="frame-piece frame-bottom"></div>
+
+		<span class="sharp-text sharp-centre" id="jb_title" data-style-font-size="bold_text_px + 'px'">{{title}}</span>
+		<span class="sharp-text sharp-centre" id="jb_hint" data-style-font-size="text_px + 'px'">{{hint}}</span>
+
+		<div id="jb_rows" data-if="available">
+			<div class="jb-row" data-for="row : rows" data-class-stored="row.stored">
+				<span class="sharp-text jb-name" data-style-font-size="text_px + 'px'">{{row.name}}</span>
+				<span class="sharp-text sharp-right jb-amount" data-style-font-size="bold_text_px + 'px'">{{row.amount}}</span>
+				<div class="jb-btn jb-deposit" data-event-click="jewel_deposit(row.index)" data-attr-data-hint="deposit_text">
+					<span class="sharp-text sharp-centre sharp-middle jb-glyph" data-style-font-size="bold_text_px + 'px'">+</span>
+				</div>
+				<div class="jb-btn jb-withdraw" data-class-locked="!row.stored" data-event-click="jewel_withdraw(row.index)"
+				     data-attr-data-hint="withdraw_text">
+					<span class="sharp-text sharp-centre sharp-middle jb-glyph" data-style-font-size="bold_text_px + 'px'">-</span>
+				</div>
+			</div>
+		</div>
+		<span class="sharp-text sharp-centre" id="jb_unavailable" data-if="!available"
+		      data-style-font-size="text_px + 'px'">{{unavailable_text}}</span>
+
+		<div id="jb_deposit_all" class="jb-wide-btn" data-class-locked="!available" data-event-click="jewel_deposit_all">
+			<span class="sharp-text sharp-centre sharp-middle jb-wide-label" data-style-font-size="bold_text_px + 'px'">{{deposit_all_text}}</span>
+		</div>
+		<div id="frame_corner_close" data-event-click="window_close"></div>
+	</div>
+</body>
+</rml>

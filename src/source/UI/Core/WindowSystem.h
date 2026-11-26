@@ -63,6 +63,7 @@
 #include "UI/Events/RegistrationLuckyCoin.h"
 #include "UI/Events/ExchangeLuckyCoin.h"
 #include "UI/Combat/DuelWatchWindow.h"
+#include "UI/Inventory/JewelBankWindow.h"
 #include "UI/Combat/DuelWatchMainFrameWindow.h"
 #include "UI/Combat/DuelWatchUserListWindow.h"
 #ifdef PBG_ADD_INGAMESHOP_UI_MAINFRAME
@@ -207,6 +208,7 @@ namespace mu::ui::window
         CRegistrationLuckyCoin* m_pNewLuckyCoinRegistration;
         CExchangeLuckyCoin* m_pNewExchangeLuckyCoinWindow;
         CDuelWatchWindow* m_pNewDuelWatchWindow;
+        CJewelBankWindow* m_pNewJewelBankWindow;
         CDuelWatchMainFrameWindow* m_pNewDuelWatchMainFrameWindow;
         CDuelWatchUserListWindow* m_pNewDuelWatchUserListWindow;
 #ifdef PBG_ADD_INGAMESHOP_UI_MAINFRAME

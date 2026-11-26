@@ -89,6 +89,12 @@
 			<span class="modern-icon-btn-glyph-px">+</span>
 		</div>
 
+		<!-- OpenMU's jewel bank (CJewelBankWindow): shown once the server sent its state. -->
+		<div id="btn_jewelbank" class="modern-icon-btn-px inv-btn-jewelbank" data-class-hidden="!jewel_bank_visible"
+		     data-event-click="my_inventory_jewel_bank_click" data-attr-data-hint="jewel_bank_tooltip">
+			<span class="modern-icon-btn-glyph-px">&#9670;</span>
+		</div>
+
 		<!-- Set/Socket option header labels, each spanning half of #panel's width to match the
 		     former native hover-rect split. -->
 		<div id="set_option_label" class="option-label option-label-set" data-class-active="set_option_active"

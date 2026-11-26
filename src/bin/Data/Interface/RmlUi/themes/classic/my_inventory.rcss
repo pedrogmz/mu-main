@@ -113,6 +113,12 @@
 #btn_expand { display: block; left: 108px; top: 393px; width: 36px; height: 29px; decorator: image(classic-inv-expand); }
 #btn_expand:hover { filter: brightness(1.25); }
 
+/* OpenMU's jewel bank has no 0.97 or Season 1 counterpart either: legacy's small box with its glyph,
+   right of the extended inventory's button. */
+#btn_jewelbank { left: 152px; top: 395px; width: 24px; height: 24px; background-color: #202020; border: 1px #646464; }
+#btn_jewelbank:hover { filter: brightness(1.25); }
+#btn_jewelbank span { display: block; text-align: center; line-height: 22px; font-family: "DejaVu Sans"; font-size: 12px; color: #ffff80; pointer-events: none; }
+
 /* Equipment: each slot is its 0.97 background at its 0.97 place (the box is also where the slot
    is clicked and the item drawn). */
 @spritesheet classic-slot-fairy-sheet    { src: ../../../Classic/Item_fairy.jpg;    classic-slot-fairy: 0px 0px 40px 40px; }

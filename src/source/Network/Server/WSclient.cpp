@@ -61,6 +61,7 @@
 #include "World/GameMaps/MonsterSpawnWorld.h"
 #include "Engine/AI/GOBoid.h"
 #include "GameLogic/Quests/CSQuest.h"
+#include "GameLogic/Items/JewelBank.h"
 #include "GameLogic/Items/PersonalShopTitleImp.h"
 #include "GameLogic/NPCs/npcBreeder.h"
 #include "GameLogic/Pets/GIPetManager.h"
@@ -1521,6 +1522,12 @@ static void FinishJoinMapServer(CHARACTER* c, BYTE posX, BYTE posY, BYTE angle, 
     // ones of a previous character before asking for them again.
     GameLogic::Commands::Catalog().Reset();
     GameLogic::Commands::Catalog().RequestOnce();
+
+    // The jewel bank is the account's, but whether the server has one may differ per server. Only a
+    // server with the jewel bank answers (others ignore the request), which shows the inventory's
+    // jewel bank button.
+    GameLogic::Items::JewelBank::Received().Reset();
+    SocketClient->ToGameServer()->SendJewelBankStateRequest();
 
     // A character without a stored key configuration gets none from the server
     // (OpenMU sends it right after the join packet, or not at all; it waited in
@@ -14212,6 +14219,18 @@ static void ProcessPacket(const BYTE* ReceiveBuffer, int32_t Size)
             else
             {
                 g_ConsoleDebug->Write(MCD_RECEIVE, L"Recv [0xF5][0x0B] (too short: %d bytes)", Size);
+            }
+        }
+        else if (subcode == 0x0F && !bIsC1C3)
+        {
+            // The stored jewels of the account's jewel bank, and whether to open its window (/banco).
+            if (auto state = GameLogic::Items::JewelBank::ReadState(ReceiveBuffer, Size))
+            {
+                GameLogic::Items::JewelBank::Received().Apply(std::move(*state));
+            }
+            else
+            {
+                g_ConsoleDebug->Write(MCD_RECEIVE, L"Recv [0xF5][0x0F] (too short: %d bytes)", Size);
             }
         }
         else if (subcode == 0x0D && bIsC1C3 && Size >= 8)

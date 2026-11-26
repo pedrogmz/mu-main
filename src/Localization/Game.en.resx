@@ -9744,4 +9744,19 @@ Fullscreen changes the monitor to the chosen resolution.</value>
   <data name="Warp resets %d" xml:space="preserve">
     <value>R %d</value>
   </data>
+  <data name="Jewel Bank" xml:space="preserve">
+    <value>Jewel Bank</value>
+  </data>
+  <data name="Deposit all" xml:space="preserve">
+    <value>Deposit all</value>
+  </data>
+  <data name="Shared by all characters of the account." xml:space="preserve">
+    <value>Shared by all characters of the account.</value>
+  </data>
+  <data name="Enter the amount of jewels you would like to withdraw." xml:space="preserve">
+    <value>Enter the amount of jewels you would like to withdraw.</value>
+  </data>
+  <data name="The jewel bank is not available on this server." xml:space="preserve">
+    <value>The jewel bank is not available on this server.</value>
+  </data>
 </root>

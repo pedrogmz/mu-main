@@ -131,6 +131,9 @@ enum INTERFACE_LIST
     // a different button model (arbitrary labeled list vs two fixed OK/Cancel slots). Same
     // reasoning as INTERFACE_CREDITS above.
     INTERFACE_GENERIC_MENU_DIALOG,
+    // CJewelBankWindow (UI/Inventory/JewelBankWindow.h), the jewel bank of OpenMU for the open source client.
+    // Same reasoning as INTERFACE_CREDITS above.
+    INTERFACE_JEWEL_BANK,
     INTERFACE_END,
     INTERFACE_COUNT = INTERFACE_END - 2,
 };

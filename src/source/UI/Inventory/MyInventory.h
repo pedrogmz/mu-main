@@ -112,6 +112,10 @@ namespace mu::ui::window
             Rml::String exitTooltip;
             Rml::String expandTooltip;
 
+            // Shown once the server sent its jewel bank (OpenMU's, GameLogic/Items/JewelBank.h).
+            bool jewelBankVisible = false;
+            Rml::String jewelBankTooltip;
+
             // Set/Socket option header labels. The shared hover tooltip itself is
             // UI::RmlBridge::Tooltip, not part of this model -- see SyncRmlModel().
             Rml::String setOptionLabel;

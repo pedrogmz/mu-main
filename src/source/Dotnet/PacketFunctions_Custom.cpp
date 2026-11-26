@@ -96,6 +96,59 @@ void PacketFunctions_ClientToServer_Custom::SendRoundTripRequest(uint32_t token)
     }
 }
 
+// The jewel bank's messages (C1 F5 0E..14) are OpenMU's own, for the open source client: no packets library has
+// them, so they are written here, the same way on every platform.
+namespace
+{
+constexpr BYTE JewelBankCode = 0xF5;
+constexpr BYTE JewelBankStateRequestSubCode = 0x0E;
+constexpr BYTE JewelBankDepositRequestSubCode = 0x10;
+constexpr BYTE JewelBankWithdrawRequestSubCode = 0x12;
+constexpr BYTE JewelBankDepositAllRequestSubCode = 0x14;
+
+void WriteUInt16LittleEndian(BYTE* target, uint16_t value)
+{
+    target[0] = static_cast<BYTE>(value & 0xFF);
+    target[1] = static_cast<BYTE>(value >> 8);
+}
+
+void WriteUInt32LittleEndian(BYTE* target, uint32_t value)
+{
+    for (int i = 0; i < 4; ++i)
+    {
+        target[i] = static_cast<BYTE>((value >> (8 * i)) & 0xFF);
+    }
+}
+} // namespace
+
+void PacketFunctions_ClientToServer_Custom::SendJewelBankStateRequest()
+{
+    const BYTE packet[4] = {0xC1, sizeof(packet), JewelBankCode, JewelBankStateRequestSubCode};
+    Connection_SendRaw(this->GetHandle(), packet, sizeof(packet));
+}
+
+void PacketFunctions_ClientToServer_Custom::SendJewelBankDepositRequest(BYTE itemGroup, uint16_t itemNumber)
+{
+    BYTE packet[8] = {0xC1, sizeof(packet), JewelBankCode, JewelBankDepositRequestSubCode, itemGroup};
+    WriteUInt16LittleEndian(packet + 6, itemNumber);
+    Connection_SendRaw(this->GetHandle(), packet, sizeof(packet));
+}
+
+void PacketFunctions_ClientToServer_Custom::SendJewelBankWithdrawRequest(BYTE itemGroup, uint16_t itemNumber,
+                                                                         uint32_t amount)
+{
+    BYTE packet[12] = {0xC1, sizeof(packet), JewelBankCode, JewelBankWithdrawRequestSubCode, itemGroup};
+    WriteUInt16LittleEndian(packet + 6, itemNumber);
+    WriteUInt32LittleEndian(packet + 8, amount);
+    Connection_SendRaw(this->GetHandle(), packet, sizeof(packet));
+}
+
+void PacketFunctions_ClientToServer_Custom::SendJewelBankDepositAllRequest()
+{
+    const BYTE packet[4] = {0xC1, sizeof(packet), JewelBankCode, JewelBankDepositAllRequestSubCode};
+    Connection_SendRaw(this->GetHandle(), packet, sizeof(packet));
+}
+
 typedef void(CORECLR_DELEGATE_CALLTYPE* SendAuthenticateExtFn)(int32_t, uint16_t, uint32_t);
 
 void PacketFunctions_ChatServer_Custom::SendAuthenticateExt(uint16_t roomId, uint32_t token)
