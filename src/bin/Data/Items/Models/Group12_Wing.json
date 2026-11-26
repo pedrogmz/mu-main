@@ -1608,6 +1608,139 @@
         "excellent": false
       },
       "effect": "wingsOfLife"
+    },
+    {
+      "number": 414,
+      "file": "Data/Item/S13Wings/WingsOfElysium/Wing401.bmd",
+      "textureFolders": ["Item/S13Wings/WingsOfElysium"],
+      "inventory": {
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "glow": {
+        "level": 0,
+        "excellent": false
+      },
+      "effect": "wingsOfElysium"
+    },
+    {
+      "number": 415,
+      "file": "Data/Item/S13Wings/WingsOfFlameGod/Wing402.bmd",
+      "textureFolders": ["Item/S13Wings/WingsOfFlameGod"],
+      "inventory": {
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "glow": {
+        "level": 0,
+        "excellent": false
+      },
+      "effect": "wingsOfFlameGod"
+    },
+    {
+      "number": 416,
+      "file": "Data/Item/S13Wings/WingOfCelestialBody/Wing403.bmd",
+      "textureFolders": ["Item/S13Wings/WingOfCelestialBody"],
+      "inventory": {
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "glow": {
+        "level": 0,
+        "excellent": false
+      },
+      "effect": "wingOfCelestialBody"
+    },
+    {
+      "number": 417,
+      "file": "Data/Item/S13Wings/WingsOfAnnihilation/Wing404.bmd",
+      "textureFolders": ["Item/S13Wings/WingsOfAnnihilation"],
+      "inventory": {
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "glow": {
+        "level": 0,
+        "excellent": false
+      },
+      "effect": "wingsOfAnnihilation"
+    },
+    {
+      "number": 418,
+      "file": "Data/Item/S13Wings/CloakOfDominator/Wing405.bmd",
+      "textureFolders": ["Item/S13Wings/CloakOfDominator"],
+      "inventory": {
+        "anchor": [0.5, 0.5],
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "linkBone": 19,
+      "glow": {
+        "level": 0,
+        "excellent": false
+      },
+      "effect": "cloakOfDominator"
+    },
+    {
+      "number": 419,
+      "file": "Data/Item/S13Wings/WingsOfOtherWorld/Wing406.bmd",
+      "textureFolders": ["Item/S13Wings/WingsOfOtherWorld"],
+      "inventory": {
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "glow": {
+        "level": 0,
+        "excellent": false
+      },
+      "effect": "wingsOfOtherWorld"
+    },
+    {
+      "number": 420,
+      "file": "Data/Item/S13Wings/CloakOfJudgment/Wing407.bmd",
+      "textureFolders": ["Item/S13Wings/CloakOfJudgment"],
+      "inventory": {
+        "anchor": [0.5, 0.5],
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "linkBone": 19,
+      "glow": {
+        "level": 0,
+        "excellent": false
+      },
+      "effect": "cloakOfJudgment"
+    },
+    {
+      "number": 421,
+      "file": "Data/Item/S13Wings/CloakOfIsolation/Wing408.bmd",
+      "textureFolders": ["Item/S13Wings/CloakOfIsolation"],
+      "inventory": {
+        "anchor": [0.5, 0.5],
+        "scale": 0.002
+      },
+      "ground": {
+        "rotation": [270, 0, 45]
+      },
+      "linkBone": 19,
+      "glow": {
+        "level": 0,
+        "excellent": false
+      }
     }
   ]
 }

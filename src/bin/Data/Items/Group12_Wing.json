@@ -4170,6 +4170,590 @@
       "classRequirements": {
         "fairyElf": 2
       }
+    },
+    {
+      "number": 414,
+      "name": {
+        "en": "Wings of Elysium",
+        "de": "Flügel von Elysium",
+        "es": "Alas del Elíseo",
+        "pt": "Asas do Elísio"
+      },
+      "tags": ["valuable"],
+      "options": ["thirdTierWing", "luck", "wingsOfElysium"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease4th"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb4th"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 4,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "third",
+      "statProfile": "thirdTierWing",
+      "level": 153,
+      "durability": 220,
+      "defense": 155,
+      "requirements": {
+        "level": 400
+      },
+      "classRequirements": {
+        "darkWizard": 3
+      }
+    },
+    {
+      "number": 415,
+      "name": {
+        "en": "Wings of Flame God",
+        "de": "Flügel des Flammengottes",
+        "es": "Alas del Dios de la Llama",
+        "pt": "Asas do Deus das Chamas"
+      },
+      "tags": ["valuable"],
+      "options": ["thirdTierWing", "luck", "wingsOfFlameGod"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease4th"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb4th"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 4,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "third",
+      "statProfile": "thirdTierWing",
+      "level": 153,
+      "durability": 220,
+      "defense": 170,
+      "requirements": {
+        "level": 400
+      },
+      "classRequirements": {
+        "darkKnight": 3
+      }
+    },
+    {
+      "number": 416,
+      "name": {
+        "en": "Wing of Celestial Body",
+        "de": "Flügel des Himmelskörpers",
+        "es": "Ala del Cuerpo Celestial",
+        "pt": "Asa do Corpo Celestial"
+      },
+      "tags": ["valuable"],
+      "options": ["thirdTierWing", "luck", "wingOfCelestialBody"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease4th"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb4th"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 4,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "third",
+      "statProfile": "thirdTierWing",
+      "level": 153,
+      "durability": 220,
+      "defense": 170,
+      "requirements": {
+        "level": 400
+      },
+      "classRequirements": {
+        "fairyElf": 3
+      }
+    },
+    {
+      "number": 417,
+      "name": {
+        "en": "Wings of Annihilation",
+        "de": "Flügel der Vernichtung",
+        "es": "Alas de la Aniquilación",
+        "pt": "Asas da Aniquilação"
+      },
+      "tags": ["valuable"],
+      "options": ["thirdTierWing", "luck", "wingsOfAnnihilation"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease4th"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb4th"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 4,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "third",
+      "statProfile": "thirdTierWing",
+      "level": 153,
+      "durability": 220,
+      "defense": 170,
+      "requirements": {
+        "level": 400
+      },
+      "classRequirements": {
+        "magicGladiator": 3
+      }
+    },
+    {
+      "number": 418,
+      "name": {
+        "en": "Cloak of Dominator",
+        "de": "Umhang des Beherrschers",
+        "es": "Capa del Dominador",
+        "pt": "Capa do Dominador"
+      },
+      "tags": ["cape", "valuable"],
+      "options": ["thirdTierWing", "luck", "cloakOfDominator"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease4th"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb4th"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 2,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "third",
+      "statProfile": "thirdTierWing",
+      "level": 153,
+      "durability": 220,
+      "defense": 155,
+      "requirements": {
+        "level": 400
+      },
+      "classRequirements": {
+        "darkLord": 3
+      }
+    },
+    {
+      "number": 419,
+      "name": {
+        "en": "Wings of Other World",
+        "de": "Flügel der Anderswelt",
+        "es": "Alas del Otro Mundo",
+        "pt": "Asas do Outro Mundo"
+      },
+      "tags": ["valuable"],
+      "options": ["thirdTierWing", "luck", "wingsOfOtherWorld"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease4th"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb4th"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 4,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "third",
+      "statProfile": "thirdTierWing",
+      "level": 153,
+      "durability": 220,
+      "defense": 170,
+      "requirements": {
+        "level": 400
+      },
+      "classRequirements": {
+        "summoner": 3
+      }
+    },
+    {
+      "number": 420,
+      "name": {
+        "en": "Cloak of Judgment",
+        "de": "Umhang des Gerichts",
+        "es": "Capa del Juicio",
+        "pt": "Capa do Julgamento"
+      },
+      "tags": ["cape", "valuable"],
+      "options": ["thirdTierWing", "luck", "cloakOfJudgment"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease4th"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb4th"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 2,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "third",
+      "statProfile": "thirdTierWing",
+      "level": 153,
+      "durability": 220,
+      "defense": 170,
+      "requirements": {
+        "level": 400
+      },
+      "classRequirements": {
+        "rageFighter": 3
+      }
+    },
+    {
+      "number": 421,
+      "name": {
+        "en": "Cloak of Isolation",
+        "de": "Umhang der Isolation",
+        "es": "Capa del Aislamiento",
+        "pt": "Capa do Isolamento"
+      },
+      "tags": ["cape", "valuable"],
+      "options": ["thirdTierWing", "luck", "cloakOfIsolation"],
+      "description": [
+        {
+          "text": "@damageIncrease",
+          "values": {"percent": "table:wingDamageIncrease4th"}
+        },
+        {
+          "text": "@damageAbsorb",
+          "values": {"percent": "table:wingDamageAbsorb4th"}
+        },
+        {
+          "text": "@increaseSpeed"
+        }
+      ],
+      "nameLines": [
+        {
+          "text": {
+            "en": "{name}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ],
+          "levels": [0, 0]
+        },
+        {
+          "text": {
+            "en": "{name} +{level}"
+          },
+          "color": "white",
+          "colors": [
+            {
+              "when": ["level>=7"],
+              "color": "yellow"
+            },
+            {
+              "when": ["hasOptions"],
+              "color": "blue"
+            }
+          ]
+        }
+      ],
+      "width": 2,
+      "height": 3,
+      "slot": "wings",
+      "wingTier": "third",
+      "statProfile": "thirdTierWing",
+      "level": 153,
+      "durability": 220,
+      "defense": 170,
+      "requirements": {
+        "level": 400
+      },
+      "classRequirements": {
+        "rageFighter": 3
+      }
     }
   ]
 }

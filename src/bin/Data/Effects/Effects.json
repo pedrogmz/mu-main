@@ -208,6 +208,96 @@
       "valuesBefore": [
         {"glowStrength": {"shape": "wave", "from": 0.1, "to": 2.1, "seconds": 6.283185}}
       ]
+    },
+    {
+      "name": "wingsOfElysium",
+      "onBones": [
+        {"sprite": "light", "bones": [6, 9, 15, 17, 21, 22, 29, 32, 34, 40, 41, 45], "scale": 0.5, "color": [0.98, 0.93, 0.62]},
+        {"sprite": "light", "bones": [13, 16, 23, 33, 39, 46], "scale": 2, "color": [1, 0.72, 0.25]},
+        {"sprite": "light", "bones": [14, 38], "scale": 1, "color": [1, 0.72, 0.25]},
+        {"sprite": "flare", "bones": [10, 12, 35, 37], "scale": 0.5, "color": [0.14, 0.14, 1]}
+      ]
+    },
+    {
+      "name": "wingsOfFlameGod",
+      "onBones": [
+        {"sprite": "flareRed", "bones": [7, 8, 9, 77, 78, 79, 17, 87, 22, 23, 24, 92, 93, 94, 31, 32, 33, 34, 35, 36, 37, 38, 101, 102, 103, 104, 105, 106, 107, 108], "scale": 0.7, "color": [0.3, 0.3, 0.3]},
+        {"sprite": "flareRed", "bones": [11, 81], "scale": 0.9, "color": [1, 1, 1]},
+        {"sprite": "flareRed", "bones": [12, 82], "scale": 0.7, "color": [1, 1, 1]},
+        {"sprite": "flareRed", "bones": [25, 95, 30, 100], "scale": 0.5, "color": [0.3, 0.3, 0.3]},
+        {"sprite": "flareRed", "bones": [45, 46, 47, 53, 54, 55, 56, 60, 61, 62, 66, 67, 68, 115, 116, 117, 123, 124, 125, 118, 130, 131, 132, 136, 137, 138], "scale": 0.35, "color": [0.3, 0.3, 0.3]}
+      ]
+    },
+    {
+      "name": "wingOfCelestialBody",
+      "onBones": [
+        {"sprite": "light", "bones": [9, 23, 65, 93], "scale": 1, "color": [1, 0.7, 0.2]},
+        {"sprite": "light", "bones": [38, 80], "scale": 0.7, "color": [1, 0.7, 0.2]},
+        {"sprite": "light", "bones": [62, 6], "scale": 0.4, "color": [1, 0.7, 0.2]},
+        {"sprite": "light", "bones": [9, 23, 65, 93, 38, 80], "scale": 0.6, "color": [1, 0.7, 0.2]},
+        {"sprite": "light", "bones": [7, 8, 63, 39, 36, 79, 77], "scale": 0.6, "color": [0.2, 0.2, 1]},
+        {"sprite": "light", "bones": [13, 14, 15, 16, 64, 69, 70, 71, 72, 27, 92], "scale": 0.5, "color": [0.2, 0.2, 1]},
+        {"sprite": "light", "bones": [24, 89], "scale": 0.8, "color": [0.2, 0.2, 1]},
+        {"sprite": "light", "bones": [26, 91], "scale": 0.3, "color": [0.2, 0.2, 1]},
+        {"sprite": "light", "bones": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110], "scale": 0.6, "color": [1, 0.2, 1]},
+        {"sprite": "flare", "bones": [23, 93], "scale": 0.4, "color": [1, 0.7, 0.2]},
+        {"sprite": "flare", "bones": [38, 80], "scale": 0.25, "color": [1, 0.7, 0.2]},
+        {"sprite": "flare", "bones": [9, 65], "scale": 0.2, "color": [1, 0.7, 0.2]}
+      ]
+    },
+    {
+      "name": "wingsOfAnnihilation",
+      "onBones": [
+        {"sprite": "flare", "bones": [4, 12, 20, 28, 36, 44, 52, 60], "scale": 0.3, "color": [1, 0.72, 0.25]},
+        {"sprite": "light", "bones": [4, 12, 20, 28, 36, 44, 52, 60], "scale": 0.8, "color": [1, 0.72, 0.25]},
+        {"sprite": "light", "bones": [9, 17, 25, 33, 41, 49, 57, 65], "scale": 1.5, "color": [0.1, 0.33, 1]},
+        {"sprite": "light", "bones": [17, 25, 33, 41, 49, 57, 65], "scale": 1, "color": [0.05, 0.12, 0.5]},
+        {"sprite": "light", "bones": [72, 79], "scale": 0.5, "color": [0.16, 0.69, 1]}
+      ]
+    },
+    {
+      "name": "cloakOfDominator",
+      "onBones": [
+        {"sprite": "light", "bones": [25, 26, 27, 28, 29, 30, 31, 32], "scale": 0.6, "color": [0.32, 0.88, 1]},
+        {"sprite": "light", "bones": [33, 34], "scale": 1, "color": [1, 0.72, 0.25]},
+        {"sprite": "flare", "bones": [33, 34], "scale": 0.3, "color": [1, 0.72, 0.25]},
+        {"sprite": "light", "bones": [35], "scale": 0.3, "color": [1, 0.72, 0.25]},
+        {"sprite": "light", "bones": [36], "scale": 0.5, "color": [1, 0.72, 0.25]}
+      ]
+    },
+    {
+      "name": "wingsOfOtherWorld",
+      "onBones": [
+        {"sprite": "light", "bones": [6, 7, 8, 9, 10, 11, 12, 13, 102, 103, 104, 105, 106, 107, 108, 109], "scale": 0.25, "color": [0.36, 0.09, 0.13]},
+        {"sprite": "light", "bones": [14, 101], "scale": 0.2, "color": [0.36, 0.09, 0.13]},
+        {"sprite": "light", "bones": [15, 100], "scale": 0.15, "color": [0.36, 0.09, 0.13]},
+        {"sprite": "light", "bones": [16, 99], "scale": 0.1, "color": [0.36, 0.09, 0.13]},
+        {"sprite": "light", "bones": [17, 98], "scale": 0.05, "color": [0.36, 0.09, 0.13]},
+        {"sprite": "light", "bones": [32, 110, 7, 108], "scale": 0.5, "color": [1, 0.43, 0.21]},
+        {"sprite": "light", "bones": [22, 23, 24, 25, 27, 28, 29, 30, 31, 37, 38, 41, 42, 43, 78, 79, 80, 81, 82, 83, 84, 89, 90, 91, 92, 93, 114, 115, 117, 118, 119, 120, 121, 122, 128, 129, 130, 133, 134, 135, 136, 137, 170, 171, 172, 173, 174, 179, 180, 181, 182, 183, 184, 185], "scale": 0.8, "color": [0.18, 0.02, 0.21]},
+        {"sprite": "light", "bones": [36, 39, 40, 123, 131, 132], "scale": 0.5, "color": [0.18, 0.02, 0.21]},
+        {"sprite": "light", "bones": [46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165], "scale": 0.3, "color": [0.72, 0.18, 0.26]},
+        {"sprite": "light", "bones": [7, 108], "scale": 0.6, "color": [1, 0.4, 0.89]},
+        {"sprite": "flare", "bones": [7, 108], "scale": 0.35, "color": [1, 0.4, 0.89]},
+        {"sprite": "flareBlue", "bones": [186, 187, 188], "scale": 0.5, "color": [0.25, 0.25, 0.25]},
+        {"sprite": "light", "bones": [186, 187, 188], "scale": 0.3, "color": [1, 0.4, 0.89]},
+        {"sprite": "flare", "bones": [186, 188], "scale": 0.2, "color": [1, 0.4, 0.89]}
+      ]
+    },
+    {
+      "name": "cloakOfJudgment",
+      "onBones": [
+        {"sprite": "light", "bones": [8, 16], "scale": 0.5, "color": [1, 0.39, 0.15]},
+        {"sprite": "flareRed", "bones": [17], "scale": 0.5, "color": [1, 1, 1]},
+        {"sprite": "flareRed", "bones": [18, 22], "scale": 0.15, "color": [1, 1, 1]},
+        {"sprite": "flareRed", "bones": [19, 21, 23, 24], "scale": 0.1, "color": [1, 1, 1]},
+        {"sprite": "flareRed", "bones": [20, 25], "scale": 0.4, "color": [1, 1, 1]},
+        {"sprite": "light", "bones": [20, 25], "scale": 0.8, "color": [1, 0.09, 0]},
+        {"sprite": "flare", "bones": [20, 25], "scale": 0.15, "color": [1, 0.89, 0.29]},
+        {"sprite": "flare", "bones": [17], "scale": 0.2, "color": [1, 0.89, 0.29]},
+        {"sprite": "flare", "bones": [18, 22], "scale": 0.1, "color": [1, 0.09, 0]},
+        {"sprite": "swordEffectMono", "bones": [20, 25], "scale": 0.15, "color": [0.5, 0.5, 0.5]}
+      ]
     }
   ]
 }

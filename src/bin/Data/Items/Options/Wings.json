@@ -310,6 +310,142 @@
       ]
     },
     {
+      "name": "wingsOfElysium",
+      "type": "option",
+      "displayName": {
+        "en": "Wings of Elysium",
+        "de": "Flügel von Elysium",
+        "es": "Alas del Elíseo",
+        "pt": "Asas do Elísio"
+      },
+      "openMu": {"id": "00000083-c19e-0000-0000-000000000000", "name": "Wings of Elysium Options"},
+      "server": {"addsRandomly": true, "addChance": 0.25, "maximumOptionsPerItem": 1},
+      "options": [
+        {"number": 0, "attribute": "healthRecoveryMultiplier", "percent": {"values": [1, 2, 3, 4]}, "text": "automaticHpRecovery"},
+        {"number": 3, "attribute": "wizardryBaseDmg", "add": {"values": [4, 8, 12, 16]}, "text": "additionalWizardryDamage"},
+        {"number": 2, "attribute": "defenseBase", "add": {"values": [4, 8, 12, 16]}, "text": "additionalDefense"}
+      ]
+    },
+    {
+      "name": "wingsOfFlameGod",
+      "type": "option",
+      "displayName": {
+        "en": "Wings of Flame God",
+        "de": "Flügel des Flammengottes",
+        "es": "Alas del Dios de la Llama",
+        "pt": "Asas do Deus das Chamas"
+      },
+      "openMu": {"id": "00000083-c19f-0000-0000-000000000000", "name": "Wings of Flame God Options"},
+      "server": {"addsRandomly": true, "addChance": 0.25, "maximumOptionsPerItem": 1},
+      "options": [
+        {"number": 0, "attribute": "healthRecoveryMultiplier", "percent": {"values": [1, 2, 3, 4]}, "text": "automaticHpRecovery"},
+        {"number": 3, "attribute": "physicalBaseDmg", "addFinal": {"values": [4, 8, 12, 16]}, "text": "additionalDamage"},
+        {"number": 2, "attribute": "defenseBase", "add": {"values": [4, 8, 12, 16]}, "text": "additionalDefense"}
+      ]
+    },
+    {
+      "name": "wingOfCelestialBody",
+      "type": "option",
+      "displayName": {
+        "en": "Wing of Celestial Body",
+        "de": "Flügel des Himmelskörpers",
+        "es": "Ala del Cuerpo Celestial",
+        "pt": "Asa do Corpo Celestial"
+      },
+      "openMu": {"id": "00000083-c1a0-0000-0000-000000000000", "name": "Wing of Celestial Body Options"},
+      "server": {"addsRandomly": true, "addChance": 0.25, "maximumOptionsPerItem": 1},
+      "options": [
+        {"number": 0, "attribute": "healthRecoveryMultiplier", "percent": {"values": [1, 2, 3, 4]}, "text": "automaticHpRecovery"},
+        {"number": 3, "attribute": "physicalBaseDmg", "addFinal": {"values": [4, 8, 12, 16]}, "text": "additionalDamage"},
+        {"number": 2, "attribute": "defenseBase", "add": {"values": [4, 8, 12, 16]}, "text": "additionalDefense"}
+      ]
+    },
+    {
+      "name": "wingsOfAnnihilation",
+      "type": "option",
+      "displayName": {
+        "en": "Wings of Annihilation",
+        "de": "Flügel der Vernichtung",
+        "es": "Alas de la Aniquilación",
+        "pt": "Asas da Aniquilação"
+      },
+      "openMu": {"id": "00000083-c1a1-0000-0000-000000000000", "name": "Wings of Annihilation Options"},
+      "server": {"addsRandomly": true, "addChance": 0.25, "maximumOptionsPerItem": 1},
+      "options": [
+        {"number": 0, "attribute": "healthRecoveryMultiplier", "percent": {"values": [1, 2, 3, 4]}, "text": "automaticHpRecovery"},
+        {"number": 3, "attribute": "physicalBaseDmg", "addFinal": {"values": [4, 8, 12, 16]}, "text": "additionalDamage"},
+        {"number": 2, "attribute": "wizardryBaseDmg", "add": {"values": [4, 8, 12, 16]}, "text": "additionalWizardryDamage"}
+      ]
+    },
+    {
+      "name": "cloakOfDominator",
+      "type": "option",
+      "displayName": {
+        "en": "Cloak of Dominator",
+        "de": "Umhang des Beherrschers",
+        "es": "Capa del Dominador",
+        "pt": "Capa do Dominador"
+      },
+      "openMu": {"id": "00000083-c1a2-0000-0000-000000000000", "name": "Cloak of Dominator Options"},
+      "server": {"addsRandomly": true, "addChance": 0.25, "maximumOptionsPerItem": 1},
+      "options": [
+        {"number": 0, "attribute": "healthRecoveryMultiplier", "percent": {"values": [1, 2, 3, 4]}, "text": "automaticHpRecovery"},
+        {"number": 3, "attribute": "physicalBaseDmg", "addFinal": {"values": [4, 8, 12, 16]}, "text": "additionalDamage"},
+        {"number": 2, "attribute": "defenseBase", "add": {"values": [4, 8, 12, 16]}, "text": "additionalDefense"}
+      ]
+    },
+    {
+      "name": "wingsOfOtherWorld",
+      "type": "option",
+      "displayName": {
+        "en": "Wings of Other World",
+        "de": "Flügel der Anderswelt",
+        "es": "Alas del Otro Mundo",
+        "pt": "Asas do Outro Mundo"
+      },
+      "openMu": {"id": "00000083-c1a3-0000-0000-000000000000", "name": "Wings of Other World Options"},
+      "server": {"addsRandomly": true, "addChance": 0.25, "maximumOptionsPerItem": 1},
+      "options": [
+        {"number": 0, "attribute": "healthRecoveryMultiplier", "percent": {"values": [1, 2, 3, 4]}, "text": "automaticHpRecovery"},
+        {"number": 3, "attribute": "wizardryBaseDmg", "add": {"values": [4, 8, 12, 16]}, "text": "additionalWizardryDamage"},
+        {"number": 2, "attribute": "curseBaseDmg", "add": {"values": [4, 8, 12, 16]}, "text": "additionalCurseDamage"}
+      ]
+    },
+    {
+      "name": "cloakOfJudgment",
+      "type": "option",
+      "displayName": {
+        "en": "Cloak of Judgment",
+        "de": "Umhang des Gerichts",
+        "es": "Capa del Juicio",
+        "pt": "Capa do Julgamento"
+      },
+      "openMu": {"id": "00000083-c1a4-0000-0000-000000000000", "name": "Cloak of Judgment Options"},
+      "server": {"addsRandomly": true, "addChance": 0.25, "maximumOptionsPerItem": 1},
+      "options": [
+        {"number": 0, "attribute": "healthRecoveryMultiplier", "percent": {"values": [1, 2, 3, 4]}, "text": "automaticHpRecovery"},
+        {"number": 3, "attribute": "physicalBaseDmg", "addFinal": {"values": [4, 8, 12, 16]}, "text": "additionalDamage"},
+        {"number": 2, "attribute": "defenseBase", "add": {"values": [4, 8, 12, 16]}, "text": "additionalDefense"}
+      ]
+    },
+    {
+      "name": "cloakOfIsolation",
+      "type": "option",
+      "displayName": {
+        "en": "Cloak of Isolation",
+        "de": "Umhang der Isolation",
+        "es": "Capa del Aislamiento",
+        "pt": "Capa do Isolamento"
+      },
+      "openMu": {"id": "00000083-c1a5-0000-0000-000000000000", "name": "Cloak of Isolation Options"},
+      "server": {"addsRandomly": true, "addChance": 0.25, "maximumOptionsPerItem": 1},
+      "options": [
+        {"number": 0, "attribute": "healthRecoveryMultiplier", "percent": {"values": [1, 2, 3, 4]}, "text": "automaticHpRecovery"},
+        {"number": 3, "attribute": "physicalBaseDmg", "addFinal": {"values": [4, 8, 12, 16]}, "text": "additionalDamage"},
+        {"number": 2, "attribute": "defenseBase", "add": {"values": [4, 8, 12, 16]}, "text": "additionalDefense"}
+      ]
+    },
+    {
       "name": "secondTierWing",
       "type": "wing",
       "displayName": {
